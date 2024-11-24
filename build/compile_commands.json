@@ -1,0 +1,20 @@
+[
+{
+  "directory": "C:/VSCodeProjects/IG/ProyectoFinal/build",
+  "command": "C:\\MinGW\\bin\\g++.exe  @CMakeFiles/proyectoFinal.dir/includes_CXX.rsp -g -o CMakeFiles\\proyectoFinal.dir\\src\\Model.cpp.obj -c C:\\VSCodeProjects\\IG\\ProyectoFinal\\src\\Model.cpp",
+  "file": "C:/VSCodeProjects/IG/ProyectoFinal/src/Model.cpp",
+  "output": "CMakeFiles/proyectoFinal.dir/src/Model.cpp.obj"
+},
+{
+  "directory": "C:/VSCodeProjects/IG/ProyectoFinal/build",
+  "command": "C:\\MinGW\\bin\\g++.exe  @CMakeFiles/proyectoFinal.dir/includes_CXX.rsp -g -o CMakeFiles\\proyectoFinal.dir\\src\\Shaders.cpp.obj -c C:\\VSCodeProjects\\IG\\ProyectoFinal\\src\\Shaders.cpp",
+  "file": "C:/VSCodeProjects/IG/ProyectoFinal/src/Shaders.cpp",
+  "output": "CMakeFiles/proyectoFinal.dir/src/Shaders.cpp.obj"
+},
+{
+  "directory": "C:/VSCodeProjects/IG/ProyectoFinal/build",
+  "command": "C:\\MinGW\\bin\\g++.exe  @CMakeFiles/proyectoFinal.dir/includes_CXX.rsp -g -o CMakeFiles\\proyectoFinal.dir\\src\\main.cpp.obj -c C:\\VSCodeProjects\\IG\\ProyectoFinal\\src\\main.cpp",
+  "file": "C:/VSCodeProjects/IG/ProyectoFinal/src/main.cpp",
+  "output": "CMakeFiles/proyectoFinal.dir/src/main.cpp.obj"
+}
+]

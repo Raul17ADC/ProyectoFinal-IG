@@ -1,0 +1,1 @@
+-IC:/VSCodeProjects/IG/ProyectoFinal/src -IC:/VSCodeProjects/IG/ProyectoFinal/../libraries/glew/include -IC:/VSCodeProjects/IG/ProyectoFinal/../libraries/glfw/include -IC:/VSCodeProjects/IG/ProyectoFinal/../libraries/glm/include -IC:/VSCodeProjects/IG/ProyectoFinal/../libraries/assimp/include -IC:/VSCodeProjects/IG/ProyectoFinal/../libraries/freeimage/include
