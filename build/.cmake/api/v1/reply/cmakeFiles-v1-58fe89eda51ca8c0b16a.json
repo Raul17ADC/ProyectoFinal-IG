@@ -822,8 +822,8 @@
 	"kind" : "cmakeFiles",
 	"paths" : 
 	{
-		"build" : "C:/VSCodeProjects/IG/ProyectoFinal/build",
-		"source" : "C:/VSCodeProjects/IG/ProyectoFinal"
+		"build" : "C:/GitHub/ProyectoFinal-IG/build",
+		"source" : "C:/GitHub/ProyectoFinal-IG"
 	},
 	"version" : 
 	{

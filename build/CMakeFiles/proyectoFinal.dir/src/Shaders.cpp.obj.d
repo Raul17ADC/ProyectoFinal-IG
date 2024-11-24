@@ -1,6 +1,6 @@
 CMakeFiles/proyectoFinal.dir/src/Shaders.cpp.obj: \
- C:\VSCodeProjects\IG\ProyectoFinal\src\Shaders.cpp \
- C:\VSCodeProjects\IG\ProyectoFinal\src\Shaders.h \
+ C:\GitHub\ProyectoFinal-IG\src\Shaders.cpp \
+ C:\GitHub\ProyectoFinal-IG\src\Shaders.h \
  c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\iostream \
  c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\mingw32\bits\c++config.h \
  c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\mingw32\bits\os_defines.h \
@@ -106,11 +106,10 @@ CMakeFiles/proyectoFinal.dir/src/Shaders.cpp.obj: \
  c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\mingw32\bits\basic_file.h \
  c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\mingw32\bits\c++io.h \
  c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\bits\fstream.tcc \
- c:\vscodeprojects\ig\libraries\glew\include\gl\glew.h \
- c:\mingw\include\inttypes.h c:\mingw\include\gl\glu.h \
- c:\mingw\include\gl\gl.h \
- c:\vscodeprojects\ig\libraries\glm\include\glm\glm.hpp \
- c:\vscodeprojects\ig\libraries\glm\include\glm\detail/_fixes.hpp \
+ c:\github\libraries\glew\include\gl\glew.h c:\mingw\include\inttypes.h \
+ c:\mingw\include\gl\glu.h c:\mingw\include\gl\gl.h \
+ c:\github\libraries\glm\include\glm\glm.hpp \
+ c:\github\libraries\glm\include\glm\detail/_fixes.hpp \
  c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\cmath c:\mingw\include\math.h \
  c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\climits \
  c:\mingw\include\limits.h \
@@ -118,107 +117,106 @@ CMakeFiles/proyectoFinal.dir/src/Shaders.cpp.obj: \
  c:\mingw\lib\gcc\mingw32\6.3.0\include\float.h c:\mingw\include\float.h \
  c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\limits \
  c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\cassert \
- c:\mingw\include\assert.h \
- c:\vscodeprojects\ig\libraries\glm\include\glm\fwd.hpp \
- c:\vscodeprojects\ig\libraries\glm\include\glm\detail/type_int.hpp \
- c:\vscodeprojects\ig\libraries\glm\include\glm\detail/setup.hpp \
+ c:\mingw\include\assert.h c:\github\libraries\glm\include\glm\fwd.hpp \
+ c:\github\libraries\glm\include\glm\detail/type_int.hpp \
+ c:\github\libraries\glm\include\glm\detail/setup.hpp \
  c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\cstddef \
- c:\vscodeprojects\ig\libraries\glm\include\glm\simd\platform.h \
- c:\vscodeprojects\ig\libraries\glm\include\glm\detail/type_float.hpp \
- c:\vscodeprojects\ig\libraries\glm\include\glm\detail/type_vec.hpp \
- c:\vscodeprojects\ig\libraries\glm\include\glm\detail/precision.hpp \
- c:\vscodeprojects\ig\libraries\glm\include\glm\detail/type_mat.hpp \
- c:\vscodeprojects\ig\libraries\glm\include\glm\vec2.hpp \
- c:\vscodeprojects\ig\libraries\glm\include\glm\detail/type_vec2.hpp \
- c:\vscodeprojects\ig\libraries\glm\include\glm\detail/type_vec2.inl \
- c:\vscodeprojects\ig\libraries\glm\include\glm\vec3.hpp \
- c:\vscodeprojects\ig\libraries\glm\include\glm\detail/type_vec3.hpp \
- c:\vscodeprojects\ig\libraries\glm\include\glm\detail/type_vec3.inl \
- c:\vscodeprojects\ig\libraries\glm\include\glm\vec4.hpp \
- c:\vscodeprojects\ig\libraries\glm\include\glm\detail/type_vec4.hpp \
- c:\vscodeprojects\ig\libraries\glm\include\glm\detail/type_vec4.inl \
- c:\vscodeprojects\ig\libraries\glm\include\glm\detail/type_vec4_simd.inl \
- c:\vscodeprojects\ig\libraries\glm\include\glm\mat2x2.hpp \
- c:\vscodeprojects\ig\libraries\glm\include\glm\detail/type_mat2x2.hpp \
- c:\vscodeprojects\ig\libraries\glm\include\glm\detail/type_mat2x2.inl \
- c:\vscodeprojects\ig\libraries\glm\include\glm\detail/func_matrix.hpp \
- c:\vscodeprojects\ig\libraries\glm\include\glm\mat2x3.hpp \
- c:\vscodeprojects\ig\libraries\glm\include\glm\detail/type_mat2x3.hpp \
- c:\vscodeprojects\ig\libraries\glm\include\glm\detail/type_mat2x3.inl \
- c:\vscodeprojects\ig\libraries\glm\include\glm\mat2x4.hpp \
- c:\vscodeprojects\ig\libraries\glm\include\glm\detail/type_mat2x4.hpp \
- c:\vscodeprojects\ig\libraries\glm\include\glm\detail/type_mat2x4.inl \
- c:\vscodeprojects\ig\libraries\glm\include\glm\mat3x2.hpp \
- c:\vscodeprojects\ig\libraries\glm\include\glm\detail/type_mat3x2.hpp \
- c:\vscodeprojects\ig\libraries\glm\include\glm\detail/type_mat3x2.inl \
- c:\vscodeprojects\ig\libraries\glm\include\glm\mat3x3.hpp \
- c:\vscodeprojects\ig\libraries\glm\include\glm\detail/type_mat3x3.hpp \
- c:\vscodeprojects\ig\libraries\glm\include\glm\detail/type_mat3x3.inl \
- c:\vscodeprojects\ig\libraries\glm\include\glm\mat3x4.hpp \
- c:\vscodeprojects\ig\libraries\glm\include\glm\detail/type_mat3x4.hpp \
- c:\vscodeprojects\ig\libraries\glm\include\glm\detail/type_mat3x4.inl \
- c:\vscodeprojects\ig\libraries\glm\include\glm\mat4x2.hpp \
- c:\vscodeprojects\ig\libraries\glm\include\glm\detail/type_mat4x2.hpp \
- c:\vscodeprojects\ig\libraries\glm\include\glm\detail/type_mat4x2.inl \
- c:\vscodeprojects\ig\libraries\glm\include\glm\mat4x3.hpp \
- c:\vscodeprojects\ig\libraries\glm\include\glm\detail/type_mat4x3.hpp \
- c:\vscodeprojects\ig\libraries\glm\include\glm\detail/type_mat4x3.inl \
- c:\vscodeprojects\ig\libraries\glm\include\glm\mat4x4.hpp \
- c:\vscodeprojects\ig\libraries\glm\include\glm\detail/type_mat4x4.hpp \
- c:\vscodeprojects\ig\libraries\glm\include\glm\detail/type_mat4x4.inl \
- c:\vscodeprojects\ig\libraries\glm\include\glm\detail/type_mat4x4_simd.inl \
- c:\vscodeprojects\ig\libraries\glm\include\glm\detail/func_matrix.inl \
- c:\vscodeprojects\ig\libraries\glm\include\glm\geometric.hpp \
- c:\vscodeprojects\ig\libraries\glm\include\glm\detail/func_geometric.hpp \
- c:\vscodeprojects\ig\libraries\glm\include\glm\detail/func_geometric.inl \
- c:\vscodeprojects\ig\libraries\glm\include\glm\detail/func_exponential.hpp \
- c:\vscodeprojects\ig\libraries\glm\include\glm\detail/type_vec1.hpp \
- c:\vscodeprojects\ig\libraries\glm\include\glm\detail/type_vec1.inl \
- c:\vscodeprojects\ig\libraries\glm\include\glm\detail/func_exponential.inl \
- c:\vscodeprojects\ig\libraries\glm\include\glm\detail/func_vector_relational.hpp \
- c:\vscodeprojects\ig\libraries\glm\include\glm\detail/func_vector_relational.inl \
- c:\vscodeprojects\ig\libraries\glm\include\glm\detail/func_vector_relational_simd.inl \
- c:\vscodeprojects\ig\libraries\glm\include\glm\detail/_vectorize.hpp \
- c:\vscodeprojects\ig\libraries\glm\include\glm\detail/func_exponential_simd.inl \
- c:\vscodeprojects\ig\libraries\glm\include\glm\simd\exponential.h \
- c:\vscodeprojects\ig\libraries\glm\include\glm\detail/func_common.hpp \
- c:\vscodeprojects\ig\libraries\glm\include\glm\detail/_fixes.hpp \
- c:\vscodeprojects\ig\libraries\glm\include\glm\detail/func_common.inl \
- c:\vscodeprojects\ig\libraries\glm\include\glm\detail/func_common_simd.inl \
- c:\vscodeprojects\ig\libraries\glm\include\glm\detail/func_geometric_simd.inl \
- c:\vscodeprojects\ig\libraries\glm\include\glm\simd\geometric.h \
- c:\vscodeprojects\ig\libraries\glm\include\glm\simd\common.h \
- c:\vscodeprojects\ig\libraries\glm\include\glm\detail/func_matrix_simd.inl \
- c:\vscodeprojects\ig\libraries\glm\include\glm\trigonometric.hpp \
- c:\vscodeprojects\ig\libraries\glm\include\glm\detail/func_trigonometric.hpp \
- c:\vscodeprojects\ig\libraries\glm\include\glm\detail/func_trigonometric.inl \
- c:\vscodeprojects\ig\libraries\glm\include\glm\detail/func_trigonometric_simd.inl \
- c:\vscodeprojects\ig\libraries\glm\include\glm\exponential.hpp \
- c:\vscodeprojects\ig\libraries\glm\include\glm\common.hpp \
- c:\vscodeprojects\ig\libraries\glm\include\glm\packing.hpp \
- c:\vscodeprojects\ig\libraries\glm\include\glm\detail/func_packing.hpp \
- c:\vscodeprojects\ig\libraries\glm\include\glm\detail/func_packing.inl \
- c:\vscodeprojects\ig\libraries\glm\include\glm\detail/type_half.hpp \
- c:\vscodeprojects\ig\libraries\glm\include\glm\detail/type_half.inl \
- c:\vscodeprojects\ig\libraries\glm\include\glm\detail/func_packing_simd.inl \
- c:\vscodeprojects\ig\libraries\glm\include\glm\matrix.hpp \
- c:\vscodeprojects\ig\libraries\glm\include\glm\vector_relational.hpp \
- c:\vscodeprojects\ig\libraries\glm\include\glm\integer.hpp \
- c:\vscodeprojects\ig\libraries\glm\include\glm\detail/func_integer.hpp \
- c:\vscodeprojects\ig\libraries\glm\include\glm\detail/func_integer.inl \
- c:\vscodeprojects\ig\libraries\glm\include\glm\detail/func_integer_simd.inl \
- c:\vscodeprojects\ig\libraries\glm\include\glm\simd\integer.h \
- c:\vscodeprojects\ig\libraries\glm\include\glm\gtc\type_ptr.hpp \
- c:\vscodeprojects\ig\libraries\glm\include\glm\gtc\quaternion.hpp \
- c:\vscodeprojects\ig\libraries\glm\include\glm\gtc\constants.hpp \
- c:\vscodeprojects\ig\libraries\glm\include\glm\gtc\constants.inl \
- c:\vscodeprojects\ig\libraries\glm\include\glm\gtc\quaternion.inl \
- c:\vscodeprojects\ig\libraries\glm\include\glm\gtc\quaternion_simd.inl \
+ c:\github\libraries\glm\include\glm\simd\platform.h \
+ c:\github\libraries\glm\include\glm\detail/type_float.hpp \
+ c:\github\libraries\glm\include\glm\detail/type_vec.hpp \
+ c:\github\libraries\glm\include\glm\detail/precision.hpp \
+ c:\github\libraries\glm\include\glm\detail/type_mat.hpp \
+ c:\github\libraries\glm\include\glm\vec2.hpp \
+ c:\github\libraries\glm\include\glm\detail/type_vec2.hpp \
+ c:\github\libraries\glm\include\glm\detail/type_vec2.inl \
+ c:\github\libraries\glm\include\glm\vec3.hpp \
+ c:\github\libraries\glm\include\glm\detail/type_vec3.hpp \
+ c:\github\libraries\glm\include\glm\detail/type_vec3.inl \
+ c:\github\libraries\glm\include\glm\vec4.hpp \
+ c:\github\libraries\glm\include\glm\detail/type_vec4.hpp \
+ c:\github\libraries\glm\include\glm\detail/type_vec4.inl \
+ c:\github\libraries\glm\include\glm\detail/type_vec4_simd.inl \
+ c:\github\libraries\glm\include\glm\mat2x2.hpp \
+ c:\github\libraries\glm\include\glm\detail/type_mat2x2.hpp \
+ c:\github\libraries\glm\include\glm\detail/type_mat2x2.inl \
+ c:\github\libraries\glm\include\glm\detail/func_matrix.hpp \
+ c:\github\libraries\glm\include\glm\mat2x3.hpp \
+ c:\github\libraries\glm\include\glm\detail/type_mat2x3.hpp \
+ c:\github\libraries\glm\include\glm\detail/type_mat2x3.inl \
+ c:\github\libraries\glm\include\glm\mat2x4.hpp \
+ c:\github\libraries\glm\include\glm\detail/type_mat2x4.hpp \
+ c:\github\libraries\glm\include\glm\detail/type_mat2x4.inl \
+ c:\github\libraries\glm\include\glm\mat3x2.hpp \
+ c:\github\libraries\glm\include\glm\detail/type_mat3x2.hpp \
+ c:\github\libraries\glm\include\glm\detail/type_mat3x2.inl \
+ c:\github\libraries\glm\include\glm\mat3x3.hpp \
+ c:\github\libraries\glm\include\glm\detail/type_mat3x3.hpp \
+ c:\github\libraries\glm\include\glm\detail/type_mat3x3.inl \
+ c:\github\libraries\glm\include\glm\mat3x4.hpp \
+ c:\github\libraries\glm\include\glm\detail/type_mat3x4.hpp \
+ c:\github\libraries\glm\include\glm\detail/type_mat3x4.inl \
+ c:\github\libraries\glm\include\glm\mat4x2.hpp \
+ c:\github\libraries\glm\include\glm\detail/type_mat4x2.hpp \
+ c:\github\libraries\glm\include\glm\detail/type_mat4x2.inl \
+ c:\github\libraries\glm\include\glm\mat4x3.hpp \
+ c:\github\libraries\glm\include\glm\detail/type_mat4x3.hpp \
+ c:\github\libraries\glm\include\glm\detail/type_mat4x3.inl \
+ c:\github\libraries\glm\include\glm\mat4x4.hpp \
+ c:\github\libraries\glm\include\glm\detail/type_mat4x4.hpp \
+ c:\github\libraries\glm\include\glm\detail/type_mat4x4.inl \
+ c:\github\libraries\glm\include\glm\detail/type_mat4x4_simd.inl \
+ c:\github\libraries\glm\include\glm\detail/func_matrix.inl \
+ c:\github\libraries\glm\include\glm\geometric.hpp \
+ c:\github\libraries\glm\include\glm\detail/func_geometric.hpp \
+ c:\github\libraries\glm\include\glm\detail/func_geometric.inl \
+ c:\github\libraries\glm\include\glm\detail/func_exponential.hpp \
+ c:\github\libraries\glm\include\glm\detail/type_vec1.hpp \
+ c:\github\libraries\glm\include\glm\detail/type_vec1.inl \
+ c:\github\libraries\glm\include\glm\detail/func_exponential.inl \
+ c:\github\libraries\glm\include\glm\detail/func_vector_relational.hpp \
+ c:\github\libraries\glm\include\glm\detail/func_vector_relational.inl \
+ c:\github\libraries\glm\include\glm\detail/func_vector_relational_simd.inl \
+ c:\github\libraries\glm\include\glm\detail/_vectorize.hpp \
+ c:\github\libraries\glm\include\glm\detail/func_exponential_simd.inl \
+ c:\github\libraries\glm\include\glm\simd\exponential.h \
+ c:\github\libraries\glm\include\glm\detail/func_common.hpp \
+ c:\github\libraries\glm\include\glm\detail/_fixes.hpp \
+ c:\github\libraries\glm\include\glm\detail/func_common.inl \
+ c:\github\libraries\glm\include\glm\detail/func_common_simd.inl \
+ c:\github\libraries\glm\include\glm\detail/func_geometric_simd.inl \
+ c:\github\libraries\glm\include\glm\simd\geometric.h \
+ c:\github\libraries\glm\include\glm\simd\common.h \
+ c:\github\libraries\glm\include\glm\detail/func_matrix_simd.inl \
+ c:\github\libraries\glm\include\glm\trigonometric.hpp \
+ c:\github\libraries\glm\include\glm\detail/func_trigonometric.hpp \
+ c:\github\libraries\glm\include\glm\detail/func_trigonometric.inl \
+ c:\github\libraries\glm\include\glm\detail/func_trigonometric_simd.inl \
+ c:\github\libraries\glm\include\glm\exponential.hpp \
+ c:\github\libraries\glm\include\glm\common.hpp \
+ c:\github\libraries\glm\include\glm\packing.hpp \
+ c:\github\libraries\glm\include\glm\detail/func_packing.hpp \
+ c:\github\libraries\glm\include\glm\detail/func_packing.inl \
+ c:\github\libraries\glm\include\glm\detail/type_half.hpp \
+ c:\github\libraries\glm\include\glm\detail/type_half.inl \
+ c:\github\libraries\glm\include\glm\detail/func_packing_simd.inl \
+ c:\github\libraries\glm\include\glm\matrix.hpp \
+ c:\github\libraries\glm\include\glm\vector_relational.hpp \
+ c:\github\libraries\glm\include\glm\integer.hpp \
+ c:\github\libraries\glm\include\glm\detail/func_integer.hpp \
+ c:\github\libraries\glm\include\glm\detail/func_integer.inl \
+ c:\github\libraries\glm\include\glm\detail/func_integer_simd.inl \
+ c:\github\libraries\glm\include\glm\simd\integer.h \
+ c:\github\libraries\glm\include\glm\gtc\type_ptr.hpp \
+ c:\github\libraries\glm\include\glm\gtc\quaternion.hpp \
+ c:\github\libraries\glm\include\glm\gtc\constants.hpp \
+ c:\github\libraries\glm\include\glm\gtc\constants.inl \
+ c:\github\libraries\glm\include\glm\gtc\quaternion.inl \
+ c:\github\libraries\glm\include\glm\gtc\quaternion_simd.inl \
  c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\cstring \
  c:\mingw\include\string.h c:\mingw\include\strings.h \
  c:\mingw\include\wchar.h \
- c:\vscodeprojects\ig\libraries\glm\include\glm\gtc\type_ptr.inl \
- c:\vscodeprojects\ig\libraries\glm\include\glm\gtc\matrix_transform.hpp \
- c:\vscodeprojects\ig\libraries\glm\include\glm\gtc\matrix_transform.inl \
+ c:\github\libraries\glm\include\glm\gtc\type_ptr.inl \
+ c:\github\libraries\glm\include\glm\gtc\matrix_transform.hpp \
+ c:\github\libraries\glm\include\glm\gtc\matrix_transform.inl \
  c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\sstream \
  c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\bits\sstream.tcc

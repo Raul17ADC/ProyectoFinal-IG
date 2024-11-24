@@ -1,4 +1,4 @@
-# Install script for directory: C:/VSCodeProjects/IG/ProyectoFinal
+# Install script for directory: C:/GitHub/ProyectoFinal-IG
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -52,6 +52,6 @@ endif()
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-  file(WRITE "C:/VSCodeProjects/IG/ProyectoFinal/build/${CMAKE_INSTALL_MANIFEST}"
+  file(WRITE "C:/GitHub/ProyectoFinal-IG/build/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")
 endif()

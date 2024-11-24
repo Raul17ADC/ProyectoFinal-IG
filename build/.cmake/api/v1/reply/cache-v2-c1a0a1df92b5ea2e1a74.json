@@ -55,7 +55,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "c:/VSCodeProjects/IG/ProyectoFinal/build"
+			"value" : "c:/GitHub/ProyectoFinal-IG/build"
 		},
 		{
 			"name" : "CMAKE_CACHE_MAJOR_VERSION",
@@ -587,7 +587,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "C:/VSCodeProjects/IG/ProyectoFinal/build/CMakeFiles/pkgRedirects"
+			"value" : "C:/GitHub/ProyectoFinal-IG/build/CMakeFiles/pkgRedirects"
 		},
 		{
 			"name" : "CMAKE_GENERATOR",
@@ -659,7 +659,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "C:/VSCodeProjects/IG/ProyectoFinal"
+			"value" : "C:/GitHub/ProyectoFinal-IG"
 		},
 		{
 			"name" : "CMAKE_INSTALL_PREFIX",
@@ -1307,7 +1307,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "C:/VSCodeProjects/IG/ProyectoFinal/build"
+			"value" : "C:/GitHub/ProyectoFinal-IG/build"
 		},
 		{
 			"name" : "proyectoFinal_IS_TOP_LEVEL",
@@ -1331,7 +1331,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "C:/VSCodeProjects/IG/ProyectoFinal"
+			"value" : "C:/GitHub/ProyectoFinal-IG"
 		}
 	],
 	"kind" : "cache",

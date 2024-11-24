@@ -1,20 +1,20 @@
 [
 {
-  "directory": "C:/VSCodeProjects/IG/ProyectoFinal/build",
-  "command": "C:\\MinGW\\bin\\g++.exe  @CMakeFiles/proyectoFinal.dir/includes_CXX.rsp -g -o CMakeFiles\\proyectoFinal.dir\\src\\Model.cpp.obj -c C:\\VSCodeProjects\\IG\\ProyectoFinal\\src\\Model.cpp",
-  "file": "C:/VSCodeProjects/IG/ProyectoFinal/src/Model.cpp",
+  "directory": "C:/GitHub/ProyectoFinal-IG/build",
+  "command": "C:\\MinGW\\bin\\g++.exe  @CMakeFiles/proyectoFinal.dir/includes_CXX.rsp -g -o CMakeFiles\\proyectoFinal.dir\\src\\Model.cpp.obj -c C:\\GitHub\\ProyectoFinal-IG\\src\\Model.cpp",
+  "file": "C:/GitHub/ProyectoFinal-IG/src/Model.cpp",
   "output": "CMakeFiles/proyectoFinal.dir/src/Model.cpp.obj"
 },
 {
-  "directory": "C:/VSCodeProjects/IG/ProyectoFinal/build",
-  "command": "C:\\MinGW\\bin\\g++.exe  @CMakeFiles/proyectoFinal.dir/includes_CXX.rsp -g -o CMakeFiles\\proyectoFinal.dir\\src\\Shaders.cpp.obj -c C:\\VSCodeProjects\\IG\\ProyectoFinal\\src\\Shaders.cpp",
-  "file": "C:/VSCodeProjects/IG/ProyectoFinal/src/Shaders.cpp",
+  "directory": "C:/GitHub/ProyectoFinal-IG/build",
+  "command": "C:\\MinGW\\bin\\g++.exe  @CMakeFiles/proyectoFinal.dir/includes_CXX.rsp -g -o CMakeFiles\\proyectoFinal.dir\\src\\Shaders.cpp.obj -c C:\\GitHub\\ProyectoFinal-IG\\src\\Shaders.cpp",
+  "file": "C:/GitHub/ProyectoFinal-IG/src/Shaders.cpp",
   "output": "CMakeFiles/proyectoFinal.dir/src/Shaders.cpp.obj"
 },
 {
-  "directory": "C:/VSCodeProjects/IG/ProyectoFinal/build",
-  "command": "C:\\MinGW\\bin\\g++.exe  @CMakeFiles/proyectoFinal.dir/includes_CXX.rsp -g -o CMakeFiles\\proyectoFinal.dir\\src\\main.cpp.obj -c C:\\VSCodeProjects\\IG\\ProyectoFinal\\src\\main.cpp",
-  "file": "C:/VSCodeProjects/IG/ProyectoFinal/src/main.cpp",
+  "directory": "C:/GitHub/ProyectoFinal-IG/build",
+  "command": "C:\\MinGW\\bin\\g++.exe  @CMakeFiles/proyectoFinal.dir/includes_CXX.rsp -g -o CMakeFiles\\proyectoFinal.dir\\src\\main.cpp.obj -c C:\\GitHub\\ProyectoFinal-IG\\src\\main.cpp",
+  "file": "C:/GitHub/ProyectoFinal-IG/src/main.cpp",
   "output": "CMakeFiles/proyectoFinal.dir/src/main.cpp.obj"
 }
 ]

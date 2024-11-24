@@ -2,10 +2,10 @@
 	"artifacts" : 
 	[
 		{
-			"path" : "C:/VSCodeProjects/IG/ProyectoFinal/binary/proyectoFinal.exe"
+			"path" : "C:/GitHub/ProyectoFinal-IG/binary/proyectoFinal.exe"
 		},
 		{
-			"path" : "C:/VSCodeProjects/IG/ProyectoFinal/binary/proyectoFinal.pdb"
+			"path" : "C:/GitHub/ProyectoFinal-IG/binary/proyectoFinal.pdb"
 		}
 	],
 	"backtrace" : 1,
@@ -66,27 +66,27 @@
 			[
 				{
 					"backtrace" : 4,
-					"path" : "C:/VSCodeProjects/IG/ProyectoFinal/src"
+					"path" : "C:/GitHub/ProyectoFinal-IG/src"
 				},
 				{
 					"backtrace" : 4,
-					"path" : "C:/VSCodeProjects/IG/ProyectoFinal/../libraries/glew/include"
+					"path" : "C:/GitHub/ProyectoFinal-IG/../libraries/glew/include"
 				},
 				{
 					"backtrace" : 4,
-					"path" : "C:/VSCodeProjects/IG/ProyectoFinal/../libraries/glfw/include"
+					"path" : "C:/GitHub/ProyectoFinal-IG/../libraries/glfw/include"
 				},
 				{
 					"backtrace" : 4,
-					"path" : "C:/VSCodeProjects/IG/ProyectoFinal/../libraries/glm/include"
+					"path" : "C:/GitHub/ProyectoFinal-IG/../libraries/glm/include"
 				},
 				{
 					"backtrace" : 4,
-					"path" : "C:/VSCodeProjects/IG/ProyectoFinal/../libraries/assimp/include"
+					"path" : "C:/GitHub/ProyectoFinal-IG/../libraries/assimp/include"
 				},
 				{
 					"backtrace" : 4,
-					"path" : "C:/VSCodeProjects/IG/ProyectoFinal/../libraries/freeimage/include"
+					"path" : "C:/GitHub/ProyectoFinal-IG/../libraries/freeimage/include"
 				}
 			],
 			"language" : "CXX",
@@ -121,27 +121,27 @@
 			},
 			{
 				"backtrace" : 2,
-				"fragment" : "-LC:\\VSCodeProjects\\IG\\ProyectoFinal\\..\\libraries\\glew\\lib",
+				"fragment" : "-LC:\\GitHub\\ProyectoFinal-IG\\..\\libraries\\glew\\lib",
 				"role" : "libraryPath"
 			},
 			{
 				"backtrace" : 2,
-				"fragment" : "-LC:\\VSCodeProjects\\IG\\ProyectoFinal\\..\\libraries\\glfw\\lib",
+				"fragment" : "-LC:\\GitHub\\ProyectoFinal-IG\\..\\libraries\\glfw\\lib",
 				"role" : "libraryPath"
 			},
 			{
 				"backtrace" : 2,
-				"fragment" : "-LC:\\VSCodeProjects\\IG\\ProyectoFinal\\..\\libraries\\glm\\lib",
+				"fragment" : "-LC:\\GitHub\\ProyectoFinal-IG\\..\\libraries\\glm\\lib",
 				"role" : "libraryPath"
 			},
 			{
 				"backtrace" : 2,
-				"fragment" : "-LC:\\VSCodeProjects\\IG\\ProyectoFinal\\..\\libraries\\assimp\\lib",
+				"fragment" : "-LC:\\GitHub\\ProyectoFinal-IG\\..\\libraries\\assimp\\lib",
 				"role" : "libraryPath"
 			},
 			{
 				"backtrace" : 2,
-				"fragment" : "-LC:\\VSCodeProjects\\IG\\ProyectoFinal\\..\\libraries\\freeimage\\lib",
+				"fragment" : "-LC:\\GitHub\\ProyectoFinal-IG\\..\\libraries\\freeimage\\lib",
 				"role" : "libraryPath"
 			},
 			{

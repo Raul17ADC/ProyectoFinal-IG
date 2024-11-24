@@ -52,10 +52,10 @@ RM = "C:\Program Files\CMake\bin\cmake.exe" -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = C:\VSCodeProjects\IG\ProyectoFinal
+CMAKE_SOURCE_DIR = C:\GitHub\ProyectoFinal-IG
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = C:\VSCodeProjects\IG\ProyectoFinal\build
+CMAKE_BINARY_DIR = C:\GitHub\ProyectoFinal-IG\build
 
 # Include any dependencies generated for this target.
 include CMakeFiles/proyectoFinal.dir/depend.make
@@ -70,48 +70,48 @@ include CMakeFiles/proyectoFinal.dir/flags.make
 
 CMakeFiles/proyectoFinal.dir/src/Model.cpp.obj: CMakeFiles/proyectoFinal.dir/flags.make
 CMakeFiles/proyectoFinal.dir/src/Model.cpp.obj: CMakeFiles/proyectoFinal.dir/includes_CXX.rsp
-CMakeFiles/proyectoFinal.dir/src/Model.cpp.obj: C:/VSCodeProjects/IG/ProyectoFinal/src/Model.cpp
+CMakeFiles/proyectoFinal.dir/src/Model.cpp.obj: C:/GitHub/ProyectoFinal-IG/src/Model.cpp
 CMakeFiles/proyectoFinal.dir/src/Model.cpp.obj: CMakeFiles/proyectoFinal.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\VSCodeProjects\IG\ProyectoFinal\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/proyectoFinal.dir/src/Model.cpp.obj"
-	C:\MinGW\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/proyectoFinal.dir/src/Model.cpp.obj -MF CMakeFiles\proyectoFinal.dir\src\Model.cpp.obj.d -o CMakeFiles\proyectoFinal.dir\src\Model.cpp.obj -c C:\VSCodeProjects\IG\ProyectoFinal\src\Model.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\GitHub\ProyectoFinal-IG\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/proyectoFinal.dir/src/Model.cpp.obj"
+	C:\MinGW\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/proyectoFinal.dir/src/Model.cpp.obj -MF CMakeFiles\proyectoFinal.dir\src\Model.cpp.obj.d -o CMakeFiles\proyectoFinal.dir\src\Model.cpp.obj -c C:\GitHub\ProyectoFinal-IG\src\Model.cpp
 
 CMakeFiles/proyectoFinal.dir/src/Model.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/proyectoFinal.dir/src/Model.cpp.i"
-	C:\MinGW\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:\VSCodeProjects\IG\ProyectoFinal\src\Model.cpp > CMakeFiles\proyectoFinal.dir\src\Model.cpp.i
+	C:\MinGW\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:\GitHub\ProyectoFinal-IG\src\Model.cpp > CMakeFiles\proyectoFinal.dir\src\Model.cpp.i
 
 CMakeFiles/proyectoFinal.dir/src/Model.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/proyectoFinal.dir/src/Model.cpp.s"
-	C:\MinGW\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\VSCodeProjects\IG\ProyectoFinal\src\Model.cpp -o CMakeFiles\proyectoFinal.dir\src\Model.cpp.s
+	C:\MinGW\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\GitHub\ProyectoFinal-IG\src\Model.cpp -o CMakeFiles\proyectoFinal.dir\src\Model.cpp.s
 
 CMakeFiles/proyectoFinal.dir/src/Shaders.cpp.obj: CMakeFiles/proyectoFinal.dir/flags.make
 CMakeFiles/proyectoFinal.dir/src/Shaders.cpp.obj: CMakeFiles/proyectoFinal.dir/includes_CXX.rsp
-CMakeFiles/proyectoFinal.dir/src/Shaders.cpp.obj: C:/VSCodeProjects/IG/ProyectoFinal/src/Shaders.cpp
+CMakeFiles/proyectoFinal.dir/src/Shaders.cpp.obj: C:/GitHub/ProyectoFinal-IG/src/Shaders.cpp
 CMakeFiles/proyectoFinal.dir/src/Shaders.cpp.obj: CMakeFiles/proyectoFinal.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\VSCodeProjects\IG\ProyectoFinal\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/proyectoFinal.dir/src/Shaders.cpp.obj"
-	C:\MinGW\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/proyectoFinal.dir/src/Shaders.cpp.obj -MF CMakeFiles\proyectoFinal.dir\src\Shaders.cpp.obj.d -o CMakeFiles\proyectoFinal.dir\src\Shaders.cpp.obj -c C:\VSCodeProjects\IG\ProyectoFinal\src\Shaders.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\GitHub\ProyectoFinal-IG\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/proyectoFinal.dir/src/Shaders.cpp.obj"
+	C:\MinGW\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/proyectoFinal.dir/src/Shaders.cpp.obj -MF CMakeFiles\proyectoFinal.dir\src\Shaders.cpp.obj.d -o CMakeFiles\proyectoFinal.dir\src\Shaders.cpp.obj -c C:\GitHub\ProyectoFinal-IG\src\Shaders.cpp
 
 CMakeFiles/proyectoFinal.dir/src/Shaders.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/proyectoFinal.dir/src/Shaders.cpp.i"
-	C:\MinGW\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:\VSCodeProjects\IG\ProyectoFinal\src\Shaders.cpp > CMakeFiles\proyectoFinal.dir\src\Shaders.cpp.i
+	C:\MinGW\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:\GitHub\ProyectoFinal-IG\src\Shaders.cpp > CMakeFiles\proyectoFinal.dir\src\Shaders.cpp.i
 
 CMakeFiles/proyectoFinal.dir/src/Shaders.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/proyectoFinal.dir/src/Shaders.cpp.s"
-	C:\MinGW\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\VSCodeProjects\IG\ProyectoFinal\src\Shaders.cpp -o CMakeFiles\proyectoFinal.dir\src\Shaders.cpp.s
+	C:\MinGW\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\GitHub\ProyectoFinal-IG\src\Shaders.cpp -o CMakeFiles\proyectoFinal.dir\src\Shaders.cpp.s
 
 CMakeFiles/proyectoFinal.dir/src/main.cpp.obj: CMakeFiles/proyectoFinal.dir/flags.make
 CMakeFiles/proyectoFinal.dir/src/main.cpp.obj: CMakeFiles/proyectoFinal.dir/includes_CXX.rsp
-CMakeFiles/proyectoFinal.dir/src/main.cpp.obj: C:/VSCodeProjects/IG/ProyectoFinal/src/main.cpp
+CMakeFiles/proyectoFinal.dir/src/main.cpp.obj: C:/GitHub/ProyectoFinal-IG/src/main.cpp
 CMakeFiles/proyectoFinal.dir/src/main.cpp.obj: CMakeFiles/proyectoFinal.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\VSCodeProjects\IG\ProyectoFinal\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/proyectoFinal.dir/src/main.cpp.obj"
-	C:\MinGW\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/proyectoFinal.dir/src/main.cpp.obj -MF CMakeFiles\proyectoFinal.dir\src\main.cpp.obj.d -o CMakeFiles\proyectoFinal.dir\src\main.cpp.obj -c C:\VSCodeProjects\IG\ProyectoFinal\src\main.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\GitHub\ProyectoFinal-IG\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/proyectoFinal.dir/src/main.cpp.obj"
+	C:\MinGW\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/proyectoFinal.dir/src/main.cpp.obj -MF CMakeFiles\proyectoFinal.dir\src\main.cpp.obj.d -o CMakeFiles\proyectoFinal.dir\src\main.cpp.obj -c C:\GitHub\ProyectoFinal-IG\src\main.cpp
 
 CMakeFiles/proyectoFinal.dir/src/main.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/proyectoFinal.dir/src/main.cpp.i"
-	C:\MinGW\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:\VSCodeProjects\IG\ProyectoFinal\src\main.cpp > CMakeFiles\proyectoFinal.dir\src\main.cpp.i
+	C:\MinGW\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:\GitHub\ProyectoFinal-IG\src\main.cpp > CMakeFiles\proyectoFinal.dir\src\main.cpp.i
 
 CMakeFiles/proyectoFinal.dir/src/main.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/proyectoFinal.dir/src/main.cpp.s"
-	C:\MinGW\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\VSCodeProjects\IG\ProyectoFinal\src\main.cpp -o CMakeFiles\proyectoFinal.dir\src\main.cpp.s
+	C:\MinGW\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\GitHub\ProyectoFinal-IG\src\main.cpp -o CMakeFiles\proyectoFinal.dir\src\main.cpp.s
 
 # Object files for target proyectoFinal
 proyectoFinal_OBJECTS = \
@@ -122,18 +122,18 @@ proyectoFinal_OBJECTS = \
 # External object files for target proyectoFinal
 proyectoFinal_EXTERNAL_OBJECTS =
 
-C:/VSCodeProjects/IG/ProyectoFinal/binary/proyectoFinal.exe: CMakeFiles/proyectoFinal.dir/src/Model.cpp.obj
-C:/VSCodeProjects/IG/ProyectoFinal/binary/proyectoFinal.exe: CMakeFiles/proyectoFinal.dir/src/Shaders.cpp.obj
-C:/VSCodeProjects/IG/ProyectoFinal/binary/proyectoFinal.exe: CMakeFiles/proyectoFinal.dir/src/main.cpp.obj
-C:/VSCodeProjects/IG/ProyectoFinal/binary/proyectoFinal.exe: CMakeFiles/proyectoFinal.dir/build.make
-C:/VSCodeProjects/IG/ProyectoFinal/binary/proyectoFinal.exe: CMakeFiles/proyectoFinal.dir/linkLibs.rsp
-C:/VSCodeProjects/IG/ProyectoFinal/binary/proyectoFinal.exe: CMakeFiles/proyectoFinal.dir/objects1.rsp
-C:/VSCodeProjects/IG/ProyectoFinal/binary/proyectoFinal.exe: CMakeFiles/proyectoFinal.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=C:\VSCodeProjects\IG\ProyectoFinal\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Linking CXX executable C:\VSCodeProjects\IG\ProyectoFinal\binary\proyectoFinal.exe"
+C:/GitHub/ProyectoFinal-IG/binary/proyectoFinal.exe: CMakeFiles/proyectoFinal.dir/src/Model.cpp.obj
+C:/GitHub/ProyectoFinal-IG/binary/proyectoFinal.exe: CMakeFiles/proyectoFinal.dir/src/Shaders.cpp.obj
+C:/GitHub/ProyectoFinal-IG/binary/proyectoFinal.exe: CMakeFiles/proyectoFinal.dir/src/main.cpp.obj
+C:/GitHub/ProyectoFinal-IG/binary/proyectoFinal.exe: CMakeFiles/proyectoFinal.dir/build.make
+C:/GitHub/ProyectoFinal-IG/binary/proyectoFinal.exe: CMakeFiles/proyectoFinal.dir/linkLibs.rsp
+C:/GitHub/ProyectoFinal-IG/binary/proyectoFinal.exe: CMakeFiles/proyectoFinal.dir/objects1.rsp
+C:/GitHub/ProyectoFinal-IG/binary/proyectoFinal.exe: CMakeFiles/proyectoFinal.dir/link.txt
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=C:\GitHub\ProyectoFinal-IG\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Linking CXX executable C:\GitHub\ProyectoFinal-IG\binary\proyectoFinal.exe"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles\proyectoFinal.dir\link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
-CMakeFiles/proyectoFinal.dir/build: C:/VSCodeProjects/IG/ProyectoFinal/binary/proyectoFinal.exe
+CMakeFiles/proyectoFinal.dir/build: C:/GitHub/ProyectoFinal-IG/binary/proyectoFinal.exe
 .PHONY : CMakeFiles/proyectoFinal.dir/build
 
 CMakeFiles/proyectoFinal.dir/clean:
@@ -141,6 +141,6 @@ CMakeFiles/proyectoFinal.dir/clean:
 .PHONY : CMakeFiles/proyectoFinal.dir/clean
 
 CMakeFiles/proyectoFinal.dir/depend:
-	$(CMAKE_COMMAND) -E cmake_depends "MinGW Makefiles" C:\VSCodeProjects\IG\ProyectoFinal C:\VSCodeProjects\IG\ProyectoFinal C:\VSCodeProjects\IG\ProyectoFinal\build C:\VSCodeProjects\IG\ProyectoFinal\build C:\VSCodeProjects\IG\ProyectoFinal\build\CMakeFiles\proyectoFinal.dir\DependInfo.cmake "--color=$(COLOR)"
+	$(CMAKE_COMMAND) -E cmake_depends "MinGW Makefiles" C:\GitHub\ProyectoFinal-IG C:\GitHub\ProyectoFinal-IG C:\GitHub\ProyectoFinal-IG\build C:\GitHub\ProyectoFinal-IG\build C:\GitHub\ProyectoFinal-IG\build\CMakeFiles\proyectoFinal.dir\DependInfo.cmake "--color=$(COLOR)"
 .PHONY : CMakeFiles/proyectoFinal.dir/depend
 
