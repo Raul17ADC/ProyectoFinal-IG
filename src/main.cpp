@@ -13,6 +13,10 @@ void drawHelice(glm::mat4 P, glm::mat4 V, glm::mat4 M);
 
 void funFramebufferSize(GLFWwindow* window, int width, int height);
 void funKey(GLFWwindow* window, int key, int scancode, int action, int mods);
+void funCursorPos (GLFWwindow* window, double xpos, double ypos);
+void funTimer(double seconds, double &start);
+void funTimer2(double seconds, double &start2);
+//no hay callback de timer, hay que hacerlo uno mismo.
 
 // Shaders
 Shaders shaders;
@@ -28,6 +32,14 @@ int h = 500;
 // Animaciones
 float desZ = 0.0;
 float rotZ = 0.0;
+
+float alphax = 0.0;
+float alphay = 0.0;
+
+float rotY = 5.0; // esto es del final de la sesion 5
+float rotY2 = 2.0;
+
+glm::vec3 up(0.0, 1.0, 0.0);
 
 int main() {
   // Inicializamos GLFW
@@ -46,7 +58,7 @@ int main() {
     return -1;
   }
   glfwMakeContextCurrent(window);
-  glfwSwapInterval(1);
+  glfwSwapInterval(1); // si vamos a poner animaciones poner aqui un 0:  glfwSwapInterval(0);
 
   // Inicializamos GLEW
   glewExperimental = GL_TRUE;
@@ -62,18 +74,49 @@ int main() {
   // Configuramos los CallBacks
   glfwSetFramebufferSizeCallback(window, funFramebufferSize);
   glfwSetKeyCallback(window, funKey);
+  glfwSetCursorPosCallback(window, funCursorPos);
+  //glfwSetTimer(windows, funTimer, seconds);
 
   // Entramos en el bucle de renderizado
   configScene();
+  double start = glfwGetTime();
+  double start2 = glfwGetTime();
   while (!glfwWindowShouldClose(window)) {
     renderScene();
     glfwSwapBuffers(window);
     glfwPollEvents();
+    //  1/60.0 (en lugar del 0.5)
+    // Ahora cada medio segundo da 6.0
+    /*
+    if (glfwGetTime()-start > 0.5  1/60 ){
+        rotY -= 6.0
+        start = glfwGetTime();
+    }
+    */
+    funTimer(1.0/60, start);
+    funTimer2(1.0/60, start2);  // no poner los segundos menos de 0,02; tipo 1.0/1000, no pasarse
+
   }
   glfwDestroyWindow(window);
   glfwTerminate();
 
   return 0;
+}
+
+void funTimer(double seconds, double &start){
+
+    if (glfwGetTime()-start > seconds /*  1/60  */){
+        rotY -= 6.0;
+        start = glfwGetTime();
+    }
+}
+
+void funTimer2(double seconds, double &start2){
+
+    if (glfwGetTime()-start2 > seconds /*  1/60  */){
+        rotY2 -= 3.0;
+        start2 = glfwGetTime();
+    }
 }
 
 void configScene() {
@@ -105,9 +148,14 @@ void renderScene() {
   glm::mat4 P = glm::perspective(glm::radians(fovy), aspect, nplane, fplane);
 
   // Matriz V
-  glm::vec3 eye(0.0, 0.0, 10.0);
+  double x = 10.0*cos(glm::radians(alphay))*sin(glm::radians(alphax));
+  double y = 10.0*sin(glm::radians(alphay));
+  double z = 10.0*cos(glm::radians(alphay))*cos(glm::radians(alphax));
+
+  glm::vec3 eye(x, y, z);
+  //glm::vec3 eye(0.0, 0.0, 10.0);
   glm::vec3 center(0.0, 0.0, 0.0);
-  glm::vec3 up(0.0, 1.0, 0.0);
+  //glm::vec3 up(0.0, 1.0, 0.0);
   glm::mat4 V = glm::lookAt(eye, center, up);
 
   // Dibujamos la escena
@@ -115,6 +163,15 @@ void renderScene() {
 
   glm::mat4 T = glm::translate(I, glm::vec3(0.0, 0.0, desZ));
   glm::mat4 R = glm::rotate(I, glm::radians(rotZ), glm::vec3(0, 0, 1));
+
+
+  //
+  //glm::mat4 R = glm::rotate(I, glm::radians(rotZ), glm::vec3(0, 0, 1));
+  //
+  //
+  //
+  //
+
   drawHelice(P, V, R * T);
 }
 
@@ -176,3 +233,23 @@ void funKey(GLFWwindow* window, int key, int scancode, int action, int mods) {
       rotZ = 0.0;
   }
 }
+void funCursorPos (GLFWwindow* window, double xpos, double ypos){
+
+  if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT) == GLFW_RELEASE) return;
+  
+  alphax = 90.0*(2.0*xpos/(float)w - 1.0);
+  alphay = 90.0*(1.0 - 2-0*ypos/(float)w);
+
+  if (alphay > 89.9) alphay = 89.9;
+  if (alphay < -89.9) alphay = -89.9;
+
+  std::cout << "CursorPos " << xpos << " " << ypos << std::endl;
+
+  //if (alphay > 89.9) up = glm::vec3(0.0, -1.0, 0.0);
+                      //alphay = 89.9;
+
+  
+
+}
+
+
