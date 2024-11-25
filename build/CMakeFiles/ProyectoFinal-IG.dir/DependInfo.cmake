@@ -8,9 +8,9 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
-  "/Users/jox/Desktop/Uni/Informática gráfica/ProyectoFinal-IG/src/Model.cpp" "CMakeFiles/proyectoFinal.dir/src/Model.cpp.o" "gcc" "CMakeFiles/proyectoFinal.dir/src/Model.cpp.o.d"
-  "/Users/jox/Desktop/Uni/Informática gráfica/ProyectoFinal-IG/src/Shaders.cpp" "CMakeFiles/proyectoFinal.dir/src/Shaders.cpp.o" "gcc" "CMakeFiles/proyectoFinal.dir/src/Shaders.cpp.o.d"
-  "/Users/jox/Desktop/Uni/Informática gráfica/ProyectoFinal-IG/src/main.cpp" "CMakeFiles/proyectoFinal.dir/src/main.cpp.o" "gcc" "CMakeFiles/proyectoFinal.dir/src/main.cpp.o.d"
+  "/Users/jox/Desktop/Uni/Informática gráfica/ProyectoFinal-IG/src/Model.cpp" "CMakeFiles/ProyectoFinal-IG.dir/src/Model.cpp.o" "gcc" "CMakeFiles/ProyectoFinal-IG.dir/src/Model.cpp.o.d"
+  "/Users/jox/Desktop/Uni/Informática gráfica/ProyectoFinal-IG/src/Shaders.cpp" "CMakeFiles/ProyectoFinal-IG.dir/src/Shaders.cpp.o" "gcc" "CMakeFiles/ProyectoFinal-IG.dir/src/Shaders.cpp.o.d"
+  "/Users/jox/Desktop/Uni/Informática gráfica/ProyectoFinal-IG/src/main.cpp" "CMakeFiles/ProyectoFinal-IG.dir/src/main.cpp.o" "gcc" "CMakeFiles/ProyectoFinal-IG.dir/src/main.cpp.o.d"
   )
 
 # Targets to which this target links which contain Fortran sources.

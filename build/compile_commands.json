@@ -1,20 +1,20 @@
 [
 {
-  "directory": "C:/GitHub/ProyectoFinal-IG/build",
-  "command": "C:\\MinGW\\bin\\g++.exe  @CMakeFiles/proyectoFinal.dir/includes_CXX.rsp -g -o CMakeFiles\\proyectoFinal.dir\\src\\Model.cpp.obj -c C:\\GitHub\\ProyectoFinal-IG\\src\\Model.cpp",
-  "file": "C:/GitHub/ProyectoFinal-IG/src/Model.cpp",
-  "output": "CMakeFiles/proyectoFinal.dir/src/Model.cpp.obj"
+  "directory": "/Users/jox/Desktop/Uni/Informática gráfica/ProyectoFinal-IG/build",
+  "command": "/usr/bin/clang++  -I\"/Users/jox/Desktop/Uni/Informática gráfica/ProyectoFinal-IG/src\" -I/opt/homebrew/Cellar/glew/2.2.0_1/include -I/opt/homebrew/Cellar/glfw/3.4/include -I/opt/homebrew/Cellar/glm/1.0.1/include -I/opt/homebrew/Cellar/assimp/5.4.3/include -I/opt/homebrew/Cellar/freeimage/3.18.0/include -g -std=gnu++14 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX15.1.sdk -o CMakeFiles/ProyectoFinal-IG.dir/src/Model.cpp.o -c \"/Users/jox/Desktop/Uni/Informática gráfica/ProyectoFinal-IG/src/Model.cpp\"",
+  "file": "/Users/jox/Desktop/Uni/Informática gráfica/ProyectoFinal-IG/src/Model.cpp",
+  "output": "CMakeFiles/ProyectoFinal-IG.dir/src/Model.cpp.o"
 },
 {
-  "directory": "C:/GitHub/ProyectoFinal-IG/build",
-  "command": "C:\\MinGW\\bin\\g++.exe  @CMakeFiles/proyectoFinal.dir/includes_CXX.rsp -g -o CMakeFiles\\proyectoFinal.dir\\src\\Shaders.cpp.obj -c C:\\GitHub\\ProyectoFinal-IG\\src\\Shaders.cpp",
-  "file": "C:/GitHub/ProyectoFinal-IG/src/Shaders.cpp",
-  "output": "CMakeFiles/proyectoFinal.dir/src/Shaders.cpp.obj"
+  "directory": "/Users/jox/Desktop/Uni/Informática gráfica/ProyectoFinal-IG/build",
+  "command": "/usr/bin/clang++  -I\"/Users/jox/Desktop/Uni/Informática gráfica/ProyectoFinal-IG/src\" -I/opt/homebrew/Cellar/glew/2.2.0_1/include -I/opt/homebrew/Cellar/glfw/3.4/include -I/opt/homebrew/Cellar/glm/1.0.1/include -I/opt/homebrew/Cellar/assimp/5.4.3/include -I/opt/homebrew/Cellar/freeimage/3.18.0/include -g -std=gnu++14 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX15.1.sdk -o CMakeFiles/ProyectoFinal-IG.dir/src/Shaders.cpp.o -c \"/Users/jox/Desktop/Uni/Informática gráfica/ProyectoFinal-IG/src/Shaders.cpp\"",
+  "file": "/Users/jox/Desktop/Uni/Informática gráfica/ProyectoFinal-IG/src/Shaders.cpp",
+  "output": "CMakeFiles/ProyectoFinal-IG.dir/src/Shaders.cpp.o"
 },
 {
-  "directory": "C:/GitHub/ProyectoFinal-IG/build",
-  "command": "C:\\MinGW\\bin\\g++.exe  @CMakeFiles/proyectoFinal.dir/includes_CXX.rsp -g -o CMakeFiles\\proyectoFinal.dir\\src\\main.cpp.obj -c C:\\GitHub\\ProyectoFinal-IG\\src\\main.cpp",
-  "file": "C:/GitHub/ProyectoFinal-IG/src/main.cpp",
-  "output": "CMakeFiles/proyectoFinal.dir/src/main.cpp.obj"
+  "directory": "/Users/jox/Desktop/Uni/Informática gráfica/ProyectoFinal-IG/build",
+  "command": "/usr/bin/clang++  -I\"/Users/jox/Desktop/Uni/Informática gráfica/ProyectoFinal-IG/src\" -I/opt/homebrew/Cellar/glew/2.2.0_1/include -I/opt/homebrew/Cellar/glfw/3.4/include -I/opt/homebrew/Cellar/glm/1.0.1/include -I/opt/homebrew/Cellar/assimp/5.4.3/include -I/opt/homebrew/Cellar/freeimage/3.18.0/include -g -std=gnu++14 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX15.1.sdk -o CMakeFiles/ProyectoFinal-IG.dir/src/main.cpp.o -c \"/Users/jox/Desktop/Uni/Informática gráfica/ProyectoFinal-IG/src/main.cpp\"",
+  "file": "/Users/jox/Desktop/Uni/Informática gráfica/ProyectoFinal-IG/src/main.cpp",
+  "output": "CMakeFiles/ProyectoFinal-IG.dir/src/main.cpp.o"
 }
 ]
