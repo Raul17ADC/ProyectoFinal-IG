@@ -1,12 +1,14 @@
 file(REMOVE_RECURSE
-  "/Users/jox/Desktop/Uni/Informática gráfica/ProyectoFinal-IG/binary/proyectoFinal"
-  "/Users/jox/Desktop/Uni/Informática gráfica/ProyectoFinal-IG/binary/proyectoFinal.pdb"
-  "CMakeFiles/proyectoFinal.dir/src/Model.cpp.o"
-  "CMakeFiles/proyectoFinal.dir/src/Model.cpp.o.d"
-  "CMakeFiles/proyectoFinal.dir/src/Shaders.cpp.o"
-  "CMakeFiles/proyectoFinal.dir/src/Shaders.cpp.o.d"
-  "CMakeFiles/proyectoFinal.dir/src/main.cpp.o"
-  "CMakeFiles/proyectoFinal.dir/src/main.cpp.o.d"
+  "C:/GitHub/ProyectoFinal-IG/binary/libproyectoFinal.dll.a"
+  "C:/GitHub/ProyectoFinal-IG/binary/proyectoFinal.exe"
+  "C:/GitHub/ProyectoFinal-IG/binary/proyectoFinal.exe.manifest"
+  "C:/GitHub/ProyectoFinal-IG/binary/proyectoFinal.pdb"
+  "CMakeFiles/proyectoFinal.dir/src/Model.cpp.obj"
+  "CMakeFiles/proyectoFinal.dir/src/Model.cpp.obj.d"
+  "CMakeFiles/proyectoFinal.dir/src/Shaders.cpp.obj"
+  "CMakeFiles/proyectoFinal.dir/src/Shaders.cpp.obj.d"
+  "CMakeFiles/proyectoFinal.dir/src/main.cpp.obj"
+  "CMakeFiles/proyectoFinal.dir/src/main.cpp.obj.d"
 )
 
 # Per-language clean rules from dependency scanning.

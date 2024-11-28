@@ -6,40 +6,44 @@
 
 void configScene();
 void renderScene();
-void drawObject(Model& model, glm::vec3 color, glm::mat4 P, glm::mat4 V, glm::mat4 M);
-void drawSuelo(glm::mat4 P, glm::mat4 V, glm::mat4 M);
-void drawAspa(glm::mat4 P, glm::mat4 V, glm::mat4 M);
-void drawHelice(glm::mat4 P, glm::mat4 V, glm::mat4 M);
+void setLights(glm::mat4 P, glm::mat4 V);
+void drawObject(Model& model, Material& material, glm::mat4 P, glm::mat4 V, glm::mat4 M);
 
 void funFramebufferSize(GLFWwindow* window, int width, int height);
 void funKey(GLFWwindow* window, int key, int scancode, int action, int mods);
-void funCursorPos (GLFWwindow* window, double xpos, double ypos);
-void funTimer(double seconds, double &start);
-void funTimer2(double seconds, double &start2);
-//no hay callback de timer, hay que hacerlo uno mismo.
+void funScroll(GLFWwindow* window, double xoffset, double yoffset);
+void funCursorPos(GLFWwindow* window, double xPos, double yPos);
 
 // Shaders
 Shaders shaders;
 
 // Modelos
-Model plane;
-Model triangle;
+Model sphere;
+
+// Luces y materiales
+#define NLD 1
+#define NLP 1
+#define NLF 2
+Light lightG;
+Light lightD[NLD];
+Light lightP[NLP];
+Light lightF[NLF];
+Material mLuz;
+Material ruby;
 
 // Viewport
 int w = 500;
 int h = 500;
 
 // Animaciones
+float rotX = 0.0;
+float rotY = 0.0;
 float desZ = 0.0;
-float rotZ = 0.0;
 
-float alphax = 0.0;
-float alphay = 0.0;
-
-float rotY = 5.0; // esto es del final de la sesion 5
-float rotY2 = 2.0;
-
-glm::vec3 up(0.0, 1.0, 0.0);
+// Movimiento de camara
+float fovy = 30.0;
+float alphaX = 0.0;
+float alphaY = 0.0;
 
 int main() {
   // Inicializamos GLFW
@@ -58,7 +62,7 @@ int main() {
     return -1;
   }
   glfwMakeContextCurrent(window);
-  glfwSwapInterval(1); // si vamos a poner animaciones poner aqui un 0:  glfwSwapInterval(0);
+  glfwSwapInterval(1);
 
   // Inicializamos GLEW
   glewExperimental = GL_TRUE;
@@ -74,28 +78,15 @@ int main() {
   // Configuramos los CallBacks
   glfwSetFramebufferSizeCallback(window, funFramebufferSize);
   glfwSetKeyCallback(window, funKey);
+  glfwSetScrollCallback(window, funScroll);
   glfwSetCursorPosCallback(window, funCursorPos);
-  //glfwSetTimer(windows, funTimer, seconds);
 
   // Entramos en el bucle de renderizado
   configScene();
-  double start = glfwGetTime();
-  double start2 = glfwGetTime();
   while (!glfwWindowShouldClose(window)) {
     renderScene();
     glfwSwapBuffers(window);
     glfwPollEvents();
-    //  1/60.0 (en lugar del 0.5)
-    // Ahora cada medio segundo da 6.0
-    /*
-    if (glfwGetTime()-start > 0.5  1/60 ){
-        rotY -= 6.0
-        start = glfwGetTime();
-    }
-    */
-    funTimer(1.0/60, start);
-    funTimer2(1.0/60, start2);  // no poner los segundos menos de 0,02; tipo 1.0/1000, no pasarse
-
   }
   glfwDestroyWindow(window);
   glfwTerminate();
@@ -103,33 +94,71 @@ int main() {
   return 0;
 }
 
-void funTimer(double seconds, double &start){
-
-    if (glfwGetTime()-start > seconds /*  1/60  */){
-        rotY -= 6.0;
-        start = glfwGetTime();
-    }
-}
-
-void funTimer2(double seconds, double &start2){
-
-    if (glfwGetTime()-start2 > seconds /*  1/60  */){
-        rotY2 -= 3.0;
-        start2 = glfwGetTime();
-    }
-}
-
 void configScene() {
   // Test de profundidad
   glEnable(GL_DEPTH_TEST);
-  glPolygonOffset(1.0, 1.0);
 
   // Shaders
-  shaders.initShaders("resources/shaders/vshader.glsl", "resources/shaders/fshader.glsl");
+  // shaders.initShaders("resources/shaders/vshader.glsl", "resources/shaders/fshader.glsl");
+  // shaders.initShaders("resources/shaders/vshader.glsl", "resources/shaders/fshader_cartoon.glsl");
+  // shaders.initShaders("resources/shaders/vshader.glsl", "resources/shaders/fshader_procedural.glsl");
+  shaders.initShaders("resources/shaders/vshader.glsl", "resources/shaders/fshader_discard.glsl");
 
   // Modelos
-  plane.initModel("resources/models/plane.obj");
-  triangle.initModel("resources/models/triangle.obj");
+  sphere.initModel("resources/models/sphere.obj");
+
+  // Luz ambiental global
+  lightG.ambient = glm::vec3(0.5, 0.5, 0.5);
+
+  // Luces direccionales
+  lightD[0].direction = glm::vec3(-1.0, 0.0, 0.0);
+  lightD[0].ambient = glm::vec3(0.1, 0.1, 0.1);
+  lightD[0].diffuse = glm::vec3(0.7, 0.7, 0.7);
+  lightD[0].specular = glm::vec3(0.7, 0.7, 0.7);
+
+  // Luces posicionales
+  lightP[0].position = glm::vec3(0.0, 3.0, 3.0);
+  lightP[0].ambient = glm::vec3(0.2, 0.2, 0.2);
+  lightP[0].diffuse = glm::vec3(0.9, 0.9, 0.9);
+  lightP[0].specular = glm::vec3(0.9, 0.9, 0.9);
+  lightP[0].c0 = 1.00;
+  lightP[0].c1 = 0.22;
+  lightP[0].c2 = 0.20;
+
+  // Luces focales
+  lightF[0].position = glm::vec3(-2.0, 2.0, 5.0);
+  lightF[0].direction = glm::vec3(2.0, -2.0, -5.0);
+  lightF[0].ambient = glm::vec3(0.2, 0.2, 0.2);
+  lightF[0].diffuse = glm::vec3(0.9, 0.9, 0.9);
+  lightF[0].specular = glm::vec3(0.9, 0.9, 0.9);
+  lightF[0].innerCutOff = 10.0;
+  lightF[0].outerCutOff = lightF[0].innerCutOff + 5.0;
+  lightF[0].c0 = 1.000;
+  lightF[0].c1 = 0.090;
+  lightF[0].c2 = 0.032;
+  lightF[1].position = glm::vec3(2.0, 2.0, 5.0);
+  lightF[1].direction = glm::vec3(-2.0, -2.0, -5.0);
+  lightF[1].ambient = glm::vec3(0.2, 0.2, 0.2);
+  lightF[1].diffuse = glm::vec3(0.9, 0.9, 0.9);
+  lightF[1].specular = glm::vec3(0.9, 0.9, 0.9);
+  lightF[1].innerCutOff = 5.0;
+  lightF[1].outerCutOff = lightF[1].innerCutOff + 1.0;
+  lightF[1].c0 = 1.000;
+  lightF[1].c1 = 0.090;
+  lightF[1].c2 = 0.032;
+
+  // Materiales
+  mLuz.ambient = glm::vec4(0.0, 0.0, 0.0, 1.0);
+  mLuz.diffuse = glm::vec4(0.0, 0.0, 0.0, 1.0);
+  mLuz.specular = glm::vec4(0.0, 0.0, 0.0, 1.0);
+  mLuz.emissive = glm::vec4(1.0, 1.0, 1.0, 1.0);
+  mLuz.shininess = 1.0;
+
+  ruby.ambient = glm::vec4(0.174500, 0.011750, 0.011750, 0.55);
+  ruby.diffuse = glm::vec4(0.614240, 0.041360, 0.041360, 0.55);
+  ruby.specular = glm::vec4(0.727811, 0.626959, 0.626959, 0.55);
+  ruby.emissive = glm::vec4(0.000000, 0.000000, 0.000000, 1.00);
+  ruby.shininess = 76.8;
 }
 
 void renderScene() {
@@ -141,68 +170,57 @@ void renderScene() {
   shaders.useShaders();
 
   // Matriz P
-  float fovy = 60.0;
   float nplane = 0.1;
   float fplane = 25.0;
   float aspect = (float)w / (float)h;
   glm::mat4 P = glm::perspective(glm::radians(fovy), aspect, nplane, fplane);
 
   // Matriz V
-  double x = 10.0*cos(glm::radians(alphay))*sin(glm::radians(alphax));
-  double y = 10.0*sin(glm::radians(alphay));
-  double z = 10.0*cos(glm::radians(alphay))*cos(glm::radians(alphax));
-
+  float x = 10.0f * glm::cos(glm::radians(alphaY)) * glm::sin(glm::radians(alphaX));
+  float y = 10.0f * glm::sin(glm::radians(alphaY));
+  float z = 10.0f * glm::cos(glm::radians(alphaY)) * glm::cos(glm::radians(alphaX));
   glm::vec3 eye(x, y, z);
-  //glm::vec3 eye(0.0, 0.0, 10.0);
   glm::vec3 center(0.0, 0.0, 0.0);
-  //glm::vec3 up(0.0, 1.0, 0.0);
+  glm::vec3 up(0.0, 1.0, 0.0);
   glm::mat4 V = glm::lookAt(eye, center, up);
+  shaders.setVec3("uEye", eye);
+
+  // Fijamos las luces
+  setLights(P, V);
 
   // Dibujamos la escena
-  drawSuelo(P, V, I);
-
-  glm::mat4 T = glm::translate(I, glm::vec3(0.0, 0.0, desZ));
-  glm::mat4 R = glm::rotate(I, glm::radians(rotZ), glm::vec3(0, 0, 1));
-
-
-  //
-  //glm::mat4 R = glm::rotate(I, glm::radians(rotZ), glm::vec3(0, 0, 1));
-  //
-  //
-  //
-  //
-
-  drawHelice(P, V, R * T);
+  glm::mat4 Ry = glm::rotate(I, glm::radians(rotY), glm::vec3(0, 1, 0));
+  glm::mat4 Rx = glm::rotate(I, glm::radians(rotX), glm::vec3(1, 0, 0));
+  glm::mat4 Tz = glm::translate(I, glm::vec3(0.0, 0.0, desZ));
+  drawObject(sphere, ruby, P, V, Tz * Rx * Ry);
 }
 
-void drawObject(Model& model, glm::vec3 color, glm::mat4 P, glm::mat4 V, glm::mat4 M) {
+void setLights(glm::mat4 P, glm::mat4 V) {
+  shaders.setLight("uLightG", lightG);
+  for (int i = 0; i < NLD; i++)
+    shaders.setLight("uLightD[" + toString(i) + "]", lightD[i]);
+  for (int i = 0; i < NLP; i++)
+    shaders.setLight("uLightP[" + toString(i) + "]", lightP[i]);
+  for (int i = 0; i < NLF; i++)
+    shaders.setLight("uLightF[" + toString(i) + "]", lightF[i]);
+
+  for (int i = 0; i < NLP; i++) {
+    glm::mat4 M = glm::translate(I, lightP[i].position) * glm::scale(I, glm::vec3(0.1));
+    drawObject(sphere, mLuz, P, V, M);
+  }
+
+  for (int i = 0; i < NLF; i++) {
+    glm::mat4 M = glm::translate(I, lightF[i].position) * glm::scale(I, glm::vec3(0.025));
+    drawObject(sphere, mLuz, P, V, M);
+  }
+}
+
+void drawObject(Model& model, Material& material, glm::mat4 P, glm::mat4 V, glm::mat4 M) {
+  shaders.setMat4("uN", glm::transpose(glm::inverse(M)));
+  shaders.setMat4("uM", M);
   shaders.setMat4("uPVM", P * V * M);
-
-  glEnable(GL_POLYGON_OFFSET_FILL);
-  shaders.setVec3("uColor", color);
+  shaders.setMaterial("uMaterial", material);
   model.renderModel(GL_FILL);
-  glDisable(GL_POLYGON_OFFSET_FILL);
-
-  shaders.setVec3("uColor", glm::vec3(1.0, 1.0, 1.0));
-  model.renderModel(GL_LINE);
-}
-
-void drawSuelo(glm::mat4 P, glm::mat4 V, glm::mat4 M) {
-  glm::mat4 S = glm::scale(I, glm::vec3(5.0, 1.0, 5.0));
-  drawObject(plane, glm::vec3(0.0, 0.0, 1.0), P, V, M * S);
-}
-
-void drawAspa(glm::mat4 P, glm::mat4 V, glm::mat4 M) {
-  glm::mat4 T = glm::translate(I, glm::vec3(0.0, -1.0, 0.0));
-  drawObject(triangle, glm::vec3(1.0, 0.0, 0.0), P, V, M * T);
-}
-
-void drawHelice(glm::mat4 P, glm::mat4 V, glm::mat4 M) {
-  glm::mat4 Rz90 = glm::rotate(I, glm::radians(90.0f), glm::vec3(0, 0, 1));
-  drawAspa(P, V, M);
-  drawAspa(P, V, M * Rz90);
-  drawAspa(P, V, M * Rz90 * Rz90);
-  drawAspa(P, V, M * Rz90 * Rz90 * Rz90);
 }
 
 void funFramebufferSize(GLFWwindow* window, int width, int height) {
@@ -217,39 +235,46 @@ void funFramebufferSize(GLFWwindow* window, int width, int height) {
 void funKey(GLFWwindow* window, int key, int scancode, int action, int mods) {
   switch (key) {
     case GLFW_KEY_UP:
-      desZ -= 0.1;
+      rotX -= 5.0f;
       break;
     case GLFW_KEY_DOWN:
-      desZ += 0.1;
+      rotX += 5.0f;
       break;
     case GLFW_KEY_LEFT:
-      rotZ += 5.0;
+      rotY -= 5.0f;
       break;
     case GLFW_KEY_RIGHT:
-      rotZ -= 5.0;
+      rotY += 5.0f;
+      break;
+    case GLFW_KEY_Z:
+      if (mods == GLFW_MOD_SHIFT)
+        desZ -= desZ > -24.0f ? 0.1f : 0.0f;
+      else
+        desZ += desZ < 5.0f ? 0.1f : 0.0f;
       break;
     default:
-      desZ = 0.0;
-      rotZ = 0.0;
+      rotX = 0.0f;
+      rotY = 0.0f;
+      break;
   }
 }
-void funCursorPos (GLFWwindow* window, double xpos, double ypos){
 
-  if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT) == GLFW_RELEASE) return;
-  
-  alphax = 90.0*(2.0*xpos/(float)w - 1.0);
-  alphay = 90.0*(1.0 - 2-0*ypos/(float)w);
-
-  if (alphay > 89.9) alphay = 89.9;
-  if (alphay < -89.9) alphay = -89.9;
-
-  std::cout << "CursorPos " << xpos << " " << ypos << std::endl;
-
-  //if (alphay > 89.9) up = glm::vec3(0.0, -1.0, 0.0);
-                      //alphay = 89.9;
-
-  
-
+void funScroll(GLFWwindow* window, double xoffset, double yoffset) {
+  if (yoffset > 0)
+    fovy -= fovy > 10.0f ? 5.0f : 0.0f;
+  if (yoffset < 0)
+    fovy += fovy < 90.0f ? 5.0f : 0.0f;
 }
 
+void funCursorPos(GLFWwindow* window, double xPos, double yPos) {
+  if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT) == GLFW_RELEASE)
+    return;
 
+  float limY = 89.0;
+  alphaX = 90.0 * (2.0 * xPos / (float)w - 1.0);
+  alphaY = 90.0 * (1.0 - 2.0 * yPos / (float)h);
+  if (alphaY < -limY)
+    alphaY = -limY;
+  if (alphaY > limY)
+    alphaY = limY;
+}

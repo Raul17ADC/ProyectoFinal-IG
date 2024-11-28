@@ -25,16 +25,15 @@ struct Material {
 #define NLP 1
 #define NLF 2
 
+uniform vec3 uEye;
 uniform Light uLightG;
 uniform Light uLightD[NLD];
 uniform Light uLightP[NLP];
 uniform Light uLightF[NLF];
 uniform Material uMaterial;
-uniform vec3 uEye;
 
 in vec3 vNor;
 in vec3 vPos;
-
 out vec4 outColor;
 
 vec3 funDirectional(Light light, Material material, vec3 N, vec3 V);
@@ -54,6 +53,16 @@ void main() {
     }
     for(int i = 0; i < NLF; i ++ ) {
         color += funFocal(uLightF[i], uMaterial, N, V);
+    }
+    
+    if (color.r > 0.75) {
+        color = vec3(0.8, 0.8, 0.8);
+    } else if (color.r > 0.50) {
+        color = vec3(0.8, 0.8, 0.3);
+    } else if (color.r > 0.25) {
+        color = vec3(0.2, 0.8, 0.2);
+    } else {
+        color = vec3(0.8, 0.1, 0.8);
     }
     
     outColor = vec4(color, uMaterial.diffuse.a);

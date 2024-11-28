@@ -2,7 +2,10 @@
 	"artifacts" : 
 	[
 		{
-			"path" : "/Users/jox/Desktop/Uni/Inform\u00e1tica gr\u00e1fica/ProyectoFinal-IG/binary/ProyectoFinal-IG"
+			"path" : "C:/GitHub/ProyectoFinal-IG/binary/proyectoFinal.exe"
+		},
+		{
+			"path" : "C:/GitHub/ProyectoFinal-IG/binary/proyectoFinal.pdb"
 		}
 	],
 	"backtrace" : 1,
@@ -56,34 +59,34 @@
 			"compileCommandFragments" : 
 			[
 				{
-					"fragment" : "-g -std=gnu++14 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX15.1.sdk"
+					"fragment" : "-g"
 				}
 			],
 			"includes" : 
 			[
 				{
 					"backtrace" : 4,
-					"path" : "/Users/jox/Desktop/Uni/Inform\u00e1tica gr\u00e1fica/ProyectoFinal-IG/src"
+					"path" : "C:/GitHub/ProyectoFinal-IG/src"
 				},
 				{
 					"backtrace" : 4,
-					"path" : "/opt/homebrew/Cellar/glew/2.2.0_1/include"
+					"path" : "C:/GitHub/ProyectoFinal-IG/../libraries/glew/include"
 				},
 				{
 					"backtrace" : 4,
-					"path" : "/opt/homebrew/Cellar/glfw/3.4/include"
+					"path" : "C:/GitHub/ProyectoFinal-IG/../libraries/glfw/include"
 				},
 				{
 					"backtrace" : 4,
-					"path" : "/opt/homebrew/Cellar/glm/1.0.1/include"
+					"path" : "C:/GitHub/ProyectoFinal-IG/../libraries/glm/include"
 				},
 				{
 					"backtrace" : 4,
-					"path" : "/opt/homebrew/Cellar/assimp/5.4.3/include"
+					"path" : "C:/GitHub/ProyectoFinal-IG/../libraries/assimp/include"
 				},
 				{
 					"backtrace" : 4,
-					"path" : "/opt/homebrew/Cellar/freeimage/3.18.0/include"
+					"path" : "C:/GitHub/ProyectoFinal-IG/../libraries/freeimage/include"
 				}
 			],
 			"language" : "CXX",
@@ -103,7 +106,7 @@
 			]
 		}
 	],
-	"id" : "ProyectoFinal-IG::@6890427a1f51a3e7e1df",
+	"id" : "proyectoFinal::@6890427a1f51a3e7e1df",
 	"link" : 
 	{
 		"commandFragments" : 
@@ -118,63 +121,68 @@
 			},
 			{
 				"backtrace" : 2,
-				"fragment" : "-L/opt/homebrew/Cellar/glew/2.2.0_1/lib",
+				"fragment" : "-LC:\\GitHub\\ProyectoFinal-IG\\..\\libraries\\glew\\lib",
 				"role" : "libraryPath"
 			},
 			{
 				"backtrace" : 2,
-				"fragment" : "-L/opt/homebrew/Cellar/glfw/3.4/lib",
+				"fragment" : "-LC:\\GitHub\\ProyectoFinal-IG\\..\\libraries\\glfw\\lib",
 				"role" : "libraryPath"
 			},
 			{
 				"backtrace" : 2,
-				"fragment" : "-L/opt/homebrew/Cellar/glm/1.0.1/lib",
+				"fragment" : "-LC:\\GitHub\\ProyectoFinal-IG\\..\\libraries\\glm\\lib",
 				"role" : "libraryPath"
 			},
 			{
 				"backtrace" : 2,
-				"fragment" : "-L/opt/homebrew/Cellar/assimp/5.4.3/lib",
+				"fragment" : "-LC:\\GitHub\\ProyectoFinal-IG\\..\\libraries\\assimp\\lib",
 				"role" : "libraryPath"
 			},
 			{
 				"backtrace" : 2,
-				"fragment" : "-L/opt/homebrew/Cellar/freeimage/3.18.0/lib",
+				"fragment" : "-LC:\\GitHub\\ProyectoFinal-IG\\..\\libraries\\freeimage\\lib",
 				"role" : "libraryPath"
 			},
 			{
-				"fragment" : "-Wl,-rpath,/opt/homebrew/Cellar/glew/2.2.0_1/lib -Wl,-rpath,/opt/homebrew/Cellar/glfw/3.4/lib -Wl,-rpath,/opt/homebrew/Cellar/glm/1.0.1/lib -Wl,-rpath,/opt/homebrew/Cellar/assimp/5.4.3/lib -Wl,-rpath,/opt/homebrew/Cellar/freeimage/3.18.0/lib",
+				"backtrace" : 3,
+				"fragment" : "-lopengl32",
 				"role" : "libraries"
 			},
 			{
 				"backtrace" : 3,
-				"fragment" : "-framework OpenGL",
+				"fragment" : "-lglu32",
 				"role" : "libraries"
 			},
 			{
 				"backtrace" : 3,
-				"fragment" : "-lGLEW.2.2.0",
+				"fragment" : "-lglew32",
 				"role" : "libraries"
 			},
 			{
 				"backtrace" : 3,
-				"fragment" : "-lglfw.3.4",
+				"fragment" : "-lglfw3",
 				"role" : "libraries"
 			},
 			{
 				"backtrace" : 3,
-				"fragment" : "-lassimp.5.4.3",
+				"fragment" : "-lassimp",
 				"role" : "libraries"
 			},
 			{
 				"backtrace" : 3,
-				"fragment" : "-lfreeimage.3.18.0",
+				"fragment" : "-lfreeimage",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "-lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32",
 				"role" : "libraries"
 			}
 		],
 		"language" : "CXX"
 	},
-	"name" : "ProyectoFinal-IG",
-	"nameOnDisk" : "ProyectoFinal-IG",
+	"name" : "proyectoFinal",
+	"nameOnDisk" : "proyectoFinal.exe",
 	"paths" : 
 	{
 		"build" : ".",
