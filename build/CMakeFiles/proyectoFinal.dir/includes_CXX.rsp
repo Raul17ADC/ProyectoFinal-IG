@@ -1,0 +1,1 @@
+-I"C:/GitHub/ProyectoFinal-IG/src" -I"C:/GitHub/ProyectoFinal-IG/../libraries/glew/include" -I"C:/GitHub/ProyectoFinal-IG/../libraries/glfw/include" -I"C:/GitHub/ProyectoFinal-IG/../libraries/glm/include" -I"C:/GitHub/ProyectoFinal-IG/../libraries/assimp/include" -I"C:/GitHub/ProyectoFinal-IG/../libraries/freeimage/include"
