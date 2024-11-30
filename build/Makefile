@@ -117,24 +117,24 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named Sesion6
+# Target rules for targets named ProyectoFinal-IG
 
 # Build rule for target.
-Sesion6: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 Sesion6
-.PHONY : Sesion6
+ProyectoFinal-IG: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 ProyectoFinal-IG
+.PHONY : ProyectoFinal-IG
 
 # fast build rule for target.
-Sesion6/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Sesion6.dir/build.make CMakeFiles/Sesion6.dir/build
-.PHONY : Sesion6/fast
+ProyectoFinal-IG/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ProyectoFinal-IG.dir/build.make CMakeFiles/ProyectoFinal-IG.dir/build
+.PHONY : ProyectoFinal-IG/fast
 
 src/Model.o: src/Model.cpp.o
 .PHONY : src/Model.o
 
 # target to build an object file
 src/Model.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Sesion6.dir/build.make CMakeFiles/Sesion6.dir/src/Model.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ProyectoFinal-IG.dir/build.make CMakeFiles/ProyectoFinal-IG.dir/src/Model.cpp.o
 .PHONY : src/Model.cpp.o
 
 src/Model.i: src/Model.cpp.i
@@ -142,7 +142,7 @@ src/Model.i: src/Model.cpp.i
 
 # target to preprocess a source file
 src/Model.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Sesion6.dir/build.make CMakeFiles/Sesion6.dir/src/Model.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ProyectoFinal-IG.dir/build.make CMakeFiles/ProyectoFinal-IG.dir/src/Model.cpp.i
 .PHONY : src/Model.cpp.i
 
 src/Model.s: src/Model.cpp.s
@@ -150,7 +150,7 @@ src/Model.s: src/Model.cpp.s
 
 # target to generate assembly for a file
 src/Model.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Sesion6.dir/build.make CMakeFiles/Sesion6.dir/src/Model.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ProyectoFinal-IG.dir/build.make CMakeFiles/ProyectoFinal-IG.dir/src/Model.cpp.s
 .PHONY : src/Model.cpp.s
 
 src/Shaders.o: src/Shaders.cpp.o
@@ -158,7 +158,7 @@ src/Shaders.o: src/Shaders.cpp.o
 
 # target to build an object file
 src/Shaders.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Sesion6.dir/build.make CMakeFiles/Sesion6.dir/src/Shaders.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ProyectoFinal-IG.dir/build.make CMakeFiles/ProyectoFinal-IG.dir/src/Shaders.cpp.o
 .PHONY : src/Shaders.cpp.o
 
 src/Shaders.i: src/Shaders.cpp.i
@@ -166,7 +166,7 @@ src/Shaders.i: src/Shaders.cpp.i
 
 # target to preprocess a source file
 src/Shaders.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Sesion6.dir/build.make CMakeFiles/Sesion6.dir/src/Shaders.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ProyectoFinal-IG.dir/build.make CMakeFiles/ProyectoFinal-IG.dir/src/Shaders.cpp.i
 .PHONY : src/Shaders.cpp.i
 
 src/Shaders.s: src/Shaders.cpp.s
@@ -174,7 +174,7 @@ src/Shaders.s: src/Shaders.cpp.s
 
 # target to generate assembly for a file
 src/Shaders.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Sesion6.dir/build.make CMakeFiles/Sesion6.dir/src/Shaders.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ProyectoFinal-IG.dir/build.make CMakeFiles/ProyectoFinal-IG.dir/src/Shaders.cpp.s
 .PHONY : src/Shaders.cpp.s
 
 src/main.o: src/main.cpp.o
@@ -182,7 +182,7 @@ src/main.o: src/main.cpp.o
 
 # target to build an object file
 src/main.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Sesion6.dir/build.make CMakeFiles/Sesion6.dir/src/main.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ProyectoFinal-IG.dir/build.make CMakeFiles/ProyectoFinal-IG.dir/src/main.cpp.o
 .PHONY : src/main.cpp.o
 
 src/main.i: src/main.cpp.i
@@ -190,7 +190,7 @@ src/main.i: src/main.cpp.i
 
 # target to preprocess a source file
 src/main.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Sesion6.dir/build.make CMakeFiles/Sesion6.dir/src/main.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ProyectoFinal-IG.dir/build.make CMakeFiles/ProyectoFinal-IG.dir/src/main.cpp.i
 .PHONY : src/main.cpp.i
 
 src/main.s: src/main.cpp.s
@@ -198,7 +198,7 @@ src/main.s: src/main.cpp.s
 
 # target to generate assembly for a file
 src/main.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Sesion6.dir/build.make CMakeFiles/Sesion6.dir/src/main.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ProyectoFinal-IG.dir/build.make CMakeFiles/ProyectoFinal-IG.dir/src/main.cpp.s
 .PHONY : src/main.cpp.s
 
 # Help Target
@@ -209,7 +209,7 @@ help:
 	@echo "... depend"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
-	@echo "... Sesion6"
+	@echo "... ProyectoFinal-IG"
 	@echo "... src/Model.o"
 	@echo "... src/Model.i"
 	@echo "... src/Model.s"

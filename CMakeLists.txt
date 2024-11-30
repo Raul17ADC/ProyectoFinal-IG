@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.22)
 
-set(PROJECT_NAME Sesion6)
+set(PROJECT_NAME ProyectoFinal-IG)
 set(CODE_PATH src)
 
 set(CMAKE_CXX_STANDARD 14)

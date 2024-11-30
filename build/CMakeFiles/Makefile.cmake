@@ -129,5 +129,5 @@ set(CMAKE_MAKEFILE_PRODUCTS
 
 # Dependency information for all targets:
 set(CMAKE_DEPEND_INFO_FILES
-  "CMakeFiles/Sesion6.dir/DependInfo.cmake"
+  "CMakeFiles/ProyectoFinal-IG.dir/DependInfo.cmake"
   )

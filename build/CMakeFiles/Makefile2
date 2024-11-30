@@ -63,7 +63,7 @@ CMAKE_BINARY_DIR = "/Users/jox/Desktop/Uni/Informática gráfica/ProyectoFinal-I
 # Directory level rules for the build root directory
 
 # The main recursive "all" target.
-all: CMakeFiles/Sesion6.dir/all
+all: CMakeFiles/ProyectoFinal-IG.dir/all
 .PHONY : all
 
 # The main recursive "preinstall" target.
@@ -71,34 +71,34 @@ preinstall:
 .PHONY : preinstall
 
 # The main recursive "clean" target.
-clean: CMakeFiles/Sesion6.dir/clean
+clean: CMakeFiles/ProyectoFinal-IG.dir/clean
 .PHONY : clean
 
 #=============================================================================
-# Target rules for target CMakeFiles/Sesion6.dir
+# Target rules for target CMakeFiles/ProyectoFinal-IG.dir
 
 # All Build rule for target.
-CMakeFiles/Sesion6.dir/all:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Sesion6.dir/build.make CMakeFiles/Sesion6.dir/depend
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Sesion6.dir/build.make CMakeFiles/Sesion6.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir="/Users/jox/Desktop/Uni/Informática gráfica/ProyectoFinal-IG/build/CMakeFiles" --progress-num=1,2,3,4 "Built target Sesion6"
-.PHONY : CMakeFiles/Sesion6.dir/all
+CMakeFiles/ProyectoFinal-IG.dir/all:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ProyectoFinal-IG.dir/build.make CMakeFiles/ProyectoFinal-IG.dir/depend
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ProyectoFinal-IG.dir/build.make CMakeFiles/ProyectoFinal-IG.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir="/Users/jox/Desktop/Uni/Informática gráfica/ProyectoFinal-IG/build/CMakeFiles" --progress-num=1,2,3,4 "Built target ProyectoFinal-IG"
+.PHONY : CMakeFiles/ProyectoFinal-IG.dir/all
 
 # Build rule for subdir invocation for target.
-CMakeFiles/Sesion6.dir/rule: cmake_check_build_system
+CMakeFiles/ProyectoFinal-IG.dir/rule: cmake_check_build_system
 	$(CMAKE_COMMAND) -E cmake_progress_start "/Users/jox/Desktop/Uni/Informática gráfica/ProyectoFinal-IG/build/CMakeFiles" 4
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/Sesion6.dir/all
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/ProyectoFinal-IG.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start "/Users/jox/Desktop/Uni/Informática gráfica/ProyectoFinal-IG/build/CMakeFiles" 0
-.PHONY : CMakeFiles/Sesion6.dir/rule
+.PHONY : CMakeFiles/ProyectoFinal-IG.dir/rule
 
 # Convenience name for target.
-Sesion6: CMakeFiles/Sesion6.dir/rule
-.PHONY : Sesion6
+ProyectoFinal-IG: CMakeFiles/ProyectoFinal-IG.dir/rule
+.PHONY : ProyectoFinal-IG
 
 # clean rule for target.
-CMakeFiles/Sesion6.dir/clean:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Sesion6.dir/build.make CMakeFiles/Sesion6.dir/clean
-.PHONY : CMakeFiles/Sesion6.dir/clean
+CMakeFiles/ProyectoFinal-IG.dir/clean:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ProyectoFinal-IG.dir/build.make CMakeFiles/ProyectoFinal-IG.dir/clean
+.PHONY : CMakeFiles/ProyectoFinal-IG.dir/clean
 
 #=============================================================================
 # Special targets to cleanup operation of make.
