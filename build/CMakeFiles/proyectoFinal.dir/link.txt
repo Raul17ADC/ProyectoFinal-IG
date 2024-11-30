@@ -1,3 +1,0 @@
-"C:\Program Files\CMake\bin\cmake.exe" -E rm -f CMakeFiles\proyectoFinal.dir/objects.a
-C:\MinGW\bin\ar.exe qc CMakeFiles\proyectoFinal.dir/objects.a @CMakeFiles\proyectoFinal.dir\objects1.rsp
-C:\MinGW\bin\g++.exe -g -Wl,--whole-archive CMakeFiles\proyectoFinal.dir/objects.a -Wl,--no-whole-archive -o C:\GitHub\ProyectoFinal-IG\binary\proyectoFinal.exe -Wl,--out-implib,C:\GitHub\ProyectoFinal-IG\binary\libproyectoFinal.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\proyectoFinal.dir\linkLibs.rsp
