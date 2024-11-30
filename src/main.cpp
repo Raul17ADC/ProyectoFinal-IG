@@ -10,6 +10,8 @@ void setLights(glm::mat4 P, glm::mat4 V);
 void drawObject(Model& model, Material& material, glm::mat4 P, glm::mat4 V, glm::mat4 M);
 void drawSuelo (glm::mat4 P, glm::mat4 V, glm::mat4 M);
 void drawOB(Model &model, glm::vec3 color, glm::mat4 P, glm::mat4 V, glm::mat4 M);
+void drawWheels(glm::mat4 P, glm::mat4 V);
+void drawCube(glm::mat4 P, glm::mat4 V);
 
 void funFramebufferSize(GLFWwindow* window, int width, int height);
 void funKey(GLFWwindow* window, int key, int scancode, int action, int mods);
@@ -23,6 +25,8 @@ Shaders shaders;
 Model sphere;
 Model plane;
 Model wheel;
+Model road;
+Model cube;
 
 // Luces y materiales
 #define NLD 1
@@ -103,15 +107,17 @@ void configScene() {
   glEnable(GL_DEPTH_TEST);
 
   // Shaders
-  // shaders.initShaders("resources/shaders/vshader.glsl", "resources/shaders/fshader.glsl");
-  // shaders.initShaders("resources/shaders/vshader.glsl", "resources/shaders/fshader_cartoon.glsl");
-  // shaders.initShaders("resources/shaders/vshader.glsl", "resources/shaders/fshader_procedural.glsl");
-   shaders.initShaders("resources/shaders/vshader.glsl", "resources/shaders/fshader_discard.glsl");
+  //shaders.initShaders("resources/shaders/vshader.glsl", "resources/shaders/fshader.glsl");
+  //shaders.initShaders("resources/shaders/vshader.glsl", "resources/shaders/fshader_cartoon.glsl");
+  shaders.initShaders("resources/shaders/vshader.glsl", "resources/shaders/fshader_procedural.glsl");
+  //shaders.initShaders("resources/shaders/vshader.glsl", "resources/shaders/fshader_discard.glsl");
 
   // Modelos
   sphere.initModel("resources/models/sphere.obj");
   plane.initModel("resources/models/plane.obj");
   wheel.initModel("resources/models/rin.obj");
+  road.initModel("resources/models/road.obj");
+  cube.initModel("resources/models/cube.obj");
   
 
   // Luz ambiental global
@@ -196,14 +202,37 @@ void renderScene() {
   setLights(P, V);
 
   // Dibujamos la escena
-  drawSuelo(P,V,I);
+  //drawSuelo(P,V,I);
 
+  glm::mat4 S = glm::scale(I, glm::vec3(7.0, 1.0, 5.0)); 
   glm::mat4 Ry = glm::rotate(I, glm::radians(rotY), glm::vec3(0, 1, 0));
   glm::mat4 Rx = glm::rotate(I, glm::radians(rotX), glm::vec3(1, 0, 0));
   glm::mat4 Tz = glm::translate(I, glm::vec3(0.0, 0.0, desZ));
-  //drawObject(sphere, ruby, P, V, Tz * Rx * Ry);
+  drawObject(plane, ruby, P, V, Tz * Rx * Ry * S);
 
+
+  //Ry = glm::rotate(I, glm::radians(rotY), glm::vec3(0, 1, 0));
+  Rx = glm::rotate(I, glm::radians(90.0f), glm::vec3(1, 0, 0));
+  Tz = glm::translate(I, glm::vec3(0.0, 0.5, desZ));
+  S = glm::scale(I, glm::vec3(0.2, 0.2, 0.2)); 
+  //drawObject(wheel, ruby, P, V, Tz * Rx * S);
+  drawWheels(P, V);
   //drawOB(car, glm::vec3(1.0, 0.0, 0.0), P, V, M*R*T*S);
+
+  Rx = glm::rotate(I, glm::radians(90.0f), glm::vec3(1, 0, 0));
+  Tz = glm::translate(I, glm::vec3(0.0, 0.5, desZ));
+  S = glm::scale(I, glm::vec3(0.2, 0.2, 0.2));
+  drawCube(P, V); 
+
+
+
+  Ry = glm::rotate(I, glm::radians(90.0f), glm::vec3(0, 1, 0));
+  Tz = glm::translate(I, glm::vec3(1.0, 0.05, desZ));
+  S = glm::scale(I, glm::vec3(0.004, 0.008, 0.009));
+  glm::mat4 Tx = glm::translate(I, glm::vec3(-1.0, 0.0, 0.0));
+  drawObject(road, ruby, P, V, Tx * Tz * Ry *S);
+
+
 }
 
 void setLights(glm::mat4 P, glm::mat4 V) {
@@ -255,34 +284,35 @@ void drawSuelo(glm::mat4 P, glm::mat4 V, glm::mat4 M) {
 
 }
 
-void drawAspa(glm::mat4 P, glm::mat4 V, glm::mat4 M) { //JOSE MANUEL GARCIA LLAMAS 03169171R
+void drawCube(glm::mat4 P, glm::mat4 V) { //JOSE MANUEL GARCIA LLAMAS 03169171R
 
-   /*  ESTA SERIA SU VERSION CON EL TRIANGULO
-    glm::mat4 S = glm::scale(I, glm::vec3(0.5, 1, 2.0));
-    glm::mat4 T = glm::translate(I, glm::vec3(0.0, 1.0, 0.0));
-    glm::mat4 R = glm::rotate  (I, glm::radians(90.0f), glm::vec3(0, 0, 1));
-    drawObject(triangle, glm::vec3(1.0, 0.0, 0.0), P, V, M*R*T*S);
-   */
 
-    glm::mat4 S = glm::scale(I, glm::vec3(0.5, 1, 0.25));
-    glm::mat4 T = glm::translate(I, glm::vec3(0.0, 1.0, 0.0));
-    glm::mat4 R = glm::rotate  (I, glm::radians(90.0f), glm::vec3(0, 0, 1));
-   // drawObject(cone, glm::vec3(1.0, 0.0, 0.0), P, V, M*R*T*S);
+    glm::mat4 S = glm::scale(I, glm::vec3(1.8, 0.7, 0.75));
+    glm::mat4 T = glm::translate(I, glm::vec3(-0.7, 1.3, -0.7));
+    glm::mat4 R = glm::rotate  (I, glm::radians(90.0f), glm::vec3(1, 0, 0));
+    drawObject(cube, ruby, P, V, T * R * S);
 }
 
-void drawHelice(glm::mat4 P, glm::mat4 V, glm::mat4 M) {//JOSE MANUEL GARCIA LLAMAS 03169171R
+void drawWheels(glm::mat4 P, glm::mat4 V) {//JOSE MANUEL GARCIA LLAMAS 03169171R
 
-    glm::mat4 Rz45 = glm::rotate(I, glm::radians(45.0f), glm::vec3(0, 1, 0));
-    drawAspa(P,V,M);
-    drawAspa(P,V,M*Rz45);
-    drawAspa(P,V,M*Rz45*Rz45);
-    drawAspa(P,V,M*Rz45*Rz45*Rz45);
-    drawAspa(P,V,M*Rz45*Rz45*Rz45*Rz45);
-    drawAspa(P,V,M*Rz45*Rz45*Rz45*Rz45*Rz45);
-    drawAspa(P,V,M*Rz45*Rz45*Rz45*Rz45*Rz45*Rz45);
-    drawAspa(P,V,M*Rz45*Rz45*Rz45*Rz45*Rz45*Rz45*Rz45);
-    drawAspa(P,V,M*Rz45*Rz45*Rz45*Rz45*Rz45*Rz45*Rz45*Rz45);
+  glm::mat4 Rx = glm::rotate(I, glm::radians(90.0f), glm::vec3(1, 0, 0));
+  glm::mat4 Tz = glm::translate(I, glm::vec3(0.0, 0.5, desZ));
+  glm::mat4 S = glm::scale(I, glm::vec3(0.2, 0.2, 0.2)); 
 
+  drawObject(wheel, ruby, P, V, Tz * Rx * S);
+  
+  Tz = glm::translate(I, glm::vec3(-1.0, 0.5, desZ));
+
+  drawObject(wheel, ruby, P, V, Tz * Rx * S);
+
+  glm::mat4 Ry = glm::rotate(I, glm::radians(180.0f), glm::vec3(0, 1, 0));
+  glm::mat4 Trs = glm::translate(I, glm::vec3(0.0, 0.0, -1.24));
+
+  drawObject(wheel, ruby, P, V, Trs * Tz * Ry * Rx * S );
+
+  glm::mat4 Tx = glm::translate(I, glm::vec3(0.0, 0.5, -1.0));
+  
+  drawObject(wheel, ruby, P, V, Tx * Rx * S); //bien
 
 }
 
