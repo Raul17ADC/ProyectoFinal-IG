@@ -9,9 +9,10 @@ void renderScene();
 void setLights(glm::mat4 P, glm::mat4 V);
 void drawObject(Model& model, Material& material, glm::mat4 P, glm::mat4 V, glm::mat4 M);
 void drawSuelo(glm::mat4 P, glm::mat4 V, glm::mat4 M);
-void drawOB(Model& model, glm::vec3 color, glm::mat4 P, glm::mat4 V, glm::mat4 M);
+// void drawOB(Model& model, glm::vec3 color, glm::mat4 P, glm::mat4 V, glm::mat4 M);
 void drawWheels(glm::mat4 P, glm::mat4 V);
 void drawCube(glm::mat4 P, glm::mat4 V);
+void drawCube2(glm::mat4 P, glm::mat4 V);
 
 void funFramebufferSize(GLFWwindow* window, int width, int height);
 void funKey(GLFWwindow* window, int key, int scancode, int action, int mods);
@@ -22,11 +23,7 @@ void funCursorPos(GLFWwindow* window, double xPos, double yPos);
 Shaders shaders;
 
 // Modelos
-Model sphere;
-Model plane;
-Model wheel;
-Model road;
-Model cube;
+Model sphere, plane, wheel, road, cube;
 
 // Luces y materiales
 #define NLD 1
@@ -38,10 +35,11 @@ Light lightP[NLP];
 Light lightF[NLF];
 Material mLuz;
 Material ruby;
+Material blackRubber, pavement, grass;
 
 // Viewport
-int w = 500;
-int h = 500;
+int w = 1000;
+int h = 1000;
 
 // Animaciones
 float rotX = 0.0;
@@ -108,9 +106,6 @@ void configScene() {
 
   // Shaders
   shaders.initShaders("resources/shaders/vshader.glsl", "resources/shaders/fshader.glsl");
-  // shaders.initShaders("resources/shaders/vshader.glsl", "resources/shaders/fshader_cartoon.glsl");
-  // shaders.initShaders("resources/shaders/vshader.glsl", "resources/shaders/fshader_procedural.glsl");
-  // shaders.initShaders("resources/shaders/vshader.glsl", "resources/shaders/fshader_discard.glsl");
 
   // Modelos
   sphere.initModel("resources/models/sphere.obj");
@@ -171,6 +166,23 @@ void configScene() {
   ruby.specular = glm::vec4(0.727811, 0.626959, 0.626959, 0.55);
   ruby.emissive = glm::vec4(0.000000, 0.000000, 0.000000, 1.00);
   ruby.shininess = 76.8;
+
+  blackRubber.ambient = glm::vec4(0.02f, 0.02f, 0.02f, 1.0f);
+  blackRubber.diffuse = glm::vec4(0.01f, 0.01f, 0.01f, 1.0f);
+  blackRubber.specular = glm::vec4(0.4f, 0.4f, 0.4f, 1.0f);
+  blackRubber.shininess = 10.0;
+
+  pavement.ambient = glm::vec4(0.05f, 0.05f, 0.05f, 1.0f);
+  pavement.diffuse = glm::vec4(0.2f, 0.2f, 0.2f, 1.0f);
+  pavement.specular = glm::vec4(0.1f, 0.1f, 0.1f, 1.0f);
+  pavement.emissive = glm::vec4(0.0f, 0.0f, 0.0f, 1.0f);
+  pavement.shininess = 10.0f;
+
+  grass.ambient = glm::vec4(0.1f, 0.3f, 0.1f, 1.0f);
+  grass.diffuse = glm::vec4(0.2f, 0.8f, 0.2f, 1.0f);
+  grass.specular = glm::vec4(0.05f, 0.05f, 0.05f, 1.0f);
+  grass.emissive = glm::vec4(0.0f, 0.0f, 0.0f, 1.0f);
+  grass.shininess = 5.0f;
 }
 
 void renderScene() {
@@ -189,8 +201,8 @@ void renderScene() {
 
   // Matriz V
   float x = 10.0f * glm::cos(glm::radians(alphaY)) * glm::sin(glm::radians(alphaX));
-  float y = 10.0f * glm::sin(glm::radians(alphaY));
-  float z = 10.0f * glm::cos(glm::radians(alphaY)) * glm::cos(glm::radians(alphaX));
+  float y = 10.0f * glm::sin(glm::radians(alphaY)) + 5.0;
+  float z = 10.0f * glm::cos(glm::radians(alphaY)) * glm::cos(glm::radians(alphaX)) + 5.0;
   glm::vec3 eye(x, y, z);
   glm::vec3 center(0.0, 0.0, 0.0);
   glm::vec3 up(0.0, 1.0, 0.0);
@@ -201,32 +213,33 @@ void renderScene() {
   setLights(P, V);
 
   // Dibujamos la escena
-  // drawSuelo(P,V,I);
-
+  // Suelo
   glm::mat4 S = glm::scale(I, glm::vec3(7.0, 1.0, 5.0));
   glm::mat4 Ry = glm::rotate(I, glm::radians(rotY), glm::vec3(0, 1, 0));
   glm::mat4 Rx = glm::rotate(I, glm::radians(rotX), glm::vec3(1, 0, 0));
   glm::mat4 Tz = glm::translate(I, glm::vec3(0.0, 0.0, desZ));
-  drawObject(plane, ruby, P, V, Tz * Rx * Ry * S);
+  drawObject(plane, grass, P, V, Tz * Rx * Ry * S);
 
-  // Ry = glm::rotate(I, glm::radians(rotY), glm::vec3(0, 1, 0));
-  Rx = glm::rotate(I, glm::radians(90.0f), glm::vec3(1, 0, 0));
-  Tz = glm::translate(I, glm::vec3(0.0, 0.5, desZ));
-  S = glm::scale(I, glm::vec3(0.2, 0.2, 0.2));
-  // drawObject(wheel, ruby, P, V, Tz * Rx * S);
+  // Ruedas
+  // Rx = glm::rotate(I, glm::radians(90.0f), glm::vec3(1, 0, 0));
+  // Tz = glm::translate(I, glm::vec3(0.0, 0.5, desZ));
+  // S = glm::scale(I, glm::vec3(0.2, 0.2, 0.2));
   drawWheels(P, V);
-  // drawOB(car, glm::vec3(1.0, 0.0, 0.0), P, V, M*R*T*S);
 
-  Rx = glm::rotate(I, glm::radians(90.0f), glm::vec3(1, 0, 0));
-  Tz = glm::translate(I, glm::vec3(0.0, 0.5, desZ));
-  S = glm::scale(I, glm::vec3(0.2, 0.2, 0.2));
+  // Chasis coche
+  // Rx = glm::rotate(I, glm::radians(90.0f), glm::vec3(1, 0, 0));
+  // Tz = glm::translate(I, glm::vec3(0.0, 0.5, desZ));
+  // S = glm::scale(I, glm::vec3(0.2, 0.2, 0.2));
   drawCube(P, V);
 
+  drawCube2(P, V);
+
+  // Carretera
   Ry = glm::rotate(I, glm::radians(90.0f), glm::vec3(0, 1, 0));
   Tz = glm::translate(I, glm::vec3(1.0, 0.05, desZ));
   S = glm::scale(I, glm::vec3(0.004, 0.008, 0.009));
   glm::mat4 Tx = glm::translate(I, glm::vec3(-1.0, 0.0, 0.0));
-  drawObject(road, ruby, P, V, Tx * Tz * Ry * S);
+  drawObject(road, pavement, P, V, Tx * Tz * Ry * S);
 }
 
 void setLights(glm::mat4 P, glm::mat4 V) {
@@ -250,7 +263,6 @@ void setLights(glm::mat4 P, glm::mat4 V) {
 }
 
 void drawObject(Model& model, Material& material, glm::mat4 P, glm::mat4 V, glm::mat4 M) {
-  // resto con materiales y texturas
   shaders.setMat4("uN", glm::transpose(glm::inverse(M)));
   shaders.setMat4("uM", M);
   shaders.setMat4("uPVM", P * V * M);
@@ -258,8 +270,8 @@ void drawObject(Model& model, Material& material, glm::mat4 P, glm::mat4 V, glm:
   model.renderModel(GL_FILL);
 }
 
+/*
 void drawOB(Model& model, glm::vec3 color, glm::mat4 P, glm::mat4 V, glm::mat4 M) {  // suelo y coche
-
   shaders.setMat4("uPVM", P * V * M);
 
   glEnable(GL_POLYGON_OFFSET_FILL);
@@ -270,40 +282,47 @@ void drawOB(Model& model, glm::vec3 color, glm::mat4 P, glm::mat4 V, glm::mat4 M
   shaders.setVec3("uColor", glm::vec3(1.0, 0.0, 1.0));
   model.renderModel(GL_LINE);
 }
+*/
+
 void drawSuelo(glm::mat4 P, glm::mat4 V, glm::mat4 M) {
   glm::mat4 S = glm::scale(I, glm::vec3(5.0, 1.0, 5.0));
   glm::mat4 R = glm::rotate(I, glm::radians(90.0f), glm::vec3(0, 1, 0));
-  drawOB(plane, glm::vec3(0.0, 1.0, 1.0), P, V, M * S * R);
+  drawObject(plane, pavement, P, V, M * S * R);
 }
 
-void drawCube(glm::mat4 P, glm::mat4 V) {  // JOSE MANUEL GARCIA LLAMAS
-
+void drawCube(glm::mat4 P, glm::mat4 V) {
   glm::mat4 S = glm::scale(I, glm::vec3(1.8, 0.7, 0.75));
-  glm::mat4 T = glm::translate(I, glm::vec3(-0.7, 1.3, -0.7));
+  glm::mat4 T = glm::translate(I, glm::vec3(-0.7, 1.3, -0.6));
   glm::mat4 R = glm::rotate(I, glm::radians(90.0f), glm::vec3(1, 0, 0));
   drawObject(cube, ruby, P, V, T * R * S);
 }
 
-void drawWheels(glm::mat4 P, glm::mat4 V) {  // JOSE MANUEL GARCIA LLAMAS
+void drawCube2(glm::mat4 P, glm::mat4 V) {
+  glm::mat4 S = glm::scale(I, glm::vec3(1.0, 0.7, 0.75));
+  glm::mat4 T = glm::translate(I, glm::vec3(0.1, 2.3, -0.6));
+  glm::mat4 R = glm::rotate(I, glm::radians(90.0f), glm::vec3(1, 0, 0));
+  drawObject(cube, ruby, P, V, T * R * S);
+}
 
+void drawWheels(glm::mat4 P, glm::mat4 V) {
   glm::mat4 Rx = glm::rotate(I, glm::radians(90.0f), glm::vec3(1, 0, 0));
-  glm::mat4 Tz = glm::translate(I, glm::vec3(0.0, 0.5, desZ));
+  glm::mat4 Tz = glm::translate(I, glm::vec3(0.45, 0.5, 0.0));
   glm::mat4 S = glm::scale(I, glm::vec3(0.2, 0.2, 0.2));
+  // Rueda trasera izquierda
+  drawObject(wheel, blackRubber, P, V, Tz * Rx * S);
 
-  drawObject(wheel, ruby, P, V, Tz * Rx * S);
-
-  Tz = glm::translate(I, glm::vec3(-1.0, 0.5, desZ));
-
-  drawObject(wheel, ruby, P, V, Tz * Rx * S);
+  Tz = glm::translate(I, glm::vec3(-1.75, 0.5, 0.0));
+  // Rueda delantera izquierda
+  drawObject(wheel, blackRubber, P, V, Tz * Rx * S);
 
   glm::mat4 Ry = glm::rotate(I, glm::radians(180.0f), glm::vec3(0, 1, 0));
   glm::mat4 Trs = glm::translate(I, glm::vec3(0.0, 0.0, -1.24));
+  // Rueda delantera derecha
+  drawObject(wheel, blackRubber, P, V, Trs * Tz * Ry * Rx * S);
 
-  drawObject(wheel, ruby, P, V, Trs * Tz * Ry * Rx * S);
-
-  glm::mat4 Tx = glm::translate(I, glm::vec3(0.0, 0.5, -1.0));
-
-  drawObject(wheel, ruby, P, V, Tx * Rx * S);  // bien
+  glm::mat4 Tx = glm::translate(I, glm::vec3(0.45, 0.5, -1.0));
+  // Rueda trasera derecha
+  drawObject(wheel, blackRubber, P, V, Tx * Rx * S);
 }
 
 void funFramebufferSize(GLFWwindow* window, int width, int height) {
