@@ -23,7 +23,7 @@ struct Material {
 
 #define NLD 1
 #define NLP 1
-#define NLF 2
+#define NLF 6
 
 uniform Light uLightG;
 uniform Light uLightD[NLD];
