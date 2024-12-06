@@ -299,7 +299,7 @@ void drawCube(glm::mat4 P, glm::mat4 V) {
 
 void drawCube2(glm::mat4 P, glm::mat4 V) {
   glm::mat4 S = glm::scale(I, glm::vec3(1.0, 0.7, 0.75));
-  glm::mat4 T = glm::translate(I, glm::vec3(0.1, 2.3, -0.6));
+  glm::mat4 T = glm::translate(I, glm::vec3(-0.65, 2.3, -0.6));
   glm::mat4 R = glm::rotate(I, glm::radians(90.0f), glm::vec3(1, 0, 0));
   drawObject(cube, ruby, P, V, T * R * S);
 }
