@@ -269,8 +269,34 @@ void renderScene() {
   glm::mat4 S = glm::scale(I, glm::vec3(7.0, 1.0, 5.0));
   glm::mat4 Ry = glm::rotate(I, glm::radians(rotY), glm::vec3(0, 1, 0));
   glm::mat4 Rx = glm::rotate(I, glm::radians(rotX), glm::vec3(1, 0, 0));
-  glm::mat4 Tz = glm::translate(I, glm::vec3(0.0, 0.0, desZ));
+  glm::mat4 Tz = glm::translate(I, glm::vec3(0.0, 0.0, 0.0));
   drawObject(plane, grass, P, V, Tz * Rx * Ry * S);
+  Tz = glm::translate(I, glm::vec3(0.0, 0.0, 7.0));
+  drawObject(plane, grass, P, V, Tz * Rx * Ry * S);
+  Tz = glm::translate(I, glm::vec3(0.0, 0.0, 14.0));
+  drawObject(plane, grass, P, V, Tz * Rx * Ry * S);
+  Tz = glm::translate(I, glm::vec3(0.0, 0.0, 21.0));
+  drawObject(plane, grass, P, V, Tz * Rx * Ry * S);
+  Tz = glm::translate(I, glm::vec3(0.0, 0.0, 28.0));
+  drawObject(plane, grass, P, V, Tz * Rx * Ry * S);
+
+  // Carreteras
+  Ry = glm::rotate(I, glm::radians(90.0f), glm::vec3(0, 1, 0));
+  Tz = glm::translate(I, glm::vec3(1.0, 0.05, desZ));
+  S = glm::scale(I, glm::vec3(0.004, 0.008, 0.009));
+  glm::mat4 Tx = glm::translate(I, glm::vec3(-1.0, 0.0, 0.0));
+  drawObject(road, pavement, P, V, Tx * Tz * Ry * S);
+  Tx = glm::translate(I, glm::vec3(-1.0, 0.0, 5.0));
+  drawObject(road, pavement, P, V, Tx * Tz * Ry * S);
+  Tx = glm::translate(I, glm::vec3(-1.0, 0.0, 10.0));
+  drawObject(road, pavement, P, V, Tx * Tz * Ry * S);
+  Tx = glm::translate(I, glm::vec3(-1.0, 0.0, 15.0));
+  drawObject(road, pavement, P, V, Tx * Tz * Ry * S);
+  Tx = glm::translate(I, glm::vec3(-1.0, 0.0, 20.0));
+  drawObject(road, pavement, P, V, Tx * Tz * Ry * S);
+  Tx = glm::translate(I, glm::vec3(-1.0, 0.0, 25.0));
+  drawObject(road, pavement, P, V, Tx * Tz * Ry * S);
+
 
   // Ruedas
   drawWheels(P, V, I);
@@ -279,14 +305,7 @@ void renderScene() {
   drawCube(P, V, I);
 
   drawCube2(P, V, I);
-
-  // Carretera
-  Ry = glm::rotate(I, glm::radians(90.0f), glm::vec3(0, 1, 0));
-  Tz = glm::translate(I, glm::vec3(1.0, 0.05, desZ));
-  S = glm::scale(I, glm::vec3(0.004, 0.008, 0.009));
-  glm::mat4 Tx = glm::translate(I, glm::vec3(-1.0, 0.0, 0.0));
-  drawObject(road, pavement, P, V, Tx * Tz * Ry * S);
-
+  
   // Luces
   drawLights(P, V, I);
 
