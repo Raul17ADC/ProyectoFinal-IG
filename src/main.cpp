@@ -9,11 +9,11 @@ void renderScene();
 void setLights(glm::mat4 P, glm::mat4 V);
 void drawObject(Model& model, Material& material, glm::mat4 P, glm::mat4 V, glm::mat4 M);
 void drawWheels(glm::mat4 P, glm::mat4 V, glm::mat4 M);
-void drawCube(glm::mat4 P, glm::mat4 V, glm::mat4 M);
-void drawCube2(glm::mat4 P, glm::mat4 V, glm::mat4 M);
+void drawCube(glm::mat4 P, Material& material, glm::mat4 V, glm::mat4 M);
+void drawCube2(glm::mat4 P, Material& material, glm::mat4 V, glm::mat4 M);
 void drawLights(glm::mat4 P, glm::mat4 V, glm::mat4 M);
 void drawWindows(glm::mat4 P, glm::mat4 V, glm::mat4 M);
-void drawCoche(glm::mat4 P, glm::mat4 V, glm::mat4 M);
+void drawCoche(glm::mat4 P, Material& material, glm::mat4 V, glm::mat4 M);
 
 void funFramebufferSize(GLFWwindow* window, int width, int height);
 void funKey(GLFWwindow* window, int key, int scancode, int action, int mods);
@@ -34,9 +34,8 @@ Light lightG;
 Light lightD[NLD];
 Light lightP[NLP];
 Light lightF[NLF];
-Material mLuz;
-Material ruby;
-Material blackRubber, pavement, grass, cyanPlastic;
+Material mLuz, ruby;
+Material blackRubber, pavement, grass, cyanPlastic, polishedBronze, polishedGold, obsidian, pearl, emerald, jade;
 
 // Viewport
 int w = 1000;
@@ -236,6 +235,42 @@ void configScene() {
   cyanPlastic.specular = glm::vec4(0.50196078f, 0.50196078f, 0.50196078f, 1.0f);
   cyanPlastic.emissive = glm::vec4(0.0f, 0.0f, 0.0f, 1.0f);
   cyanPlastic.shininess = 32.0f;
+
+  polishedBronze.ambient = glm::vec4(0.25f, 0.148f, 0.06475f, 1.0f);
+  polishedBronze.diffuse = glm::vec4(0.4f, 0.2368f, 0.1036f, 1.0f);
+  polishedBronze.specular = glm::vec4(0.774597f, 0.458561f, 0.200621f, 1.0f);
+  polishedBronze.emissive = glm::vec4(0.0f, 0.0f, 0.0f, 1.0f);
+  polishedBronze.shininess = 76.8f;
+
+  polishedGold.ambient = glm::vec4(0.24725f, 0.2245f, 0.0645f, 1.0f);
+  polishedGold.diffuse = glm::vec4(0.34615f, 0.3143f, 0.0903f, 1.0f);
+  polishedGold.specular = glm::vec4(0.797357f, 0.723991f, 0.208006f, 1.0f);
+  polishedGold.emissive = glm::vec4(0.0f, 0.0f, 0.0f, 1.0f);
+  polishedGold.shininess = 83.2f;
+
+  obsidian.ambient = glm::vec4(0.05375f, 0.05f, 0.06625f, 0.82f);
+  obsidian.diffuse = glm::vec4(0.18275f, 0.17f, 0.22525f, 0.82f);
+  obsidian.specular = glm::vec4(0.332741f, 0.328634f, 0.346435f, 0.82f);
+  obsidian.emissive = glm::vec4(0.0f, 0.0f, 0.0f, 1.0f);
+  obsidian.shininess = 38.4f;
+
+  pearl.ambient = glm::vec4(0.25f, 0.20725f, 0.20725f, 0.922f);
+  pearl.diffuse = glm::vec4(1.0f, 0.829f, 0.829f, 0.922f);
+  pearl.specular = glm::vec4(0.296648f, 0.296648f, 0.296648f, 0.922f);
+  pearl.emissive = glm::vec4(0.0f, 0.0f, 0.0f, 1.0f);
+  pearl.shininess = 11.264f;
+
+  emerald.ambient = glm::vec4(0.0215f, 0.1745f, 0.0215f, 0.55f);
+  emerald.diffuse = glm::vec4(0.07568f, 0.61424f, 0.07568f, 0.55f);
+  emerald.specular = glm::vec4(0.633f, 0.727811f, 0.633f, 0.55f);
+  emerald.emissive = glm::vec4(0.0f, 0.0f, 0.0f, 1.0f);
+  emerald.shininess = 76.8f;
+
+  jade.ambient = glm::vec4(0.135f, 0.2225f, 0.1575f, 0.95f);
+  jade.diffuse = glm::vec4(0.54f, 0.89f, 0.63f, 0.95f);
+  jade.specular = glm::vec4(0.316228f, 0.316228f, 0.316228f, 0.95f);
+  jade.emissive = glm::vec4(0.0f, 0.0f, 0.0f, 1.0f);
+  jade.shininess = 12.8f;
 }
 
 void renderScene() {
@@ -285,37 +320,36 @@ void renderScene() {
   Ry = glm::rotate(I, glm::radians(90.0f), glm::vec3(0, 1, 0));
   Tz = glm::translate(I, glm::vec3(1.0, 0.05, desZ));
   S = glm::scale(I, glm::vec3(0.004, 0.008, 0.009));
-  
 
   glm::mat4 Tx = glm::translate(I, glm::vec3(-1.0, 0.0, 0.0));
   drawObject(road, pavement, P, V, Tx * Tz * Ry * S);
   glm::mat4 Ti = glm::translate(I, glm::vec3(0.0, 0.0, 2.0));
-  drawCoche(P, V, I);
+  drawCoche(P, jade, V, I);
 
   Tx = glm::translate(I, glm::vec3(-1.0, 0.0, 5.0));
   drawObject(road, pavement, P, V, Tx * Tz * Ry * S);
   glm::mat4 Tc = glm::translate(I, glm::vec3(0.0, 0.0, 5.0));
-  drawCoche(P, V, Tc);
+  drawCoche(P, polishedGold, V, Tc);
 
   Tx = glm::translate(I, glm::vec3(-1.0, 0.0, 10.0));
   drawObject(road, pavement, P, V, Tx * Tz * Ry * S);
   Tc = glm::translate(I, glm::vec3(0.0, 0.0, 10.0));
-  drawCoche(P, V, Tc);
-  
+  drawCoche(P, obsidian, V, Tc);
+
   Tx = glm::translate(I, glm::vec3(-1.0, 0.0, 15.0));
   drawObject(road, pavement, P, V, Tx * Tz * Ry * S);
   Tc = glm::translate(I, glm::vec3(0.0, 0.0, 15.0));
-  drawCoche(P, V, Tc);
+  drawCoche(P, pearl, V, Tc);
 
   Tx = glm::translate(I, glm::vec3(-1.0, 0.0, 20.0));
   drawObject(road, pavement, P, V, Tx * Tz * Ry * S);
   Tc = glm::translate(I, glm::vec3(0.0, 0.0, 20.0));
-  drawCoche(P, V, Tc);
+  drawCoche(P, emerald, V, Tc);
 
   Tx = glm::translate(I, glm::vec3(-1.0, 0.0, 25.0));
   drawObject(road, pavement, P, V, Tx * Tz * Ry * S);
   Tc = glm::translate(I, glm::vec3(0.0, 0.0, 25.0));
-  drawCoche(P, V, Tc);
+  drawCoche(P, polishedBronze, V, Tc);
 }
 
 void setLights(glm::mat4 P, glm::mat4 V) {
@@ -346,30 +380,18 @@ void drawObject(Model& model, Material& material, glm::mat4 P, glm::mat4 V, glm:
   model.renderModel(GL_FILL);
 }
 
-void drawCoche(glm::mat4 P, glm::mat4 V, glm::mat4 M) {
-  // Ruedas
-  drawWheels(P, V, M);
-  // Chasis coche
-  drawCube(P, V, M);
-  drawCube2(P, V, M);
-  // Luces
-  drawLights(P, V, M);
-  // Ventanillas
-  drawWindows(P, V, M);
-}
-
-void drawCube(glm::mat4 P, glm::mat4 V, glm::mat4 M) {
+void drawCube(glm::mat4 P, Material& material, glm::mat4 V, glm::mat4 M) {
   glm::mat4 S = glm::scale(I, glm::vec3(1.8, 1.0, 0.55));
   glm::mat4 T = glm::translate(I, glm::vec3(-0.7, 1.3, -0.6));
   glm::mat4 R = glm::rotate(I, glm::radians(90.0f), glm::vec3(1, 0, 0));
-  drawObject(cube, ruby, P, V, M * T * R * S);
+  drawObject(cube, material, P, V, M * T * R * S);
 }
 
-void drawCube2(glm::mat4 P, glm::mat4 V, glm::mat4 M) {
+void drawCube2(glm::mat4 P, Material& material, glm::mat4 V, glm::mat4 M) {
   glm::mat4 S = glm::scale(I, glm::vec3(1.0, 1.0, 0.75));
   glm::mat4 T = glm::translate(I, glm::vec3(-0.65, 2.0, -0.6));
   glm::mat4 R = glm::rotate(I, glm::radians(90.0f), glm::vec3(1, 0, 0));
-  drawObject(cube, ruby, P, V, M * T * R * S);
+  drawObject(cube, material, P, V, M * T * R * S);
 }
 
 void drawWheels(glm::mat4 P, glm::mat4 V, glm::mat4 M) {
@@ -381,12 +403,12 @@ void drawWheels(glm::mat4 P, glm::mat4 V, glm::mat4 M) {
 
   Tz = glm::translate(I, glm::vec3(-1.75, 0.5, 0.3));
   // Rueda delantera izquierda
-  drawObject(wheel, blackRubber, P, V, M *  Tz * Rx * S);
+  drawObject(wheel, blackRubber, P, V, M * Tz * Rx * S);
 
   glm::mat4 Ry = glm::rotate(I, glm::radians(180.0f), glm::vec3(0, 1, 0));
   glm::mat4 Trs = glm::translate(I, glm::vec3(0.0, 0.0, -1.84));
   // Rueda delantera derecha
-  drawObject(wheel, blackRubber, P, V, M *  Trs * Tz * Ry * Rx * S);
+  drawObject(wheel, blackRubber, P, V, M * Trs * Tz * Ry * Rx * S);
 
   glm::mat4 Tx = glm::translate(I, glm::vec3(0.45, 0.5, -1.3));
   // Rueda trasera derecha
@@ -433,6 +455,18 @@ void drawWindows(glm::mat4 P, glm::mat4 V, glm::mat4 M) {
   // Ventanilla trasera derecha
   T = glm::translate(I, glm::vec3(-0.15, 2.3, -1.6));
   drawObject(cube, cyanPlastic, P, V, M * T * R * S);
+}
+
+void drawCoche(glm::mat4 P, Material& material, glm::mat4 V, glm::mat4 M) {
+  // Ruedas
+  drawWheels(P, V, M);
+  // Chasis coche
+  drawCube(P, material, V, M);
+  drawCube2(P, material, V, M);
+  // Luces
+  drawLights(P, V, M);
+  // Ventanillas
+  drawWindows(P, V, M);
 }
 
 void funFramebufferSize(GLFWwindow* window, int width, int height) {
