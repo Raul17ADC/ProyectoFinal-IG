@@ -8,11 +8,11 @@ void configScene();
 void renderScene();
 void setLights(glm::mat4 P, glm::mat4 V);
 void drawObject(Model& model, Material& material, glm::mat4 P, glm::mat4 V, glm::mat4 M);
+void drawSuelo(glm::mat4 P, glm::mat4 V, glm::mat4 M);
+// void drawOB(Model& model, glm::vec3 color, glm::mat4 P, glm::mat4 V, glm::mat4 M);
 void drawWheels(glm::mat4 P, glm::mat4 V);
 void drawCube(glm::mat4 P, glm::mat4 V);
 void drawCube2(glm::mat4 P, glm::mat4 V);
-void drawLights(glm::mat4 P, glm::mat4 V);
-void drawWindows(glm::mat4 P, glm::mat4 V);
 
 void funFramebufferSize(GLFWwindow* window, int width, int height);
 void funKey(GLFWwindow* window, int key, int scancode, int action, int mods);
@@ -23,19 +23,19 @@ void funCursorPos(GLFWwindow* window, double xPos, double yPos);
 Shaders shaders;
 
 // Modelos
-Model sphere, plane, wheel, road, cube, cylinder;
+Model sphere, plane, wheel, road, cube;
 
 // Luces y materiales
 #define NLD 1
 #define NLP 1
-#define NLF 6
+#define NLF 2
 Light lightG;
 Light lightD[NLD];
 Light lightP[NLP];
 Light lightF[NLF];
 Material mLuz;
 Material ruby;
-Material blackRubber, pavement, grass, cyanPlastic;
+Material blackRubber, pavement, grass;
 
 // Viewport
 int w = 1000;
@@ -113,7 +113,6 @@ void configScene() {
   wheel.initModel("resources/models/rin.obj");
   road.initModel("resources/models/road.obj");
   cube.initModel("resources/models/cube.obj");
-  cylinder.initModel("resources/models/cylinder.obj");
 
   // Luz ambiental global
   lightG.ambient = glm::vec3(0.5, 0.5, 0.5);
@@ -144,7 +143,6 @@ void configScene() {
   lightF[0].c0 = 1.000;
   lightF[0].c1 = 0.090;
   lightF[0].c2 = 0.032;
-
   lightF[1].position = glm::vec3(2.0, 2.0, 5.0);
   lightF[1].direction = glm::vec3(-2.0, -2.0, -5.0);
   lightF[1].ambient = glm::vec3(0.2, 0.2, 0.2);
@@ -155,50 +153,6 @@ void configScene() {
   lightF[1].c0 = 1.000;
   lightF[1].c1 = 0.090;
   lightF[1].c2 = 0.032;
-
-  lightF[2].position = glm::vec3(-2.5, 1.6, -1.0);
-  lightF[2].direction = glm::vec3(-2.0, -3.0, 0.0);
-  lightF[2].ambient = glm::vec3(0.2, 0.2, 0.2);
-  lightF[2].diffuse = glm::vec3(0.9, 0.9, 0.9);
-  lightF[2].specular = glm::vec3(0.9, 0.9, 0.9);
-  lightF[2].innerCutOff = 10.0;
-  lightF[2].outerCutOff = lightF[2].innerCutOff + 1.0;
-  lightF[2].c0 = 1.000;
-  lightF[2].c1 = 0.090;
-  lightF[2].c2 = 0.032;
-
-  lightF[3].position = glm::vec3(-2.5, 1.6, -0.2);
-  lightF[3].direction = glm::vec3(-2.0, -3.0, 0.0);
-  lightF[3].ambient = glm::vec3(0.2, 0.2, 0.2);
-  lightF[3].diffuse = glm::vec3(0.9, 0.9, 0.9);
-  lightF[3].specular = glm::vec3(0.9, 0.9, 0.9);
-  lightF[3].innerCutOff = 10.0;
-  lightF[3].outerCutOff = lightF[3].innerCutOff + 1.0;
-  lightF[3].c0 = 1.000;
-  lightF[3].c1 = 0.090;
-  lightF[3].c2 = 0.032;
-
-  lightF[4].position = glm::vec3(1.1, 1.6, -0.2);
-  lightF[4].direction = glm::vec3(2.0, -3.0, 0.0);
-  lightF[4].ambient = glm::vec3(0.2, 0.2, 0.2);
-  lightF[4].diffuse = glm::vec3(0.9, 0.9, 0.9);
-  lightF[4].specular = glm::vec3(0.9, 0.9, 0.9);
-  lightF[4].innerCutOff = 10.0;
-  lightF[4].outerCutOff = lightF[4].innerCutOff + 1.0;
-  lightF[4].c0 = 1.000;
-  lightF[4].c1 = 0.090;
-  lightF[4].c2 = 0.032;
-
-  lightF[5].position = glm::vec3(1.1, 1.6, -1.0);
-  lightF[5].direction = glm::vec3(2.0, -3.0, 0.0);
-  lightF[5].ambient = glm::vec3(0.2, 0.2, 0.2);
-  lightF[5].diffuse = glm::vec3(0.9, 0.9, 0.9);
-  lightF[5].specular = glm::vec3(0.9, 0.9, 0.9);
-  lightF[5].innerCutOff = 10.0;
-  lightF[5].outerCutOff = lightF[5].innerCutOff + 1.0;
-  lightF[5].c0 = 1.000;
-  lightF[5].c1 = 0.090;
-  lightF[5].c2 = 0.032;
 
   // Materiales
   mLuz.ambient = glm::vec4(0.0, 0.0, 0.0, 1.0);
@@ -229,12 +183,6 @@ void configScene() {
   grass.specular = glm::vec4(0.05f, 0.05f, 0.05f, 1.0f);
   grass.emissive = glm::vec4(0.0f, 0.0f, 0.0f, 1.0f);
   grass.shininess = 5.0f;
-
-  cyanPlastic.ambient = glm::vec4(0.0f, 0.1f, 0.06f, 1.0f);
-  cyanPlastic.diffuse = glm::vec4(0.0f, 0.50980392f, 0.50980392f, 1.0f);
-  cyanPlastic.specular = glm::vec4(0.50196078f, 0.50196078f, 0.50196078f, 1.0f);
-  cyanPlastic.emissive = glm::vec4(0.0f, 0.0f, 0.0f, 1.0f);
-  cyanPlastic.shininess = 32.0f;
 }
 
 void renderScene() {
@@ -273,9 +221,15 @@ void renderScene() {
   drawObject(plane, grass, P, V, Tz * Rx * Ry * S);
 
   // Ruedas
+  // Rx = glm::rotate(I, glm::radians(90.0f), glm::vec3(1, 0, 0));
+  // Tz = glm::translate(I, glm::vec3(0.0, 0.5, desZ));
+  // S = glm::scale(I, glm::vec3(0.2, 0.2, 0.2));
   drawWheels(P, V);
 
   // Chasis coche
+  // Rx = glm::rotate(I, glm::radians(90.0f), glm::vec3(1, 0, 0));
+  // Tz = glm::translate(I, glm::vec3(0.0, 0.5, desZ));
+  // S = glm::scale(I, glm::vec3(0.2, 0.2, 0.2));
   drawCube(P, V);
 
   drawCube2(P, V);
@@ -286,12 +240,6 @@ void renderScene() {
   S = glm::scale(I, glm::vec3(0.004, 0.008, 0.009));
   glm::mat4 Tx = glm::translate(I, glm::vec3(-1.0, 0.0, 0.0));
   drawObject(road, pavement, P, V, Tx * Tz * Ry * S);
-
-  // Luces
-  drawLights(P, V);
-
-  // Ventanillas
-  drawWindows(P, V);
 }
 
 void setLights(glm::mat4 P, glm::mat4 V) {
@@ -320,6 +268,26 @@ void drawObject(Model& model, Material& material, glm::mat4 P, glm::mat4 V, glm:
   shaders.setMat4("uPVM", P * V * M);
   shaders.setMaterial("uMaterial", material);
   model.renderModel(GL_FILL);
+}
+
+/*
+void drawOB(Model& model, glm::vec3 color, glm::mat4 P, glm::mat4 V, glm::mat4 M) {  // suelo y coche
+  shaders.setMat4("uPVM", P * V * M);
+
+  glEnable(GL_POLYGON_OFFSET_FILL);
+  shaders.setVec3("uColor", color);
+  model.renderModel(GL_FILL);
+  glDisable(GL_POLYGON_OFFSET_FILL);
+
+  shaders.setVec3("uColor", glm::vec3(1.0, 0.0, 1.0));
+  model.renderModel(GL_LINE);
+}
+*/
+
+void drawSuelo(glm::mat4 P, glm::mat4 V, glm::mat4 M) {
+  glm::mat4 S = glm::scale(I, glm::vec3(5.0, 1.0, 5.0));
+  glm::mat4 R = glm::rotate(I, glm::radians(90.0f), glm::vec3(0, 1, 0));
+  drawObject(plane, pavement, P, V, M * S * R);
 }
 
 void drawCube(glm::mat4 P, glm::mat4 V) {
@@ -355,48 +323,6 @@ void drawWheels(glm::mat4 P, glm::mat4 V) {
   glm::mat4 Tx = glm::translate(I, glm::vec3(0.45, 0.5, -1.0));
   // Rueda trasera derecha
   drawObject(wheel, blackRubber, P, V, Tx * Rx * S);
-}
-
-void drawLights(glm::mat4 P, glm::mat4 V) {
-  glm::mat4 S = glm::scale(I, glm::vec3(0.1, 0.1, 0.1));
-  glm::mat4 T = glm::translate(I, glm::vec3(-2.5, 1.6, -1.0));
-  glm::mat4 R = glm::rotate(I, glm::radians(90.0f), glm::vec3(1, 0, 0));
-  // Luces delanteras
-  drawObject(sphere, mLuz, P, V, T * R * S);
-  T = glm::translate(I, glm::vec3(-2.5, 1.6, -0.2));
-  drawObject(sphere, mLuz, P, V, T * R * S);
-
-  // Luces traseras
-  T = glm::translate(I, glm::vec3(1.1, 1.6, -0.2));
-  drawObject(sphere, mLuz, P, V, T * R * S);
-  T = glm::translate(I, glm::vec3(1.1, 1.6, -1.0));
-  drawObject(sphere, mLuz, P, V, T * R * S);
-}
-
-void drawWindows(glm::mat4 P, glm::mat4 V) {
-  glm::mat4 S = glm::scale(I, glm::vec3(0.02, 0.6, 0.4));
-  glm::mat4 T = glm::translate(I, glm::vec3(-1.65, 2.55, -0.6));
-  glm::mat4 R = glm::rotate(I, glm::radians(90.0f), glm::vec3(1, 0, 0));
-  // Luna delantera
-  drawObject(cube, cyanPlastic, P, V, T * R * S);
-
-  // Luna trasera
-  T = glm::translate(I, glm::vec3(0.35, 2.55, -0.6));
-  drawObject(cube, cyanPlastic, P, V, T * R * S);
-
-  // Ventanilla delantera izquierda
-  S = glm::scale(I, glm::vec3(0.4, 0.02, 0.4));
-  T = glm::translate(I, glm::vec3(-1.15, 2.55, 0.1));
-  drawObject(cube, cyanPlastic, P, V, T * R * S);
-  // Ventanilla trasera izquierda
-  T = glm::translate(I, glm::vec3(-0.15, 2.55, 0.1));
-  drawObject(cube, cyanPlastic, P, V, T * R * S);
-  // Ventanilla delantera derecha
-  T = glm::translate(I, glm::vec3(-1.15, 2.55, -1.3));
-  drawObject(cube, cyanPlastic, P, V, T * R * S);
-  // Ventanilla trasera derecha
-  T = glm::translate(I, glm::vec3(-0.15, 2.55, -1.3));
-  drawObject(cube, cyanPlastic, P, V, T * R * S);
 }
 
 void funFramebufferSize(GLFWwindow* window, int width, int height) {
