@@ -403,7 +403,7 @@ void drawCube2(glm::mat4 P, Material& material, glm::mat4 V, glm::mat4 M) {
 void drawWheels(glm::mat4 P, glm::mat4 V, glm::mat4 M) {
   glm::mat4 Rx = glm::rotate(I, glm::radians(90.0f), glm::vec3(1, 0, 0));
   glm::mat4 Tz = glm::translate(I, glm::vec3(0.45, 0.5, 0.3));
-  glm::mat4 S = glm::scale(I, glm::vec3(0.2, 0.2, 0.2));
+  glm::mat4 S = glm::scale(I, glm::vec3(0.15, 0.2, 0.2));
   // Rueda trasera izquierda
   drawObject(wheel, blackRubber, P, V, M * Tz * Rx * S);
 
