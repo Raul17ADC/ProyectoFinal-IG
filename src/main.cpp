@@ -283,14 +283,14 @@ void renderScene() {
 
   // Matriz P
   float nplane = 0.1;
-  float fplane = 25.0;
+  float fplane = 60.0;
   float aspect = (float)w / (float)h;
   glm::mat4 P = glm::perspective(glm::radians(fovy), aspect, nplane, fplane);
 
   // Matriz V
   float x = 10.0f * glm::cos(glm::radians(alphaY)) * glm::sin(glm::radians(alphaX));
   float y = 10.0f * glm::sin(glm::radians(alphaY)) + 5.0;
-  float z = 10.0f * glm::cos(glm::radians(alphaY)) * glm::cos(glm::radians(alphaX)) + 5.0;
+  float z = -10.0f * glm::cos(glm::radians(alphaY)) * glm::cos(glm::radians(alphaX)) + -5.0;
   glm::vec3 eye(x, y, z);
   glm::vec3 center(0.0, 0.0, 0.0);
   glm::vec3 up(0.0, 1.0, 0.0);
@@ -306,15 +306,21 @@ void renderScene() {
   glm::mat4 Ry = glm::rotate(I, glm::radians(rotY), glm::vec3(0, 1, 0));
   glm::mat4 Rx = glm::rotate(I, glm::radians(rotX), glm::vec3(1, 0, 0));
   glm::mat4 Tz = glm::translate(I, glm::vec3(0.0, 0.0, 0.0));
+  glm::mat4 Tx2 = glm::translate(I, glm::vec3(14.0, 0.0, 0.0));
   drawObject(plane, grass, P, V, Tz * Rx * Ry * S);
+  drawObject(plane, grass, P, V, Tx2 * Tz * Rx * Ry * S);
   Tz = glm::translate(I, glm::vec3(0.0, 0.0, 7.0));
   drawObject(plane, grass, P, V, Tz * Rx * Ry * S);
+  drawObject(plane, grass, P, V, Tx2 * Tz * Rx * Ry * S);
   Tz = glm::translate(I, glm::vec3(0.0, 0.0, 14.0));
   drawObject(plane, grass, P, V, Tz * Rx * Ry * S);
+  drawObject(plane, grass, P, V, Tx2 * Tz * Rx * Ry * S);
   Tz = glm::translate(I, glm::vec3(0.0, 0.0, 21.0));
   drawObject(plane, grass, P, V, Tz * Rx * Ry * S);
+  drawObject(plane, grass, P, V, Tx2 * Tz * Rx * Ry * S);
   Tz = glm::translate(I, glm::vec3(0.0, 0.0, 28.0));
   drawObject(plane, grass, P, V, Tz * Rx * Ry * S);
+  drawObject(plane, grass, P, V, Tx2 * Tz * Rx * Ry * S);
 
   // Carreteras
   Ry = glm::rotate(I, glm::radians(90.0f), glm::vec3(0, 1, 0));
