@@ -7,7 +7,8 @@
 void configScene();
 void renderScene();
 void setLights(glm::mat4 P, glm::mat4 V);
-void drawObject(Model& model, Material& material, glm::mat4 P, glm::mat4 V, glm::mat4 M);
+void drawObjectMat(Model model, Material material, glm::mat4 P, glm::mat4 V, glm::mat4 M);
+void drawObjectTex(Model model, Textures textures, glm::mat4 P, glm::mat4 V, glm::mat4 M);
 void drawWheels(glm::mat4 P, glm::mat4 V, glm::mat4 M);
 void drawCube(glm::mat4 P, Material& material, glm::mat4 V, glm::mat4 M);
 void drawCube2(glm::mat4 P, Material& material, glm::mat4 V, glm::mat4 M);
@@ -104,6 +105,10 @@ void configScene() {
   // Test de profundidad
   glEnable(GL_DEPTH_TEST);
 
+  // Transparencias
+  glEnable(GL_BLEND);
+  glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
   // Shaders
   shaders.initShaders("resources/shaders/vshader.glsl", "resources/shaders/fshader.glsl");
 
@@ -114,6 +119,21 @@ void configScene() {
   road.initModel("resources/models/road.obj");
   cube.initModel("resources/models/cube.obj");
   cylinder.initModel("resources/models/cylinder.obj");
+
+  // Imagenes (texturas)
+  /*
+  imgNoEmissive.initTexture("resources/textures/imgNoEmissive.png");
+  imgRuby.initTexture("resources/textures/imgRuby.png");
+  imgGold.initTexture("resources/textures/imgGold.png");
+  imgEarth.initTexture("resources/textures/imgEarth.png");
+  imgChess.initTexture("resources/textures/imgChess.png");
+  imgCubeDiffuse.initTexture("resources/textures/imgCubeDiffuse.png");
+  imgCubeSpecular.initTexture("resources/textures/imgCubeSpecular.png");
+  imgWindow.initTexture("resources/textures/imgWindow.png");
+  imgWallDiffuse.initTexture("resources/textures/imgWallDiffuse.png");
+  imgWallSpecular.initTexture("resources/textures/imgWallSpecular.png");
+  imgWallNormal.initTexture("resources/textures/imgWallNormal.png");
+  */
 
   // Luz ambiental global
   lightG.ambient = glm::vec3(0.5, 0.5, 0.5);
@@ -307,20 +327,20 @@ void renderScene() {
   glm::mat4 Rx = glm::rotate(I, glm::radians(rotX), glm::vec3(1, 0, 0));
   glm::mat4 Tz = glm::translate(I, glm::vec3(0.0, 0.0, 0.0));
   glm::mat4 Tx2 = glm::translate(I, glm::vec3(14.0, 0.0, 0.0));
-  drawObject(plane, grass, P, V, Tz * Rx * Ry * S);
-  drawObject(plane, grass, P, V, Tx2 * Tz * Rx * Ry * S);
+  drawObjectMat(plane, grass, P, V, Tz * Rx * Ry * S);
+  drawObjectMat(plane, grass, P, V, Tx2 * Tz * Rx * Ry * S);
   Tz = glm::translate(I, glm::vec3(0.0, 0.0, 7.0));
-  drawObject(plane, grass, P, V, Tz * Rx * Ry * S);
-  drawObject(plane, grass, P, V, Tx2 * Tz * Rx * Ry * S);
+  drawObjectMat(plane, grass, P, V, Tz * Rx * Ry * S);
+  drawObjectMat(plane, grass, P, V, Tx2 * Tz * Rx * Ry * S);
   Tz = glm::translate(I, glm::vec3(0.0, 0.0, 14.0));
-  drawObject(plane, grass, P, V, Tz * Rx * Ry * S);
-  drawObject(plane, grass, P, V, Tx2 * Tz * Rx * Ry * S);
+  drawObjectMat(plane, grass, P, V, Tz * Rx * Ry * S);
+  drawObjectMat(plane, grass, P, V, Tx2 * Tz * Rx * Ry * S);
   Tz = glm::translate(I, glm::vec3(0.0, 0.0, 21.0));
-  drawObject(plane, grass, P, V, Tz * Rx * Ry * S);
-  drawObject(plane, grass, P, V, Tx2 * Tz * Rx * Ry * S);
+  drawObjectMat(plane, grass, P, V, Tz * Rx * Ry * S);
+  drawObjectMat(plane, grass, P, V, Tx2 * Tz * Rx * Ry * S);
   Tz = glm::translate(I, glm::vec3(0.0, 0.0, 28.0));
-  drawObject(plane, grass, P, V, Tz * Rx * Ry * S);
-  drawObject(plane, grass, P, V, Tx2 * Tz * Rx * Ry * S);
+  drawObjectMat(plane, grass, P, V, Tz * Rx * Ry * S);
+  drawObjectMat(plane, grass, P, V, Tx2 * Tz * Rx * Ry * S);
 
   // Carreteras
   Ry = glm::rotate(I, glm::radians(90.0f), glm::vec3(0, 1, 0));
@@ -328,32 +348,32 @@ void renderScene() {
   S = glm::scale(I, glm::vec3(0.004, 0.008, 0.009));
 
   glm::mat4 Tx = glm::translate(I, glm::vec3(-1.0, 0.0, 0.0));
-  drawObject(road, pavement, P, V, Tx * Tz * Ry * S);
+  drawObjectMat(road, pavement, P, V, Tx * Tz * Ry * S);
   glm::mat4 Ti = glm::translate(I, glm::vec3(0.0, 0.0, 2.0));
   drawCoche(P, jade, V, I);
 
   Tx = glm::translate(I, glm::vec3(-1.0, 0.0, 5.0));
-  drawObject(road, pavement, P, V, Tx * Tz * Ry * S);
+  drawObjectMat(road, pavement, P, V, Tx * Tz * Ry * S);
   glm::mat4 Tc = glm::translate(I, glm::vec3(0.0, 0.0, 5.0));
   drawCoche(P, polishedGold, V, Tc);
 
   Tx = glm::translate(I, glm::vec3(-1.0, 0.0, 10.0));
-  drawObject(road, pavement, P, V, Tx * Tz * Ry * S);
+  drawObjectMat(road, pavement, P, V, Tx * Tz * Ry * S);
   Tc = glm::translate(I, glm::vec3(0.0, 0.0, 10.0));
   drawCoche(P, obsidian, V, Tc);
 
   Tx = glm::translate(I, glm::vec3(-1.0, 0.0, 15.0));
-  drawObject(road, pavement, P, V, Tx * Tz * Ry * S);
+  drawObjectMat(road, pavement, P, V, Tx * Tz * Ry * S);
   Tc = glm::translate(I, glm::vec3(0.0, 0.0, 15.0));
   drawCoche(P, pearl, V, Tc);
 
   Tx = glm::translate(I, glm::vec3(-1.0, 0.0, 20.0));
-  drawObject(road, pavement, P, V, Tx * Tz * Ry * S);
+  drawObjectMat(road, pavement, P, V, Tx * Tz * Ry * S);
   Tc = glm::translate(I, glm::vec3(0.0, 0.0, 20.0));
   drawCoche(P, emerald, V, Tc);
 
   Tx = glm::translate(I, glm::vec3(-1.0, 0.0, 25.0));
-  drawObject(road, pavement, P, V, Tx * Tz * Ry * S);
+  drawObjectMat(road, pavement, P, V, Tx * Tz * Ry * S);
   Tc = glm::translate(I, glm::vec3(0.0, 0.0, 25.0));
   drawCoche(P, polishedBronze, V, Tc);
 }
@@ -369,20 +389,34 @@ void setLights(glm::mat4 P, glm::mat4 V) {
 
   for (int i = 0; i < NLP; i++) {
     glm::mat4 M = glm::translate(I, lightP[i].position) * glm::scale(I, glm::vec3(0.1));
-    drawObject(sphere, mLuz, P, V, M);
+    drawObjectMat(sphere, mLuz, P, V, M);
   }
 
   for (int i = 0; i < NLF; i++) {
     glm::mat4 M = glm::translate(I, lightF[i].position) * glm::scale(I, glm::vec3(0.025));
-    drawObject(sphere, mLuz, P, V, M);
+    drawObjectMat(sphere, mLuz, P, V, M);
   }
 }
 
-void drawObject(Model& model, Material& material, glm::mat4 P, glm::mat4 V, glm::mat4 M) {
+void drawObjectMat(Model model, Material material, glm::mat4 P, glm::mat4 V, glm::mat4 M) {
   shaders.setMat4("uN", glm::transpose(glm::inverse(M)));
   shaders.setMat4("uM", M);
   shaders.setMat4("uPVM", P * V * M);
+  shaders.setBool("uWithMaterials", true);
   shaders.setMaterial("uMaterial", material);
+  model.renderModel(GL_FILL);
+}
+
+void drawObjectTex(Model model, Textures textures, glm::mat4 P, glm::mat4 V, glm::mat4 M) {
+  shaders.setMat4("uN", glm::transpose(glm::inverse(M)));
+  shaders.setMat4("uM", M);
+  shaders.setMat4("uPVM", P * V * M);
+  shaders.setBool("uWithMaterials", false);
+  shaders.setTextures("uTextures", textures);
+  if (textures.normal != 0)
+    shaders.setBool("uWithNormals", true);
+  else
+    shaders.setBool("uWithNormals", false);
   model.renderModel(GL_FILL);
 }
 
@@ -390,35 +424,35 @@ void drawCube(glm::mat4 P, Material& material, glm::mat4 V, glm::mat4 M) {
   glm::mat4 S = glm::scale(I, glm::vec3(1.8, 1.0, 0.55));
   glm::mat4 T = glm::translate(I, glm::vec3(-0.7, 1.3, -0.6));
   glm::mat4 R = glm::rotate(I, glm::radians(90.0f), glm::vec3(1, 0, 0));
-  drawObject(cube, material, P, V, M * T * R * S);
+  drawObjectMat(cube, material, P, V, M * T * R * S);
 }
 
 void drawCube2(glm::mat4 P, Material& material, glm::mat4 V, glm::mat4 M) {
   glm::mat4 S = glm::scale(I, glm::vec3(1.0, 1.0, 0.75));
   glm::mat4 T = glm::translate(I, glm::vec3(-0.65, 2.0, -0.6));
   glm::mat4 R = glm::rotate(I, glm::radians(90.0f), glm::vec3(1, 0, 0));
-  drawObject(cube, material, P, V, M * T * R * S);
+  drawObjectMat(cube, material, P, V, M * T * R * S);
 }
 
 void drawWheels(glm::mat4 P, glm::mat4 V, glm::mat4 M) {
   glm::mat4 Rx = glm::rotate(I, glm::radians(90.0f), glm::vec3(1, 0, 0));
   glm::mat4 Tz = glm::translate(I, glm::vec3(0.45, 0.5, 0.3));
-  glm::mat4 S = glm::scale(I, glm::vec3(0.15, 0.2, 0.2));
+  glm::mat4 S = glm::scale(I, glm::vec3(0.2, 0.2, 0.2));
   // Rueda trasera izquierda
-  drawObject(wheel, blackRubber, P, V, M * Tz * Rx * S);
+  drawObjectMat(wheel, blackRubber, P, V, M * Tz * Rx * S);
 
   Tz = glm::translate(I, glm::vec3(-1.75, 0.5, 0.3));
   // Rueda delantera izquierda
-  drawObject(wheel, blackRubber, P, V, M * Tz * Rx * S);
+  drawObjectMat(wheel, blackRubber, P, V, M * Tz * Rx * S);
 
   glm::mat4 Ry = glm::rotate(I, glm::radians(180.0f), glm::vec3(0, 1, 0));
   glm::mat4 Trs = glm::translate(I, glm::vec3(0.0, 0.0, -1.84));
   // Rueda delantera derecha
-  drawObject(wheel, blackRubber, P, V, M * Trs * Tz * Ry * Rx * S);
+  drawObjectMat(wheel, blackRubber, P, V, M * Trs * Tz * Ry * Rx * S);
 
   glm::mat4 Tx = glm::translate(I, glm::vec3(0.45, 0.5, -1.3));
   // Rueda trasera derecha
-  drawObject(wheel, blackRubber, P, V, M * Tx * Rx * S);
+  drawObjectMat(wheel, blackRubber, P, V, M * Tx * Rx * S);
 }
 
 void drawLights(glm::mat4 P, glm::mat4 V, glm::mat4 M) {
@@ -426,15 +460,15 @@ void drawLights(glm::mat4 P, glm::mat4 V, glm::mat4 M) {
   glm::mat4 T = glm::translate(I, glm::vec3(-2.5, 1.6, -1.0));
   glm::mat4 R = glm::rotate(I, glm::radians(90.0f), glm::vec3(1, 0, 0));
   // Luces delanteras
-  drawObject(sphere, mLuz, P, V, M * T * R * S);
+  drawObjectMat(sphere, mLuz, P, V, M * T * R * S);
   T = glm::translate(I, glm::vec3(-2.5, 1.6, -0.2));
-  drawObject(sphere, mLuz, P, V, M * T * R * S);
+  drawObjectMat(sphere, mLuz, P, V, M * T * R * S);
 
   // Luces traseras
   T = glm::translate(I, glm::vec3(1.1, 1.6, -0.2));
-  drawObject(sphere, ruby, P, V, M * T * R * S);
+  drawObjectMat(sphere, ruby, P, V, M * T * R * S);
   T = glm::translate(I, glm::vec3(1.1, 1.6, -1.0));
-  drawObject(sphere, ruby, P, V, M * T * R * S);
+  drawObjectMat(sphere, ruby, P, V, M * T * R * S);
 }
 
 void drawWindows(glm::mat4 P, glm::mat4 V, glm::mat4 M) {
@@ -442,25 +476,25 @@ void drawWindows(glm::mat4 P, glm::mat4 V, glm::mat4 M) {
   glm::mat4 T = glm::translate(I, glm::vec3(-1.65, 2.3, -0.6));
   glm::mat4 R = glm::rotate(I, glm::radians(90.0f), glm::vec3(1, 0, 0));
   // Luna delantera
-  drawObject(cube, cyanPlastic, P, V, M * T * R * S);
+  drawObjectMat(cube, cyanPlastic, P, V, M * T * R * S);
 
   // Luna trasera
   T = glm::translate(I, glm::vec3(0.35, 2.3, -0.6));
-  drawObject(cube, cyanPlastic, P, V, M * T * R * S);
+  drawObjectMat(cube, cyanPlastic, P, V, M * T * R * S);
 
   // Ventanilla delantera izquierda
   S = glm::scale(I, glm::vec3(0.35, 0.02, 0.35));
   T = glm::translate(I, glm::vec3(-1.15, 2.3, 0.4));
-  drawObject(cube, cyanPlastic, P, V, M * T * R * S);
+  drawObjectMat(cube, cyanPlastic, P, V, M * T * R * S);
   // Ventanilla trasera izquierda
   T = glm::translate(I, glm::vec3(-0.15, 2.3, 0.4));
-  drawObject(cube, cyanPlastic, P, V, M * T * R * S);
+  drawObjectMat(cube, cyanPlastic, P, V, M * T * R * S);
   // Ventanilla delantera derecha
   T = glm::translate(I, glm::vec3(-1.15, 2.3, -1.6));
-  drawObject(cube, cyanPlastic, P, V, M * T * R * S);
+  drawObjectMat(cube, cyanPlastic, P, V, M * T * R * S);
   // Ventanilla trasera derecha
   T = glm::translate(I, glm::vec3(-0.15, 2.3, -1.6));
-  drawObject(cube, cyanPlastic, P, V, M * T * R * S);
+  drawObjectMat(cube, cyanPlastic, P, V, M * T * R * S);
 }
 
 void drawCoche(glm::mat4 P, Material& material, glm::mat4 V, glm::mat4 M) {

@@ -21,19 +21,31 @@ struct Material {
     float shininess;
 };
 
+struct Textures {
+    sampler2D diffuse;
+    sampler2D specular;
+    sampler2D emissive;
+    sampler2D normal;
+    float shininess;
+};
+
 #define NLD 1
 #define NLP 1
-#define NLF 6
+#define NLF 2
 
 uniform Light uLightG;
 uniform Light uLightD[NLD];
 uniform Light uLightP[NLP];
 uniform Light uLightF[NLF];
 uniform Material uMaterial;
+uniform Textures uTextures;
+uniform bool uWithMaterials;
+uniform bool uWithNormals;
 uniform vec3 uEye;
 
 in vec3 vNor;
 in vec3 vPos;
+in vec2 vTex;
 
 out vec4 outColor;
 
@@ -45,18 +57,35 @@ void main() {
     vec3 N = normalize(vNor);
     vec3 V = normalize(uEye - vPos);
     
-    vec3 color = uMaterial.emissive.rgb + uLightG.ambient * uMaterial.ambient.rgb;
-    for(int i = 0; i < NLD; i ++ ) {
-        color += funDirectional(uLightD[i], uMaterial, N, V);
-    }
-    for(int i = 0; i < NLP; i ++ ) {
-        color += funPositional(uLightP[i], uMaterial, N, V);
-    }
-    for(int i = 0; i < NLF; i ++ ) {
-        color += funFocal(uLightF[i], uMaterial, N, V);
+    Material material;
+    
+    if (uWithMaterials) {
+        material.ambient = uMaterial.ambient;
+        material.diffuse = uMaterial.diffuse;
+        material.specular = uMaterial.specular;
+        material.emissive = uMaterial.emissive;
+        material.shininess = uMaterial.shininess;
+    }else {
+        material.ambient = texture(uTextures.diffuse , vTex) * 0.3;
+        material.diffuse = texture(uTextures.diffuse , vTex);
+        material.specular = texture(uTextures.specular, vTex);
+        material.emissive = texture(uTextures.emissive, vTex);
+        material.shininess = uTextures.shininess;
+        if (uWithNormals)N = normalize(texture(uTextures.normal, vTex).rgb - 0.5);
     }
     
-    outColor = vec4(color, uMaterial.diffuse.a);
+    vec3 color = material.emissive.rgb + uLightG.ambient * material.ambient.rgb;
+    for(int i = 0; i < NLD; i ++ ) {
+        color += funDirectional(uLightD[i], material, N, V);
+    }
+    for(int i = 0; i < NLP; i ++ ) {
+        color += funPositional(uLightP[i], material, N, V);
+    }
+    for(int i = 0; i < NLF; i ++ ) {
+        color += funFocal(uLightF[i], material, N, V);
+    }
+    
+    outColor = vec4(color, material.diffuse.a);
 }
 
 vec3 funDirectional(Light light, Material material, vec3 N, vec3 V) {
@@ -67,7 +96,7 @@ vec3 funDirectional(Light light, Material material, vec3 N, vec3 V) {
     float dotRV = 0.0;
     if (dotLN < 0.0) {
         dotLN = 0.0;
-    } else {
+    }else {
         dotRV = max(dot(R, V), 0.0);
     }
     
@@ -88,7 +117,7 @@ vec3 funPositional(Light light, Material material, vec3 N, vec3 V) {
     float dotRV = 0.0;
     if (dotLN < 0.0) {
         dotLN = 0.0;
-    } else {
+    }else {
         dotRV = max(dot(R, V), 0.0);
     }
     
@@ -112,7 +141,7 @@ vec3 funFocal(Light light, Material material, vec3 N, vec3 V) {
     float dotRV = 0.0;
     if (dotLN < 0.0) {
         dotLN = 0.0;
-    } else {
+    }else {
         dotRV = max(dot(R, V), 0.0);
     }
     
