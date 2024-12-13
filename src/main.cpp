@@ -3,6 +3,7 @@
 #include <GLFW/glfw3.h>
 #include "Shaders.h"
 #include "Model.h"
+#include "Texture.h"
 
 void configScene();
 void renderScene();
@@ -27,6 +28,10 @@ Shaders shaders;
 // Modelos
 Model sphere, plane, wheel, road, cube, cylinder;
 
+// Imagenes (texturas)
+Texture imgHighway, imgHighwayEmissive;
+Texture imgPavingStones, imgPavingStonesNormal;
+
 // Luces y materiales
 #define NLD 1
 #define NLP 1
@@ -36,7 +41,8 @@ Light lightD[NLD];
 Light lightP[NLP];
 Light lightF[NLF];
 Material mLuz, ruby;
-Material blackRubber, pavement, grass, cyanPlastic, polishedBronze, polishedGold, obsidian, pearl, emerald, jade;
+Material blackRubber, cyanPlastic, polishedBronze, polishedGold, obsidian, pearl, emerald, jade;
+Textures texHighway, texPavingStones;
 
 // Viewport
 int w = 1000;
@@ -48,7 +54,7 @@ float rotY = 0.0;
 float desZ = 0.0;
 
 // Movimiento de camara
-float fovy = 30.0;
+float fovy = 60.0;
 float alphaX = 0.0;
 float alphaY = 0.0;
 
@@ -115,25 +121,16 @@ void configScene() {
   // Modelos
   sphere.initModel("resources/models/sphere.obj");
   plane.initModel("resources/models/plane.obj");
-  wheel.initModel("resources/models/rin.obj");
-  road.initModel("resources/models/road.obj");
+  wheel.initModel("resources/models/wheel.obj");
+  road.initModel("resources/models/highway.obj");
   cube.initModel("resources/models/cube.obj");
   cylinder.initModel("resources/models/cylinder.obj");
 
   // Imagenes (texturas)
-  /*
-  imgNoEmissive.initTexture("resources/textures/imgNoEmissive.png");
-  imgRuby.initTexture("resources/textures/imgRuby.png");
-  imgGold.initTexture("resources/textures/imgGold.png");
-  imgEarth.initTexture("resources/textures/imgEarth.png");
-  imgChess.initTexture("resources/textures/imgChess.png");
-  imgCubeDiffuse.initTexture("resources/textures/imgCubeDiffuse.png");
-  imgCubeSpecular.initTexture("resources/textures/imgCubeSpecular.png");
-  imgWindow.initTexture("resources/textures/imgWindow.png");
-  imgWallDiffuse.initTexture("resources/textures/imgWallDiffuse.png");
-  imgWallSpecular.initTexture("resources/textures/imgWallSpecular.png");
-  imgWallNormal.initTexture("resources/textures/imgWallNormal.png");
-  */
+  imgHighway.initTexture("resources/textures/Road007_1K_Color.jpeg");
+  imgHighwayEmissive.initTexture("resources/textures/DefaultMaterial_Emission.png");
+  imgPavingStones.initTexture("resources/textures/PavingStones069_1K_Color.jpeg");
+  imgPavingStonesNormal.initTexture("resources/textures/PavingStones069_1K_NormalDX.jpeg");
 
   // Luz ambiental global
   lightG.ambient = glm::vec3(0.5, 0.5, 0.5);
@@ -238,17 +235,17 @@ void configScene() {
   blackRubber.specular = glm::vec4(0.4f, 0.4f, 0.4f, 1.0f);
   blackRubber.shininess = 10.0;
 
-  pavement.ambient = glm::vec4(0.05f, 0.05f, 0.05f, 1.0f);
-  pavement.diffuse = glm::vec4(0.2f, 0.2f, 0.2f, 1.0f);
-  pavement.specular = glm::vec4(0.1f, 0.1f, 0.1f, 1.0f);
-  pavement.emissive = glm::vec4(0.0f, 0.0f, 0.0f, 1.0f);
-  pavement.shininess = 10.0f;
+  texHighway.diffuse = imgHighway.getTexture();
+  texHighway.specular = imgHighway.getTexture();
+  texHighway.emissive = imgHighwayEmissive.getTexture();
+  texHighway.normal = 0;
+  texHighway.shininess = 10.0f;
 
-  grass.ambient = glm::vec4(0.1f, 0.3f, 0.1f, 1.0f);
-  grass.diffuse = glm::vec4(0.2f, 0.8f, 0.2f, 1.0f);
-  grass.specular = glm::vec4(0.05f, 0.05f, 0.05f, 1.0f);
-  grass.emissive = glm::vec4(0.0f, 0.0f, 0.0f, 1.0f);
-  grass.shininess = 5.0f;
+  texPavingStones.diffuse = imgPavingStones.getTexture();
+  texPavingStones.specular = imgPavingStones.getTexture();
+  texPavingStones.emissive = imgHighwayEmissive.getTexture();
+  texPavingStones.normal = imgPavingStonesNormal.getTexture();
+  texPavingStones.shininess = 5.0f;
 
   cyanPlastic.ambient = glm::vec4(0.0f, 0.1f, 0.06f, 1.0f);
   cyanPlastic.diffuse = glm::vec4(0.0f, 0.50980392f, 0.50980392f, 1.0f);
@@ -322,58 +319,44 @@ void renderScene() {
 
   // Dibujamos la escena
   // Suelo
-  glm::mat4 S = glm::scale(I, glm::vec3(7.0, 1.0, 5.0));
+  glm::mat4 S = glm::scale(I, glm::vec3(12.0, 1.0, 20.0));
   glm::mat4 Ry = glm::rotate(I, glm::radians(rotY), glm::vec3(0, 1, 0));
   glm::mat4 Rx = glm::rotate(I, glm::radians(rotX), glm::vec3(1, 0, 0));
-  glm::mat4 Tz = glm::translate(I, glm::vec3(0.0, 0.0, 0.0));
-  glm::mat4 Tx2 = glm::translate(I, glm::vec3(14.0, 0.0, 0.0));
-  drawObjectMat(plane, grass, P, V, Tz * Rx * Ry * S);
-  drawObjectMat(plane, grass, P, V, Tx2 * Tz * Rx * Ry * S);
-  Tz = glm::translate(I, glm::vec3(0.0, 0.0, 7.0));
-  drawObjectMat(plane, grass, P, V, Tz * Rx * Ry * S);
-  drawObjectMat(plane, grass, P, V, Tx2 * Tz * Rx * Ry * S);
-  Tz = glm::translate(I, glm::vec3(0.0, 0.0, 14.0));
-  drawObjectMat(plane, grass, P, V, Tz * Rx * Ry * S);
-  drawObjectMat(plane, grass, P, V, Tx2 * Tz * Rx * Ry * S);
-  Tz = glm::translate(I, glm::vec3(0.0, 0.0, 21.0));
-  drawObjectMat(plane, grass, P, V, Tz * Rx * Ry * S);
-  drawObjectMat(plane, grass, P, V, Tx2 * Tz * Rx * Ry * S);
-  Tz = glm::translate(I, glm::vec3(0.0, 0.0, 28.0));
-  drawObjectMat(plane, grass, P, V, Tz * Rx * Ry * S);
-  drawObjectMat(plane, grass, P, V, Tx2 * Tz * Rx * Ry * S);
+  glm::mat4 Tz = glm::translate(I, glm::vec3(7.0, 0.0, 14.0));
+  drawObjectTex(plane, texPavingStones, P, V, Tz * Rx * Ry * S);
 
   // Carreteras
   Ry = glm::rotate(I, glm::radians(90.0f), glm::vec3(0, 1, 0));
-  Tz = glm::translate(I, glm::vec3(1.0, 0.05, desZ));
-  S = glm::scale(I, glm::vec3(0.004, 0.008, 0.009));
+  Tz = glm::translate(I, glm::vec3(36.0, 0.01, 6.0));
+  S = glm::scale(I, glm::vec3(0.015, 0.016, 0.04));
 
   glm::mat4 Tx = glm::translate(I, glm::vec3(-1.0, 0.0, 0.0));
-  drawObjectMat(road, pavement, P, V, Tx * Tz * Ry * S);
+  drawObjectTex(road, texHighway, P, V, Tx * Tz * Ry * S);
   glm::mat4 Ti = glm::translate(I, glm::vec3(0.0, 0.0, 2.0));
   drawCoche(P, jade, V, I);
 
   Tx = glm::translate(I, glm::vec3(-1.0, 0.0, 5.0));
-  drawObjectMat(road, pavement, P, V, Tx * Tz * Ry * S);
+  // drawObjectTex(road, texHighway, P, V, Tx * Tz * Ry * S);
   glm::mat4 Tc = glm::translate(I, glm::vec3(0.0, 0.0, 5.0));
   drawCoche(P, polishedGold, V, Tc);
 
   Tx = glm::translate(I, glm::vec3(-1.0, 0.0, 10.0));
-  drawObjectMat(road, pavement, P, V, Tx * Tz * Ry * S);
+  // drawObjectTex(road, texHighway, P, V, Tx * Tz * Ry * S);
   Tc = glm::translate(I, glm::vec3(0.0, 0.0, 10.0));
   drawCoche(P, obsidian, V, Tc);
 
   Tx = glm::translate(I, glm::vec3(-1.0, 0.0, 15.0));
-  drawObjectMat(road, pavement, P, V, Tx * Tz * Ry * S);
+  // drawObjectTex(road, texHighway, P, V, Tx * Tz * Ry * S);
   Tc = glm::translate(I, glm::vec3(0.0, 0.0, 15.0));
   drawCoche(P, pearl, V, Tc);
 
   Tx = glm::translate(I, glm::vec3(-1.0, 0.0, 20.0));
-  drawObjectMat(road, pavement, P, V, Tx * Tz * Ry * S);
+  // drawObjectTex(road, texHighway, P, V, Tx * Tz * Ry * S);
   Tc = glm::translate(I, glm::vec3(0.0, 0.0, 20.0));
   drawCoche(P, emerald, V, Tc);
 
   Tx = glm::translate(I, glm::vec3(-1.0, 0.0, 25.0));
-  drawObjectMat(road, pavement, P, V, Tx * Tz * Ry * S);
+  // drawObjectTex(road, texHighway, P, V, Tx * Tz * Ry * S);
   Tc = glm::translate(I, glm::vec3(0.0, 0.0, 25.0));
   drawCoche(P, polishedBronze, V, Tc);
 }
