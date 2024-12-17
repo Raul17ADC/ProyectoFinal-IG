@@ -29,7 +29,7 @@ Shaders shaders;
 Model sphere, plane, wheel, road, cube, cylinder;
 
 // Imagenes (texturas)
-Texture imgHighway, imgHighwayEmissive;
+Texture imgHighway, imgNoEmissive;
 Texture imgPavingStones, imgPavingStonesNormal;
 
 // Luces y materiales
@@ -49,9 +49,6 @@ int w = 1000;
 int h = 1000;
 
 // Animaciones
-float rotX = 0.0;
-float rotY = 0.0;
-float desZ = 0.0;
 
 // Movimiento de camara
 float fovy = 60.0;
@@ -127,8 +124,8 @@ void configScene() {
   cylinder.initModel("resources/models/cylinder.obj");
 
   // Imagenes (texturas)
+  imgNoEmissive.initTexture("resources/textures/imgNoEmissive.png");
   imgHighway.initTexture("resources/textures/Road007_1K_Color.jpeg");
-  imgHighwayEmissive.initTexture("resources/textures/DefaultMaterial_Emission.png");
   imgPavingStones.initTexture("resources/textures/PavingStones069_1K_Color.jpeg");
   imgPavingStonesNormal.initTexture("resources/textures/PavingStones069_1K_NormalDX.jpeg");
 
@@ -237,13 +234,13 @@ void configScene() {
 
   texHighway.diffuse = imgHighway.getTexture();
   texHighway.specular = imgHighway.getTexture();
-  texHighway.emissive = imgHighwayEmissive.getTexture();
+  texHighway.emissive = imgNoEmissive.getTexture();
   texHighway.normal = 0;
   texHighway.shininess = 10.0f;
 
   texPavingStones.diffuse = imgPavingStones.getTexture();
   texPavingStones.specular = imgPavingStones.getTexture();
-  texPavingStones.emissive = imgHighwayEmissive.getTexture();
+  texPavingStones.emissive = imgNoEmissive.getTexture();
   texPavingStones.normal = imgPavingStonesNormal.getTexture();
   texPavingStones.shininess = 5.0f;
 
@@ -283,9 +280,9 @@ void configScene() {
   emerald.emissive = glm::vec4(0.0f, 0.0f, 0.0f, 1.0f);
   emerald.shininess = 76.8f;
 
-  jade.ambient = glm::vec4(0.135f, 0.2225f, 0.1575f, 0.95f);
-  jade.diffuse = glm::vec4(0.54f, 0.89f, 0.63f, 0.95f);
-  jade.specular = glm::vec4(0.316228f, 0.316228f, 0.316228f, 0.95f);
+  jade.ambient = glm::vec4(0.135f, 0.2225f, 0.1575f, 1.0f);
+  jade.diffuse = glm::vec4(0.54f, 0.89f, 0.63f, 1.0f);
+  jade.specular = glm::vec4(0.316228f, 0.316228f, 0.316228f, 1.0f);
   jade.emissive = glm::vec4(0.0f, 0.0f, 0.0f, 1.0f);
   jade.shininess = 12.8f;
 }
@@ -320,18 +317,15 @@ void renderScene() {
   // Dibujamos la escena
   // Suelo
   glm::mat4 S = glm::scale(I, glm::vec3(12.0, 1.0, 20.0));
-  glm::mat4 Ry = glm::rotate(I, glm::radians(rotY), glm::vec3(0, 1, 0));
-  glm::mat4 Rx = glm::rotate(I, glm::radians(rotX), glm::vec3(1, 0, 0));
-  glm::mat4 Tz = glm::translate(I, glm::vec3(7.0, 0.0, 14.0));
-  drawObjectTex(plane, texPavingStones, P, V, Tz * Rx * Ry * S);
+  glm::mat4 T = glm::translate(I, glm::vec3(7.0, 0.0, 14.0));
+  drawObjectTex(plane, texPavingStones, P, V, T * S);
 
   // Carreteras
-  Ry = glm::rotate(I, glm::radians(90.0f), glm::vec3(0, 1, 0));
-  Tz = glm::translate(I, glm::vec3(36.0, 0.01, 6.0));
+  glm::mat4 Ry = glm::rotate(I, glm::radians(90.0f), glm::vec3(0, 1, 0));
+  T = glm::translate(I, glm::vec3(36.0, 0.01, 6.0));
   S = glm::scale(I, glm::vec3(0.015, 0.016, 0.04));
-
   glm::mat4 Tx = glm::translate(I, glm::vec3(-1.0, 0.0, 0.0));
-  drawObjectTex(road, texHighway, P, V, Tx * Tz * Ry * S);
+  drawObjectTex(road, texHighway, P, V, Tx * T * Ry * S);
   glm::mat4 Ti = glm::translate(I, glm::vec3(0.0, 0.0, 2.0));
   drawCoche(P, jade, V, I);
 
@@ -501,32 +495,7 @@ void funFramebufferSize(GLFWwindow* window, int width, int height) {
   h = height;
 }
 
-void funKey(GLFWwindow* window, int key, int scancode, int action, int mods) {
-  switch (key) {
-    case GLFW_KEY_UP:
-      rotX -= 5.0f;
-      break;
-    case GLFW_KEY_DOWN:
-      rotX += 5.0f;
-      break;
-    case GLFW_KEY_LEFT:
-      rotY -= 5.0f;
-      break;
-    case GLFW_KEY_RIGHT:
-      rotY += 5.0f;
-      break;
-    case GLFW_KEY_Z:
-      if (mods == GLFW_MOD_SHIFT)
-        desZ -= desZ > -24.0f ? 0.1f : 0.0f;
-      else
-        desZ += desZ < 5.0f ? 0.1f : 0.0f;
-      break;
-    default:
-      rotX = 0.0f;
-      rotY = 0.0f;
-      break;
-  }
-}
+void funKey(GLFWwindow* window, int key, int scancode, int action, int mods) {}
 
 void funScroll(GLFWwindow* window, double xoffset, double yoffset) {
   if (yoffset > 0)
