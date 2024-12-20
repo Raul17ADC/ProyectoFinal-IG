@@ -26,7 +26,7 @@ void funCursorPos(GLFWwindow* window, double xPos, double yPos);
 Shaders shaders;
 
 // Modelos
-Model sphere, plane, wheel, road, cube, cylinder;
+Model sphere, plane, wheel, road, cube;
 
 // Imagenes (texturas)
 Texture imgHighway, imgNoEmissive;
@@ -41,7 +41,7 @@ Light lightD[NLD];
 Light lightP[NLP];
 Light lightF[NLF];
 Material mLuz, ruby;
-Material blackRubber, cyanPlastic, polishedBronze, polishedGold, obsidian, pearl, emerald, jade;
+Material blackRubber, cyanPlastic, polishedBronze, gold, pearl, emerald, jade;
 Textures texHighway, texPavingStones;
 
 // Viewport
@@ -112,6 +112,8 @@ void configScene() {
   glEnable(GL_BLEND);
   glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
+  glEnable(GL_CULL_FACE);
+
   // Shaders
   shaders.initShaders("resources/shaders/vshader.glsl", "resources/shaders/fshader.glsl");
 
@@ -121,7 +123,6 @@ void configScene() {
   wheel.initModel("resources/models/wheel.obj");
   road.initModel("resources/models/highway.obj");
   cube.initModel("resources/models/cube.obj");
-  cylinder.initModel("resources/models/cylinder.obj");
 
   // Imagenes (texturas)
   imgNoEmissive.initTexture("resources/textures/imgNoEmissive.png");
@@ -215,10 +216,10 @@ void configScene() {
   lightF[5].c2 = 0.032;
 
   // Materiales
-  mLuz.ambient = glm::vec4(0.0, 0.0, 0.0, 1.0);
-  mLuz.diffuse = glm::vec4(0.0, 0.0, 0.0, 1.0);
-  mLuz.specular = glm::vec4(0.0, 0.0, 0.0, 1.0);
-  mLuz.emissive = glm::vec4(1.0, 1.0, 1.0, 1.0);
+  mLuz.ambient = glm::vec4(0.0, 0.0, 0.0, 0.5);
+  mLuz.diffuse = glm::vec4(0.0, 0.0, 0.0, 0.5);
+  mLuz.specular = glm::vec4(0.0, 0.0, 0.0, 0.5);
+  mLuz.emissive = glm::vec4(1.0, 1.0, 1.0, 0.5);
   mLuz.shininess = 1.0;
 
   ruby.ambient = glm::vec4(0.174500, 0.011750, 0.011750, 0.55);
@@ -236,7 +237,7 @@ void configScene() {
   texHighway.specular = imgHighway.getTexture();
   texHighway.emissive = imgNoEmissive.getTexture();
   texHighway.normal = 0;
-  texHighway.shininess = 10.0f;
+  texHighway.shininess = 5.0f;
 
   texPavingStones.diffuse = imgPavingStones.getTexture();
   texPavingStones.specular = imgPavingStones.getTexture();
@@ -244,10 +245,10 @@ void configScene() {
   texPavingStones.normal = imgPavingStonesNormal.getTexture();
   texPavingStones.shininess = 5.0f;
 
-  cyanPlastic.ambient = glm::vec4(0.0f, 0.1f, 0.06f, 1.0f);
-  cyanPlastic.diffuse = glm::vec4(0.0f, 0.50980392f, 0.50980392f, 1.0f);
-  cyanPlastic.specular = glm::vec4(0.50196078f, 0.50196078f, 0.50196078f, 1.0f);
-  cyanPlastic.emissive = glm::vec4(0.0f, 0.0f, 0.0f, 1.0f);
+  cyanPlastic.ambient = glm::vec4(0.0f, 0.1f, 0.06f, 0.5f);
+  cyanPlastic.diffuse = glm::vec4(0.0f, 0.50980392f, 0.50980392f, 0.5f);
+  cyanPlastic.specular = glm::vec4(0.50196078f, 0.50196078f, 0.50196078f, 0.5f);
+  cyanPlastic.emissive = glm::vec4(0.0f, 0.0f, 0.0f, 0.5f);
   cyanPlastic.shininess = 32.0f;
 
   polishedBronze.ambient = glm::vec4(0.25f, 0.148f, 0.06475f, 1.0f);
@@ -256,17 +257,11 @@ void configScene() {
   polishedBronze.emissive = glm::vec4(0.0f, 0.0f, 0.0f, 1.0f);
   polishedBronze.shininess = 76.8f;
 
-  polishedGold.ambient = glm::vec4(0.24725f, 0.2245f, 0.0645f, 1.0f);
-  polishedGold.diffuse = glm::vec4(0.34615f, 0.3143f, 0.0903f, 1.0f);
-  polishedGold.specular = glm::vec4(0.797357f, 0.723991f, 0.208006f, 1.0f);
-  polishedGold.emissive = glm::vec4(0.0f, 0.0f, 0.0f, 1.0f);
-  polishedGold.shininess = 83.2f;
-
-  obsidian.ambient = glm::vec4(0.05375f, 0.05f, 0.06625f, 0.82f);
-  obsidian.diffuse = glm::vec4(0.18275f, 0.17f, 0.22525f, 0.82f);
-  obsidian.specular = glm::vec4(0.332741f, 0.328634f, 0.346435f, 0.82f);
-  obsidian.emissive = glm::vec4(0.0f, 0.0f, 0.0f, 1.0f);
-  obsidian.shininess = 38.4f;
+  gold.ambient = glm::vec4(0.329412f, 0.223529f, 0.027451f, 1.0f);
+  gold.diffuse = glm::vec4(0.780392f, 0.568627f, 0.113725f, 1.0f);
+  gold.specular = glm::vec4(0.992157f, 0.941176f, 0.807843f, 1.0f);
+  gold.emissive = glm::vec4(0.0f, 0.0f, 0.0f, 1.0f);
+  gold.shininess = 100.0f;
 
   pearl.ambient = glm::vec4(0.25f, 0.20725f, 0.20725f, 0.922f);
   pearl.diffuse = glm::vec4(1.0f, 0.829f, 0.829f, 0.922f);
@@ -274,9 +269,9 @@ void configScene() {
   pearl.emissive = glm::vec4(0.0f, 0.0f, 0.0f, 1.0f);
   pearl.shininess = 11.264f;
 
-  emerald.ambient = glm::vec4(0.0215f, 0.1745f, 0.0215f, 0.55f);
-  emerald.diffuse = glm::vec4(0.07568f, 0.61424f, 0.07568f, 0.55f);
-  emerald.specular = glm::vec4(0.633f, 0.727811f, 0.633f, 0.55f);
+  emerald.ambient = glm::vec4(0.0215f, 0.1745f, 0.0215f, 1.0f);
+  emerald.diffuse = glm::vec4(0.07568f, 0.61424f, 0.07568f, 1.0f);
+  emerald.specular = glm::vec4(0.633f, 0.727811f, 0.633f, 1.0f);
   emerald.emissive = glm::vec4(0.0f, 0.0f, 0.0f, 1.0f);
   emerald.shininess = 76.8f;
 
@@ -316,43 +311,40 @@ void renderScene() {
 
   // Dibujamos la escena
   // Suelo
-  glm::mat4 S = glm::scale(I, glm::vec3(12.0, 1.0, 20.0));
+  glm::mat4 S = glm::scale(I, glm::vec3(18.0, 1.0, 18.0));
   glm::mat4 T = glm::translate(I, glm::vec3(7.0, 0.0, 14.0));
   drawObjectTex(plane, texPavingStones, P, V, T * S);
 
-  // Carreteras
-  glm::mat4 Ry = glm::rotate(I, glm::radians(90.0f), glm::vec3(0, 1, 0));
-  T = glm::translate(I, glm::vec3(36.0, 0.01, 6.0));
-  S = glm::scale(I, glm::vec3(0.015, 0.016, 0.04));
-  glm::mat4 Tx = glm::translate(I, glm::vec3(-1.0, 0.0, 0.0));
-  drawObjectTex(road, texHighway, P, V, Tx * T * Ry * S);
-  glm::mat4 Ti = glm::translate(I, glm::vec3(0.0, 0.0, 2.0));
-  drawCoche(P, jade, V, I);
+  // Carretera principal
+  glm::mat4 Tr = glm::translate(I, glm::vec3(-14.5, 0.1, 28.75));
+  glm::mat4 Sr = glm::scale(I, glm::vec3(0.015, 0.016, 0.061));
+  glm::mat4 Rr = glm::rotate(I, glm::radians(180.0f), glm::vec3(0, 1, 0));
+  drawObjectTex(road, texHighway, P, V, Rr * Tr * Sr);
+  // Coche del jugador
+  glm::mat4 Rc = glm::rotate(I, glm::radians(90.0f), glm::vec3(0, 1, 0));
+  glm::mat4 Tc = glm::translate(I, glm::vec3(2.8, 0.1, 6.2));
+  glm::mat4 Sc = glm::scale(I, glm::vec3(0.8, 0.8, 0.8));
+  drawCoche(P, gold, V, Rc * Tc * Sc);
 
-  Tx = glm::translate(I, glm::vec3(-1.0, 0.0, 5.0));
-  // drawObjectTex(road, texHighway, P, V, Tx * Tz * Ry * S);
-  glm::mat4 Tc = glm::translate(I, glm::vec3(0.0, 0.0, 5.0));
-  drawCoche(P, polishedGold, V, Tc);
+  // Resto de coches y carreteras
+  Tr = glm::translate(I, glm::vec3(-12.0, 0.11, 50));
+  Rr = glm::rotate(I, glm::radians(90.0f), glm::vec3(0, 1, 0));
+  drawObjectTex(road, texHighway, P, V, Rr * Tr * Sr);
+  Rc = glm::rotate(I, glm::radians(180.0f), glm::vec3(0, 1, 0));
+  Tc = glm::translate(I, glm::vec3(-9.0, 0.1, 5.3));
+  drawCoche(P, jade, V, Tc * Rc * Sc);
+  Rc = glm::rotate(I, glm::radians(0.0f), glm::vec3(0, 1, 0));
+  Tc = glm::translate(I, glm::vec3(23.0, 0.1, 3.5));
+  drawCoche(P, pearl, V, Tc * Rc * Sc);
 
-  Tx = glm::translate(I, glm::vec3(-1.0, 0.0, 10.0));
-  // drawObjectTex(road, texHighway, P, V, Tx * Tz * Ry * S);
-  Tc = glm::translate(I, glm::vec3(0.0, 0.0, 10.0));
-  drawCoche(P, obsidian, V, Tc);
-
-  Tx = glm::translate(I, glm::vec3(-1.0, 0.0, 15.0));
-  // drawObjectTex(road, texHighway, P, V, Tx * Tz * Ry * S);
-  Tc = glm::translate(I, glm::vec3(0.0, 0.0, 15.0));
-  drawCoche(P, pearl, V, Tc);
-
-  Tx = glm::translate(I, glm::vec3(-1.0, 0.0, 20.0));
-  // drawObjectTex(road, texHighway, P, V, Tx * Tz * Ry * S);
-  Tc = glm::translate(I, glm::vec3(0.0, 0.0, 20.0));
-  drawCoche(P, emerald, V, Tc);
-
-  Tx = glm::translate(I, glm::vec3(-1.0, 0.0, 25.0));
-  // drawObjectTex(road, texHighway, P, V, Tx * Tz * Ry * S);
-  Tc = glm::translate(I, glm::vec3(0.0, 0.0, 25.0));
-  drawCoche(P, polishedBronze, V, Tc);
+  Tr = glm::translate(I, glm::vec3(-25.0, 0.11, 50));
+  drawObjectTex(road, texHighway, P, V, Rr * Tr * Sr);
+  Rc = glm::rotate(I, glm::radians(180.0f), glm::vec3(0, 1, 0));
+  Tc = glm::translate(I, glm::vec3(-9.0, 0.1, 18.2));
+  drawCoche(P, emerald, V, Tc * Rc * Sc);
+  Rc = glm::rotate(I, glm::radians(0.0f), glm::vec3(0, 1, 0));
+  Tc = glm::translate(I, glm::vec3(23.0, 0.1, 16.4));
+  drawCoche(P, polishedBronze, V, Tc * Rc * Sc);
 }
 
 void setLights(glm::mat4 P, glm::mat4 V) {
@@ -436,25 +428,26 @@ void drawLights(glm::mat4 P, glm::mat4 V, glm::mat4 M) {
   glm::mat4 S = glm::scale(I, glm::vec3(0.1, 0.1, 0.1));
   glm::mat4 T = glm::translate(I, glm::vec3(-2.5, 1.6, -1.0));
   glm::mat4 R = glm::rotate(I, glm::radians(90.0f), glm::vec3(1, 0, 0));
+  glDepthMask(GL_FALSE);
   // Luces delanteras
   drawObjectMat(sphere, mLuz, P, V, M * T * R * S);
   T = glm::translate(I, glm::vec3(-2.5, 1.6, -0.2));
   drawObjectMat(sphere, mLuz, P, V, M * T * R * S);
-
   // Luces traseras
   T = glm::translate(I, glm::vec3(1.1, 1.6, -0.2));
   drawObjectMat(sphere, ruby, P, V, M * T * R * S);
   T = glm::translate(I, glm::vec3(1.1, 1.6, -1.0));
   drawObjectMat(sphere, ruby, P, V, M * T * R * S);
+  glDepthMask(GL_TRUE);
 }
 
 void drawWindows(glm::mat4 P, glm::mat4 V, glm::mat4 M) {
   glm::mat4 S = glm::scale(I, glm::vec3(0.02, 0.9, 0.35));
   glm::mat4 T = glm::translate(I, glm::vec3(-1.65, 2.3, -0.6));
   glm::mat4 R = glm::rotate(I, glm::radians(90.0f), glm::vec3(1, 0, 0));
+  glDepthMask(GL_FALSE);
   // Luna delantera
   drawObjectMat(cube, cyanPlastic, P, V, M * T * R * S);
-
   // Luna trasera
   T = glm::translate(I, glm::vec3(0.35, 2.3, -0.6));
   drawObjectMat(cube, cyanPlastic, P, V, M * T * R * S);
@@ -472,6 +465,7 @@ void drawWindows(glm::mat4 P, glm::mat4 V, glm::mat4 M) {
   // Ventanilla trasera derecha
   T = glm::translate(I, glm::vec3(-0.15, 2.3, -1.6));
   drawObjectMat(cube, cyanPlastic, P, V, M * T * R * S);
+  glDepthMask(GL_TRUE);
 }
 
 void drawCoche(glm::mat4 P, Material& material, glm::mat4 V, glm::mat4 M) {
