@@ -30,12 +30,12 @@ struct Textures {
 };
 
 #define NLD 1
-#define NLP 1
-#define NLF 2
+//#define NLP 1
+#define NLF 6
 
 uniform Light uLightG;
 uniform Light uLightD[NLD];
-uniform Light uLightP[NLP];
+//uniform Light uLightP[NLP];
 uniform Light uLightF[NLF];
 uniform Material uMaterial;
 uniform Textures uTextures;
@@ -50,7 +50,7 @@ in vec2 vTex;
 out vec4 outColor;
 
 vec3 funDirectional(Light light, Material material, vec3 N, vec3 V);
-vec3 funPositional(Light light, Material material, vec3 N, vec3 V);
+//vec3 funPositional(Light light, Material material, vec3 N, vec3 V);
 vec3 funFocal(Light light, Material material, vec3 N, vec3 V);
 
 void main() {
@@ -78,9 +78,11 @@ void main() {
     for(int i = 0; i < NLD; i ++ ) {
         color += funDirectional(uLightD[i], material, N, V);
     }
+    /*
     for(int i = 0; i < NLP; i ++ ) {
         color += funPositional(uLightP[i], material, N, V);
     }
+    */
     for(int i = 0; i < NLF; i ++ ) {
         color += funFocal(uLightF[i], material, N, V);
     }
@@ -109,6 +111,7 @@ vec3 funDirectional(Light light, Material material, vec3 N, vec3 V) {
     return color;
 }
 
+/*
 vec3 funPositional(Light light, Material material, vec3 N, vec3 V) {
     vec3 L = normalize(light.position - vPos);
     vec3 R = normalize(reflect(-L, N));
@@ -132,6 +135,7 @@ vec3 funPositional(Light light, Material material, vec3 N, vec3 V) {
     
     return color;
 }
+*/
 
 vec3 funFocal(Light light, Material material, vec3 N, vec3 V) {
     vec3 L = normalize(light.position - vPos);
