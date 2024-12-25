@@ -16,6 +16,11 @@ void drawCube2(glm::mat4 P, Material& material, glm::mat4 V, glm::mat4 M);
 void drawLights(glm::mat4 P, glm::mat4 V, glm::mat4 M);
 void drawWindows(glm::mat4 P, glm::mat4 V, glm::mat4 M);
 void drawCoche(glm::mat4 P, Material& material, glm::mat4 V, glm::mat4 M);
+void funTimer(double seconds, double &start);
+void funTimer2(double seconds, double &start2);
+void funTimer3(double seconds, double &start3);
+void funTimer4(double seconds, double &start4);
+
 
 void funFramebufferSize(GLFWwindow* window, int width, int height);
 void funKey(GLFWwindow* window, int key, int scancode, int action, int mods);
@@ -35,7 +40,7 @@ Texture imgPavingStones, imgPavingStonesNormal;
 // Luces y materiales
 #define NLD 1
 // #define NLP 1
-#define NLF 6
+#define NLF 12
 Light lightG;
 Light lightD[NLD];
 // Light lightP[NLP];
@@ -54,6 +59,13 @@ int h = 1000;
 float fovy = 60.0;
 float alphaX = 0.0;
 float alphaY = 0.0;
+
+//Posicion coches
+float PosDorado = 0.0;
+float PosVerde = 23.0;
+float PosMarron = 23.0;
+float PosGris = -9.0;
+float PosJade = -9.0;
 
 int main() {
   // Inicializamos GLFW
@@ -93,10 +105,19 @@ int main() {
 
   // Entramos en el bucle de renderizado
   configScene();
+  double start = glfwGetTime();
+  double start2 = glfwGetTime();
+  double start3 = glfwGetTime();
+  double start4 = glfwGetTime();
+
   while (!glfwWindowShouldClose(window)) {
     renderScene();
     glfwSwapBuffers(window);
     glfwPollEvents();
+    funTimer(1.0/60, start);
+    funTimer2(1.0/60, start2);
+    funTimer3(1.0/60, start3);
+    funTimer4(1.0/60, start4);
   }
   glfwDestroyWindow(window);
   glfwTerminate();
@@ -196,7 +217,7 @@ void configScene() {
   lightF[3].c1 = 0.090;
   lightF[3].c2 = 0.032;
 
-  // Coche jade
+  // Coche jade luz izquierda delantera
   lightF[4].position = glm::vec3(-7.0, 1.4, 5.45);
   lightF[4].direction = glm::vec3(5.0, -2.0, 0.0);
   lightF[4].ambient = glm::vec3(0.2, 0.2, 0.2);
@@ -208,9 +229,9 @@ void configScene() {
   lightF[4].c1 = 0.090;
   lightF[4].c2 = 0.032;
 
-  // Esta luz esta bien posicionada pero no ilumina no se por que
+  // Coche jade. Luz derecha delantera. 
   lightF[5].position = glm::vec3(-7.0, 1.4, 6.1);
-  lightF[5].direction = glm::vec3(0.0, -2.0, 5.0);
+  lightF[5].direction = glm::vec3(5.0, -2.0, 0.0);
   lightF[5].ambient = glm::vec3(0.2, 0.2, 0.2);
   lightF[5].diffuse = glm::vec3(0.9, 0.9, 0.9);
   lightF[5].specular = glm::vec3(0.9, 0.9, 0.9);
@@ -219,6 +240,78 @@ void configScene() {
   lightF[5].c0 = 1.000;
   lightF[5].c1 = 0.090;
   lightF[5].c2 = 0.032;
+
+  // Coche gris. Luz izquierda delantera.
+  lightF[6].position = glm::vec3(21.0, 1.4, 3.35);
+  lightF[6].direction = glm::vec3(-5.0, -2.0, 1.0);
+  lightF[6].ambient = glm::vec3(0.2, 0.2, 0.2);
+  lightF[6].diffuse = glm::vec3(0.9, 0.9, 0.9);
+  lightF[6].specular = glm::vec3(0.9, 0.9, 0.9);
+  lightF[6].innerCutOff = 10.0;
+  lightF[6].outerCutOff = lightF[6].innerCutOff + 5.0;
+  lightF[6].c0 = 1.000;
+  lightF[6].c1 = 0.090;
+  lightF[6].c2 = 0.032;
+
+  //Coche gris. Luz derecha delantera
+  lightF[7].position = glm::vec3(21.0, 1.4, 2.7);
+  lightF[7].direction = glm::vec3(-5.0, -2.0, 1.0);
+  lightF[7].ambient = glm::vec3(0.2, 0.2, 0.2);
+  lightF[7].diffuse = glm::vec3(0.9, 0.9, 0.9);
+  lightF[7].specular = glm::vec3(0.9, 0.9, 0.9);
+  lightF[7].innerCutOff = 10.0;
+  lightF[7].outerCutOff = lightF[7].innerCutOff + 5.0;
+  lightF[7].c0 = 1.000;
+  lightF[7].c1 = 0.090;
+  lightF[7].c2 = 0.032;
+
+  //Coche verde. Luz izquierda delantera
+  lightF[8].position = glm::vec3(-7.0, 1.4, 18.36);
+  lightF[8].direction = glm::vec3(5.0, -2.0, 1.0);
+  lightF[8].ambient = glm::vec3(0.2, 0.2, 0.2);
+  lightF[8].diffuse = glm::vec3(0.9, 0.9, 0.9);
+  lightF[8].specular = glm::vec3(0.9, 0.9, 0.9);
+  lightF[8].innerCutOff = 10.0;
+  lightF[8].outerCutOff = lightF[8].innerCutOff + 5.0;
+  lightF[8].c0 = 1.000;
+  lightF[8].c1 = 0.090;
+  lightF[8].c2 = 0.032;
+
+  //Coche verde. Luz derecha delantera
+  lightF[9].position = glm::vec3(-7.0, 1.4, 18.98);
+  lightF[9].direction = glm::vec3(5.0, -2.0, 1.0);
+  lightF[9].ambient = glm::vec3(0.2, 0.2, 0.2);
+  lightF[9].diffuse = glm::vec3(0.9, 0.9, 0.9);
+  lightF[9].specular = glm::vec3(0.9, 0.9, 0.9);
+  lightF[9].innerCutOff = 10.0;
+  lightF[9].outerCutOff = lightF[9].innerCutOff + 5.0;
+  lightF[9].c0 = 1.000;
+  lightF[9].c1 = 0.090;
+  lightF[9].c2 = 0.032;
+
+  //Coche marron. Luz delantera derecha
+  lightF[10].position = glm::vec3(21.0, 1.4, 15.62);
+  lightF[10].direction = glm::vec3(-5.0, -2.0, 1.0);
+  lightF[10].ambient = glm::vec3(0.2, 0.2, 0.2);
+  lightF[10].diffuse = glm::vec3(0.9, 0.9, 0.9);
+  lightF[10].specular = glm::vec3(0.9, 0.9, 0.9);
+  lightF[10].innerCutOff = 10.0;
+  lightF[10].outerCutOff = lightF[10].innerCutOff + 5.0;
+  lightF[10].c0 = 1.000;
+  lightF[10].c1 = 0.090;
+  lightF[10].c2 = 0.032;
+
+  //Coche marron. Luz delantera izquierda
+  lightF[11].position = glm::vec3(21.0, 1.4, 16.28);
+  lightF[11].direction = glm::vec3(-5.0, -2.0, 1.0);
+  lightF[11].ambient = glm::vec3(0.2, 0.2, 0.2);
+  lightF[11].diffuse = glm::vec3(0.9, 0.9, 0.9);
+  lightF[11].specular = glm::vec3(0.9, 0.9, 0.9);
+  lightF[11].innerCutOff = 10.0;
+  lightF[11].outerCutOff = lightF[11].innerCutOff + 5.0;
+  lightF[11].c0 = 1.000;
+  lightF[11].c1 = 0.090;
+  lightF[11].c2 = 0.032;
 
   // Materiales
   mLuz.ambient = glm::vec4(0.0, 0.0, 0.0, 0.5);
@@ -339,19 +432,19 @@ void renderScene() {
   Rr = glm::rotate(I, glm::radians(270.0f), glm::vec3(0, 1, 0));
   drawObjectTex(road, texHighway, P, V, Rr * Tr * Sr);
   Rc = glm::rotate(I, glm::radians(180.0f), glm::vec3(0, 1, 0));
-  Tc = glm::translate(I, glm::vec3(-9.0, 0.1, 5.3));
+  Tc = glm::translate(I, glm::vec3(PosJade, 0.1, 5.3));
   drawCoche(P, jade, V, Tc * Rc * Sc);
   Rc = glm::rotate(I, glm::radians(0.0f), glm::vec3(0, 1, 0));
-  Tc = glm::translate(I, glm::vec3(23.0, 0.1, 3.5));
+  Tc = glm::translate(I, glm::vec3(PosVerde, 0.1, 3.5));
   drawCoche(P, pearl, V, Tc * Rc * Sc);
 
   Tr = glm::translate(I, glm::vec3(10.0, 0.101, 35.8));
   drawObjectTex(road, texHighway, P, V, Rr * Tr * Sr);
   Rc = glm::rotate(I, glm::radians(180.0f), glm::vec3(0, 1, 0));
-  Tc = glm::translate(I, glm::vec3(-9.0, 0.1, 18.2));
+  Tc = glm::translate(I, glm::vec3(PosGris, 0.1, 18.2));
   drawCoche(P, emerald, V, Tc * Rc * Sc);
   Rc = glm::rotate(I, glm::radians(0.0f), glm::vec3(0, 1, 0));
-  Tc = glm::translate(I, glm::vec3(23.0, 0.1, 16.4));
+  Tc = glm::translate(I, glm::vec3(PosMarron, 0.1, 16.4));
   drawCoche(P, polishedBronze, V, Tc * Rc * Sc);
 }
 
@@ -496,7 +589,7 @@ void funFramebufferSize(GLFWwindow* window, int width, int height) {
 
 void funKey(GLFWwindow* window, int key, int scancode, int action, int mods) {
   if (action == GLFW_PRESS || action == GLFW_REPEAT) {
-    float angleSpeed = 5.0f;  // Velocidad de rotación de la cámara
+    float angleSpeed = 30.0f;  // Velocidad de rotación de la cámara
     if (key == GLFW_KEY_LEFT) {
       alphaX -= angleSpeed;
     }
@@ -524,4 +617,48 @@ void funCursorPos(GLFWwindow* window, double xPos, double yPos) {
     alphaY = -limY;
   if (alphaY > limY)
     alphaY = limY;
+}
+
+void funTimer(double seconds, double &start){
+
+    if (glfwGetTime()-start > seconds /*  1/60  */){
+        PosJade += 0.25;
+        if (PosJade >= 22.0){
+          PosJade = -9.0;
+        }
+        start = glfwGetTime();
+    }
+}
+
+void funTimer2(double seconds, double &start2){
+
+    if (glfwGetTime()-start2 > seconds /*  1/60  */){
+        PosGris += 0.2;
+        if (PosGris >= 22.0){
+          PosGris = -9.0;
+        }
+        start2 = glfwGetTime();
+    }
+}
+
+void funTimer3(double seconds, double &start3){
+
+    if (glfwGetTime()-start3 > seconds /*  1/60  */){
+        PosMarron -= 0.1;
+        if (PosMarron <= -8.0){
+          PosMarron = 23.0;
+        }
+        start3 = glfwGetTime();
+    }
+}
+
+void funTimer4(double seconds, double &start4){
+
+    if (glfwGetTime()-start4 > seconds /*  1/60  */){
+        PosVerde -= 0.15;
+        if (PosVerde <= -8.0){
+          PosVerde = 23.0;
+        }
+        start4 = glfwGetTime();
+    }
 }
