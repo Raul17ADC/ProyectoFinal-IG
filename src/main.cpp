@@ -16,15 +16,14 @@ void drawCube2(glm::mat4 P, Material& material, glm::mat4 V, glm::mat4 M);
 void drawLights(glm::mat4 P, glm::mat4 V, glm::mat4 M);
 void drawWindows(glm::mat4 P, glm::mat4 V, glm::mat4 M);
 void drawCoche(glm::mat4 P, Material& material, glm::mat4 V, glm::mat4 M);
-void funTimer(double seconds, double &start);
-void funTimer2(double seconds, double &start2);
-void funTimer3(double seconds, double &start3);
-void funTimer4(double seconds, double &start4);
-void funTimer5(double seconds, double &start5);
-void funTimer6(double seconds, double &start6);
-void funTimer7(double seconds, double &start7);
-void funTimer8(double seconds, double &start8);
-
+void funTimer(double seconds, double& start);
+void funTimer2(double seconds, double& start2);
+void funTimer3(double seconds, double& start3);
+void funTimer4(double seconds, double& start4);
+void funTimer5(double seconds, double& start5);
+void funTimer6(double seconds, double& start6);
+void funTimer7(double seconds, double& start7);
+void funTimer8(double seconds, double& start8);
 
 void funFramebufferSize(GLFWwindow* window, int width, int height);
 void funKey(GLFWwindow* window, int key, int scancode, int action, int mods);
@@ -57,23 +56,30 @@ Textures texHighway, texPavingStones;
 int w = 1000;
 int h = 1000;
 
-// Animaciones
-
 // Movimiento de camara
 float fovy = 60.0;
 float alphaX = 0.0;
 float alphaY = 0.0;
 
-//Posicion coches
-float PosDorado = 0.0;
-float PosVerde = 23.0;
-float PosMarron = 23.0;
-float PosGris = -9.0;
-float PosJade = -9.0;
-float PosLuzJade = -7.0;
-float PosLuzVerde = -7.0;
-float PosLuzGris = 21.0;
-float PosLuzMarron = 21.0;
+// Posicion coches y luces
+float posDoradoX = 2.8;
+float posDoradoZ = 6.2;
+float posVerde = 23.0;
+float posMarron = 23.0;
+float posGris = -9.0;
+float posJade = -9.0;
+float posLuzDoradoDelantera1X = 5.4;
+float posLuzDoradoDelantera1Z = -0.75;
+float posLuzDoradoDelantera2X = 6.05;
+float posLuzDoradoDelantera2Z = -0.75;
+float posLuzDoradoTrasera1X = 5.4;
+float posLuzDoradoTrasera1Z = -3.75;
+float posLuzDoradoTrasera2X = 6.05;
+float posLuzDoradoTrasera2Z = -3.75;
+float posLuzJade = -7.0;
+float posLuzVerde = -7.0;
+float posLuzGris = 21.0;
+float posLuzMarron = 21.0;
 
 int main() {
   // Inicializamos GLFW
@@ -126,15 +132,14 @@ int main() {
     renderScene();
     glfwSwapBuffers(window);
     glfwPollEvents();
-    funTimer(1.0/60, start);
-    funTimer2(1.0/60, start2);
-    funTimer3(1.0/60, start3);
-    funTimer4(1.0/60, start4);
-    funTimer5(1.0/60, start5);
-    funTimer6(1.0/60, start6);
-    funTimer7(1.0/60, start7);
-    funTimer8(1.0/60, start8);
-    
+    funTimer(1.0 / 60, start);
+    funTimer2(1.0 / 60, start2);
+    funTimer3(1.0 / 60, start3);
+    funTimer4(1.0 / 60, start4);
+    funTimer5(1.0 / 60, start5);
+    funTimer6(1.0 / 60, start6);
+    funTimer7(1.0 / 60, start7);
+    funTimer8(1.0 / 60, start8);
   }
   glfwDestroyWindow(window);
   glfwTerminate();
@@ -190,7 +195,6 @@ void configScene() {
 
   // Luces focales
   // Luces coche jugador
-  lightF[0].position = glm::vec3(5.4, 1.4, -0.75);
   lightF[0].direction = glm::vec3(0.0, -2.0, 5.0);
   lightF[0].ambient = glm::vec3(0.2, 0.2, 0.2);
   lightF[0].diffuse = glm::vec3(0.9, 0.9, 0.9);
@@ -201,7 +205,6 @@ void configScene() {
   lightF[0].c1 = 0.090;
   lightF[0].c2 = 0.032;
 
-  lightF[1].position = glm::vec3(6.05, 1.4, -0.75);
   lightF[1].direction = glm::vec3(0.0, -2.0, 5.0);
   lightF[1].ambient = glm::vec3(0.4, 0.4, 0.4);
   lightF[1].diffuse = glm::vec3(0.9, 0.9, 0.9);
@@ -212,7 +215,6 @@ void configScene() {
   lightF[1].c1 = 0.090;
   lightF[1].c2 = 0.032;
 
-  lightF[2].position = glm::vec3(5.4, 1.4, -3.75);
   lightF[2].direction = glm::vec3(0.0, -2.0, 0.0);
   lightF[2].ambient = glm::vec3(0.4, 0.4, 0.4);
   lightF[2].diffuse = glm::vec3(0.9, 0.0, 0.0);
@@ -223,7 +225,6 @@ void configScene() {
   lightF[2].c1 = 0.090;
   lightF[2].c2 = 0.032;
 
-  lightF[3].position = glm::vec3(6.05, 1.4, -3.75);
   lightF[3].direction = glm::vec3(0.0, -2.0, 0.0);
   lightF[3].ambient = glm::vec3(0.2, 0.2, 0.2);
   lightF[3].diffuse = glm::vec3(0.9, 0.0, 0.0);
@@ -234,8 +235,7 @@ void configScene() {
   lightF[3].c1 = 0.090;
   lightF[3].c2 = 0.032;
 
-  // Coche jade luz izquierda delantera
-  
+  // Coche jade, luz izquierda delantera
   lightF[4].direction = glm::vec3(5.0, -2.0, 0.0);
   lightF[4].ambient = glm::vec3(0.2, 0.2, 0.2);
   lightF[4].diffuse = glm::vec3(0.9, 0.9, 0.9);
@@ -246,7 +246,7 @@ void configScene() {
   lightF[4].c1 = 0.090;
   lightF[4].c2 = 0.032;
 
-  // Coche jade. Luz derecha delantera. 
+  // Coche jade, luz derecha delantera
   lightF[5].direction = glm::vec3(5.0, -2.0, 0.0);
   lightF[5].ambient = glm::vec3(0.2, 0.2, 0.2);
   lightF[5].diffuse = glm::vec3(0.9, 0.9, 0.9);
@@ -257,8 +257,7 @@ void configScene() {
   lightF[5].c1 = 0.090;
   lightF[5].c2 = 0.032;
 
-  // Coche gris. Luz izquierda delantera.
-  
+  // Coche gris, luz izquierda delantera
   lightF[6].direction = glm::vec3(-5.0, -2.0, 1.0);
   lightF[6].ambient = glm::vec3(0.2, 0.2, 0.2);
   lightF[6].diffuse = glm::vec3(0.9, 0.9, 0.9);
@@ -269,7 +268,7 @@ void configScene() {
   lightF[6].c1 = 0.090;
   lightF[6].c2 = 0.032;
 
-  //Coche gris. Luz derecha delantera
+  // Coche gris, luz derecha delantera
   lightF[7].position = glm::vec3(21.0, 1.4, 2.7);
   lightF[7].direction = glm::vec3(-5.0, -2.0, 1.0);
   lightF[7].ambient = glm::vec3(0.2, 0.2, 0.2);
@@ -281,7 +280,7 @@ void configScene() {
   lightF[7].c1 = 0.090;
   lightF[7].c2 = 0.032;
 
-  //Coche verde. Luz izquierda delantera
+  // Coche verde, luz izquierda delantera
   lightF[8].direction = glm::vec3(5.0, -2.0, 1.0);
   lightF[8].ambient = glm::vec3(0.2, 0.2, 0.2);
   lightF[8].diffuse = glm::vec3(0.9, 0.9, 0.9);
@@ -292,7 +291,7 @@ void configScene() {
   lightF[8].c1 = 0.090;
   lightF[8].c2 = 0.032;
 
-  //Coche verde. Luz derecha delantera
+  // Coche verde, luz derecha delantera
   lightF[9].direction = glm::vec3(5.0, -2.0, 1.0);
   lightF[9].ambient = glm::vec3(0.2, 0.2, 0.2);
   lightF[9].diffuse = glm::vec3(0.9, 0.9, 0.9);
@@ -303,7 +302,7 @@ void configScene() {
   lightF[9].c1 = 0.090;
   lightF[9].c2 = 0.032;
 
-  //Coche marron. Luz delantera derecha
+  // Coche marron, luz delantera derecha
   lightF[10].direction = glm::vec3(-5.0, -2.0, 1.0);
   lightF[10].ambient = glm::vec3(0.2, 0.2, 0.2);
   lightF[10].diffuse = glm::vec3(0.9, 0.9, 0.9);
@@ -314,7 +313,7 @@ void configScene() {
   lightF[10].c1 = 0.090;
   lightF[10].c2 = 0.032;
 
-  //Coche marron. Luz delantera izquierda
+  // Coche marron, luz delantera izquierda
   lightF[11].direction = glm::vec3(-5.0, -2.0, 1.0);
   lightF[11].ambient = glm::vec3(0.2, 0.2, 0.2);
   lightF[11].diffuse = glm::vec3(0.9, 0.9, 0.9);
@@ -325,7 +324,7 @@ void configScene() {
   lightF[11].c1 = 0.090;
   lightF[11].c2 = 0.032;
 
-  // Materiales
+  // Materiales y texturas
   mLuz.ambient = glm::vec4(0.0, 0.0, 0.0, 0.5);
   mLuz.diffuse = glm::vec4(0.0, 0.0, 0.0, 0.5);
   mLuz.specular = glm::vec4(0.0, 0.0, 0.0, 0.5);
@@ -374,7 +373,7 @@ void configScene() {
   gold.shininess = 100.0f;
 
   pearl.ambient = glm::vec4(0.25f, 0.20725f, 0.20725f, 1.0f);
-  pearl.diffuse = glm::vec4(1.0f, 0.829f, 0.829f, 0.922f);
+  pearl.diffuse = glm::vec4(1.0f, 0.829f, 0.829f, 1.0f);
   pearl.specular = glm::vec4(0.296648f, 0.296648f, 0.296648f, 1.0f);
   pearl.emissive = glm::vec4(0.0f, 0.0f, 0.0f, 1.0f);
   pearl.shininess = 11.264f;
@@ -435,7 +434,7 @@ void renderScene() {
   drawObjectTex(road, texHighway, P, V, Rr * Tr * Sr);
   // Coche del jugador
   glm::mat4 Rc = glm::rotate(I, glm::radians(90.0f), glm::vec3(0, 1, 0));
-  glm::mat4 Tc = glm::translate(I, glm::vec3(2.8, 0.1, 6.2));
+  glm::mat4 Tc = glm::translate(I, glm::vec3(posDoradoX, 0.1, posDoradoZ));
   glm::mat4 Sc = glm::scale(I, glm::vec3(0.8, 0.8, 0.8));
   drawCoche(P, gold, V, Rc * Tc * Sc);
 
@@ -444,39 +443,45 @@ void renderScene() {
   Rr = glm::rotate(I, glm::radians(270.0f), glm::vec3(0, 1, 0));
   drawObjectTex(road, texHighway, P, V, Rr * Tr * Sr);
   Rc = glm::rotate(I, glm::radians(180.0f), glm::vec3(0, 1, 0));
-  Tc = glm::translate(I, glm::vec3(PosJade, 0.1, 5.3));
+  Tc = glm::translate(I, glm::vec3(posJade, 0.1, 5.3));
   drawCoche(P, jade, V, Tc * Rc * Sc);
   Rc = glm::rotate(I, glm::radians(0.0f), glm::vec3(0, 1, 0));
-  Tc = glm::translate(I, glm::vec3(PosVerde, 0.1, 3.5));
+  Tc = glm::translate(I, glm::vec3(posVerde, 0.1, 3.5));
   drawCoche(P, pearl, V, Tc * Rc * Sc);
 
   Tr = glm::translate(I, glm::vec3(10.0, 0.101, 35.8));
   drawObjectTex(road, texHighway, P, V, Rr * Tr * Sr);
   Rc = glm::rotate(I, glm::radians(180.0f), glm::vec3(0, 1, 0));
-  Tc = glm::translate(I, glm::vec3(PosGris, 0.1, 18.2));
+  Tc = glm::translate(I, glm::vec3(posGris, 0.1, 18.2));
   drawCoche(P, emerald, V, Tc * Rc * Sc);
   Rc = glm::rotate(I, glm::radians(0.0f), glm::vec3(0, 1, 0));
-  Tc = glm::translate(I, glm::vec3(PosMarron, 0.1, 16.4));
+  Tc = glm::translate(I, glm::vec3(posMarron, 0.1, 16.4));
   drawCoche(P, polishedBronze, V, Tc * Rc * Sc);
 }
 
 void setLights(glm::mat4 P, glm::mat4 V) {
-    //Luces coches
-    //Jade
-    lightF[4].position = glm::vec3(PosLuzJade, 1.4, 5.45);
-    lightF[5].position = glm::vec3(PosLuzJade, 1.4, 6.1);
+  // Luces coches
+  // Coche jugador
+  lightF[0].position = glm::vec3(posLuzDoradoDelantera1X, 1.4, posLuzDoradoDelantera1Z);
+  lightF[1].position = glm::vec3(posLuzDoradoDelantera2X, 1.4, posLuzDoradoDelantera2Z);
+  lightF[2].position = glm::vec3(posLuzDoradoTrasera1X, 1.4, posLuzDoradoTrasera1Z);
+  lightF[3].position = glm::vec3(posLuzDoradoTrasera2X, 1.4, posLuzDoradoTrasera2Z);
 
-    //Verde
-    lightF[8].position = glm::vec3(PosLuzVerde, 1.4, 18.36);
-    lightF[9].position = glm::vec3(PosLuzVerde, 1.4, 18.98);
+  // Jade
+  lightF[4].position = glm::vec3(posLuzJade, 1.4, 5.45);
+  lightF[5].position = glm::vec3(posLuzJade, 1.4, 6.1);
 
-    //Gris
-    lightF[6].position = glm::vec3(PosLuzGris, 1.4, 3.35);
-    lightF[7].position = glm::vec3(PosLuzGris, 1.4, 2.7);
+  // Verde
+  lightF[8].position = glm::vec3(posLuzVerde, 1.4, 18.36);
+  lightF[9].position = glm::vec3(posLuzVerde, 1.4, 18.98);
 
-    //Marron
-    lightF[10].position = glm::vec3(PosLuzMarron, 1.4, 15.62);
-    lightF[11].position = glm::vec3(PosLuzMarron, 1.4, 16.28);
+  // Gris
+  lightF[6].position = glm::vec3(posLuzGris, 1.4, 3.35);
+  lightF[7].position = glm::vec3(posLuzGris, 1.4, 2.7);
+
+  // Marron
+  lightF[10].position = glm::vec3(posLuzMarron, 1.4, 15.62);
+  lightF[11].position = glm::vec3(posLuzMarron, 1.4, 16.28);
 
   shaders.setLight("uLightG", lightG);
   for (int i = 0; i < NLD; i++)
@@ -504,6 +509,7 @@ void drawObjectMat(Model model, Material material, glm::mat4 P, glm::mat4 V, glm
 }
 
 void drawObjectTex(Model model, Textures textures, glm::mat4 P, glm::mat4 V, glm::mat4 M) {
+  // shaders.setMat4("uN", glm::transpose(M));  Cambiando esto pasa de verse las de derecha a las de izquierda
   shaders.setMat4("uN", glm::transpose(glm::inverse(M)));
   shaders.setMat4("uM", M);
   shaders.setMat4("uPVM", P * V * M);
@@ -617,13 +623,103 @@ void funFramebufferSize(GLFWwindow* window, int width, int height) {
 }
 
 void funKey(GLFWwindow* window, int key, int scancode, int action, int mods) {
-  if (action == GLFW_PRESS || action == GLFW_REPEAT) {
-    float angleSpeed = 30.0f;  // Velocidad de rotación de la cámara
-    if (key == GLFW_KEY_LEFT) {
-      alphaX -= angleSpeed;
+  static bool wPressed = false;
+  static bool aPressed = false;
+  static bool sPressed = false;
+  static bool dPressed = false;
+
+  if (action == GLFW_PRESS) {
+    if (key == GLFW_KEY_W)
+      wPressed = true;
+    if (key == GLFW_KEY_A)
+      aPressed = true;
+    if (key == GLFW_KEY_S)
+      sPressed = true;
+    if (key == GLFW_KEY_D)
+      dPressed = true;
+  } else if (action == GLFW_RELEASE) {
+    if (key == GLFW_KEY_W)
+      wPressed = false;
+    if (key == GLFW_KEY_A)
+      aPressed = false;
+    if (key == GLFW_KEY_S)
+      sPressed = false;
+    if (key == GLFW_KEY_D)
+      dPressed = false;
+  }
+
+  if (wPressed && aPressed) {
+    posDoradoX -= 0.25 * glm::cos(glm::radians(45.0f));
+    posDoradoZ += 0.25 * glm::sin(glm::radians(45.0f));
+    posLuzDoradoDelantera1X += 0.25 * glm::cos(glm::radians(-45.0f));
+    posLuzDoradoDelantera1Z -= 0.25 * glm::sin(glm::radians(-45.0f));
+    posLuzDoradoDelantera2X += 0.25 * glm::cos(glm::radians(-45.0f));
+    posLuzDoradoDelantera2Z -= 0.25 * glm::sin(glm::radians(-45.0f));
+    posLuzDoradoTrasera1X += 0.25 * glm::cos(glm::radians(-45.0f));
+    posLuzDoradoTrasera1Z -= 0.25 * glm::sin(glm::radians(-45.0f));
+    posLuzDoradoTrasera2X += 0.25 * glm::cos(glm::radians(-45.0f));
+    posLuzDoradoTrasera2Z -= 0.25 * glm::sin(glm::radians(-45.0f));
+  } else if (wPressed && dPressed) {
+    posDoradoX -= 0.25 * glm::cos(glm::radians(45.0f));
+    posDoradoZ -= 0.25 * glm::sin(glm::radians(45.0f));
+    posLuzDoradoDelantera1X -= 0.25 * glm::cos(glm::radians(-45.0f));
+    posLuzDoradoDelantera1Z -= 0.25 * glm::sin(glm::radians(-45.0f));
+    posLuzDoradoDelantera2X -= 0.25 * glm::cos(glm::radians(-45.0f));
+    posLuzDoradoDelantera2Z -= 0.25 * glm::sin(glm::radians(-45.0f));
+    posLuzDoradoTrasera1X -= 0.25 * glm::cos(glm::radians(-45.0f));
+    posLuzDoradoTrasera1Z -= 0.25 * glm::sin(glm::radians(-45.0f));
+    posLuzDoradoTrasera2X -= 0.25 * glm::cos(glm::radians(-45.0f));
+    posLuzDoradoTrasera2Z -= 0.25 * glm::sin(glm::radians(-45.0f));
+  } else if (sPressed && aPressed) {
+    posDoradoX += 0.25 * glm::cos(glm::radians(45.0f));
+    posDoradoZ += 0.25 * glm::sin(glm::radians(45.0f));
+    posLuzDoradoDelantera1X += 0.25 * glm::cos(glm::radians(-45.0f));
+    posLuzDoradoDelantera1Z += 0.25 * glm::sin(glm::radians(-45.0f));
+    posLuzDoradoDelantera2X += 0.25 * glm::cos(glm::radians(-45.0f));
+    posLuzDoradoDelantera2Z += 0.25 * glm::sin(glm::radians(-45.0f));
+    posLuzDoradoTrasera1X += 0.25 * glm::cos(glm::radians(-45.0f));
+    posLuzDoradoTrasera1Z += 0.25 * glm::sin(glm::radians(-45.0f));
+    posLuzDoradoTrasera2X += 0.25 * glm::cos(glm::radians(-45.0f));
+    posLuzDoradoTrasera2Z += 0.25 * glm::sin(glm::radians(-45.0f));
+  } else if (sPressed && dPressed) {
+    posDoradoX += 0.25 * glm::cos(glm::radians(45.0f));
+    posDoradoZ -= 0.25 * glm::sin(glm::radians(45.0f));
+    posLuzDoradoDelantera1X -= 0.25 * glm::cos(glm::radians(-45.0f));
+    posLuzDoradoDelantera1Z += 0.25 * glm::sin(glm::radians(-45.0f));
+    posLuzDoradoDelantera2X -= 0.25 * glm::cos(glm::radians(-45.0f));
+    posLuzDoradoDelantera2Z += 0.25 * glm::sin(glm::radians(-45.0f));
+    posLuzDoradoTrasera1X -= 0.25 * glm::cos(glm::radians(-45.0f));
+    posLuzDoradoTrasera1Z += 0.25 * glm::sin(glm::radians(-45.0f));
+    posLuzDoradoTrasera2X -= 0.25 * glm::cos(glm::radians(-45.0f));
+    posLuzDoradoTrasera2Z += 0.25 * glm::sin(glm::radians(-45.0f));
+  } else {
+    if (wPressed) {
+      posDoradoX -= 0.25;
+      posLuzDoradoDelantera1Z += 0.25;
+      posLuzDoradoDelantera2Z += 0.25;
+      posLuzDoradoTrasera1Z += 0.25;
+      posLuzDoradoTrasera2Z += 0.25;
     }
-    if (key == GLFW_KEY_RIGHT) {
-      alphaX += angleSpeed;
+    if (sPressed) {
+      posDoradoX += 0.25;
+      posLuzDoradoDelantera1Z -= 0.25;
+      posLuzDoradoDelantera2Z -= 0.25;
+      posLuzDoradoTrasera1Z -= 0.25;
+      posLuzDoradoTrasera2Z -= 0.25;
+    }
+    if (aPressed) {
+      posDoradoZ += 0.25;
+      posLuzDoradoDelantera1X += 0.25;
+      posLuzDoradoDelantera2X += 0.25;
+      posLuzDoradoTrasera1X += 0.25;
+      posLuzDoradoTrasera2X += 0.25;
+    }
+    if (dPressed) {
+      posDoradoZ -= 0.25;
+      posLuzDoradoDelantera1X -= 0.25;
+      posLuzDoradoDelantera2X -= 0.25;
+      posLuzDoradoTrasera1X -= 0.25;
+      posLuzDoradoTrasera2X -= 0.25;
     }
   }
 }
@@ -648,93 +744,86 @@ void funCursorPos(GLFWwindow* window, double xPos, double yPos) {
     alphaY = limY;
 }
 
-void funTimer(double seconds, double &start){
-
-    if (glfwGetTime()-start > seconds /*  1/60  */){
-        PosJade += 0.25;
-        if (PosJade >= 22.0){
-          PosJade = -9.0;
-        }
-        start = glfwGetTime();
+void funTimer(double seconds, double& start) {
+  if (glfwGetTime() - start > seconds /*  1/60  */) {
+    posJade += 0.25;
+    if (posJade >= 22.0) {
+      posJade = -9.0;
     }
+    start = glfwGetTime();
+  }
 }
 
-void funTimer2(double seconds, double &start2){
-
-    if (glfwGetTime()-start2 > seconds /*  1/60  */){
-        PosGris += 0.2;
-        if (PosGris >= 22.0){
-          PosGris = -9.0;
-        }
-        start2 = glfwGetTime();
+void funTimer2(double seconds, double& start2) {
+  if (glfwGetTime() - start2 > seconds /*  1/60  */) {
+    posGris += 0.2;
+    if (posGris >= 22.0) {
+      posGris = -9.0;
     }
+    start2 = glfwGetTime();
+  }
 }
 
-void funTimer3(double seconds, double &start3){
-
-    if (glfwGetTime()-start3 > seconds /*  1/60  */){
-        PosMarron -= 0.1;
-        if (PosMarron <= -8.0){
-          PosMarron = 23.0;
-        }
-        start3 = glfwGetTime();
+void funTimer3(double seconds, double& start3) {
+  if (glfwGetTime() - start3 > seconds /*  1/60  */) {
+    posMarron -= 0.1;
+    if (posMarron <= -8.0) {
+      posMarron = 23.0;
     }
+    start3 = glfwGetTime();
+  }
 }
 
-void funTimer4(double seconds, double &start4){
-
-    if (glfwGetTime()-start4 > seconds /*  1/60  */){
-        PosVerde -= 0.15;
-        if (PosVerde <= -8.0){
-          PosVerde = 23.0;
-        }
-        start4 = glfwGetTime();
+void funTimer4(double seconds, double& start4) {
+  if (glfwGetTime() - start4 > seconds /*  1/60  */) {
+    posVerde -= 0.15;
+    if (posVerde <= -8.0) {
+      posVerde = 23.0;
     }
-}
-//Luces coche Jade
-void funTimer5(double seconds, double &start5){
-
-    if (glfwGetTime()-start5 > seconds /*  1/60  */){
-        PosLuzJade += 0.25;
-        if (PosLuzJade >= 24.0){
-          PosLuzJade = -7.0;
-        }
-        start5 = glfwGetTime();
-    }
+    start4 = glfwGetTime();
+  }
 }
 
-//Coche verde del fondo
-void funTimer6(double seconds, double &start6){
-
-    if (glfwGetTime()-start6 > seconds /*  1/60  */){
-        PosLuzVerde += 0.20;
-        if (PosLuzVerde >= 24.0){
-          PosLuzVerde = -7.0;
-        }
-        start6 = glfwGetTime();
+// Luces coche Jade
+void funTimer5(double seconds, double& start5) {
+  if (glfwGetTime() - start5 > seconds /*  1/60  */) {
+    posLuzJade += 0.25;
+    if (posLuzJade >= 24.0) {
+      posLuzJade = -7.0;
     }
+    start5 = glfwGetTime();
+  }
 }
 
-//Luces coche Marron
-void funTimer7(double seconds, double &start7){
-
-    if (glfwGetTime()-start7 > seconds /*  1/60  */){
-        PosLuzMarron -= 0.10;
-        if (PosLuzMarron <= -10.0){
-          PosLuzMarron = 21.0;
-        }
-        start7 = glfwGetTime();
+// Coche verde del fondo
+void funTimer6(double seconds, double& start6) {
+  if (glfwGetTime() - start6 > seconds /*  1/60  */) {
+    posLuzVerde += 0.20;
+    if (posLuzVerde >= 24.0) {
+      posLuzVerde = -7.0;
     }
+    start6 = glfwGetTime();
+  }
 }
 
-//Luces coche Gris
-void funTimer8(double seconds, double &start8){
-
-    if (glfwGetTime()-start8 > seconds /*  1/60  */){
-        PosLuzGris -= 0.15;
-        if (PosLuzGris <= -10.0){
-          PosLuzGris = 21.0;
-        }
-        start8 = glfwGetTime();
+// Luces coche Marron
+void funTimer7(double seconds, double& start7) {
+  if (glfwGetTime() - start7 > seconds /*  1/60  */) {
+    posLuzMarron -= 0.10;
+    if (posLuzMarron <= -10.0) {
+      posLuzMarron = 21.0;
     }
+    start7 = glfwGetTime();
+  }
+}
+
+// Luces coche Gris
+void funTimer8(double seconds, double& start8) {
+  if (glfwGetTime() - start8 > seconds /*  1/60  */) {
+    posLuzGris -= 0.15;
+    if (posLuzGris <= -10.0) {
+      posLuzGris = 21.0;
+    }
+    start8 = glfwGetTime();
+  }
 }
