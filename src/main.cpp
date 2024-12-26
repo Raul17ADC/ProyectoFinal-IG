@@ -34,23 +34,24 @@ void funCursorPos(GLFWwindow* window, double xPos, double yPos);
 Shaders shaders;
 
 // Modelos
-Model sphere, plane, wheel, road, cube;
+Model sphere, plane, wheel, road, cube, streetlight;
 
 // Imagenes (texturas)
 Texture imgHighway, imgNoEmissive;
 Texture imgPavingStones, imgPavingStonesNormal;
+Texture imgStreetlight, imgStreetlightSpecular;
 
 // Luces y materiales
 #define NLD 1
-// #define NLP 1
+#define NLP 6
 #define NLF 12
 Light lightG;
 Light lightD[NLD];
-// Light lightP[NLP];
+Light lightP[NLP];
 Light lightF[NLF];
 Material mLuz, ruby;
 Material blackRubber, cyanPlastic, polishedBronze, gold, pearl, emerald, jade;
-Textures texHighway, texPavingStones;
+Textures texHighway, texPavingStones, texStreetlight;
 
 // Viewport
 int w = 1000;
@@ -166,32 +167,73 @@ void configScene() {
   wheel.initModel("resources/models/wheel.obj");
   road.initModel("resources/models/highway.obj");
   cube.initModel("resources/models/cube.obj");
+  streetlight.initModel("resources/models/streetlight.obj");
 
   // Imagenes (texturas)
   imgNoEmissive.initTexture("resources/textures/imgNoEmissive.png");
   imgHighway.initTexture("resources/textures/Road007_1K_Color.jpeg");
   imgPavingStones.initTexture("resources/textures/PavingStones069_1K_Color.jpeg");
   imgPavingStonesNormal.initTexture("resources/textures/PavingStones069_1K_NormalDX.jpeg");
+  imgStreetlight.initTexture("resources/textures/farola_initialShadingGroup_BaseColor.png");
+  imgStreetlightSpecular.initTexture("resources/textures/farola_initialShadingGroup_Roughness.png");
 
   // Luz ambiental global
   lightG.ambient = glm::vec3(0.5, 0.5, 0.5);
 
   // Luces direccionales
   lightD[0].direction = glm::normalize(glm::vec3(-0.3, -1.0, -0.2));
-  lightD[0].ambient = glm::vec3(0.3, 0.3, 0.3);
-  lightD[0].diffuse = glm::vec3(1.0, 0.95, 0.9);
-  lightD[0].specular = glm::vec3(1.0, 1.0, 1.0);
+  lightD[0].ambient = glm::vec3(0.1, 0.1, 0.1);
+  lightD[0].diffuse = glm::vec3(0.5, 0.5, 0.5);
+  lightD[0].specular = glm::vec3(0.5, 0.5, 0.5);
 
   // Luces posicionales
-  /*
-  lightP[0].position = glm::vec3(0.0, 3.0, 3.0);
-  lightP[0].ambient = glm::vec3(0.2, 0.2, 0.2);
-  lightP[0].diffuse = glm::vec3(0.9, 0.9, 0.9);
-  lightP[0].specular = glm::vec3(0.9, 0.9, 0.9);
-  lightP[0].c0 = 1.00;
-  lightP[0].c1 = 0.22;
-  lightP[0].c2 = 0.20;
-  */
+  lightP[0].position = glm::vec3(3.5, 4.35, -1.5);
+  lightP[0].ambient = glm::vec3(0.3, 0.3, 0.3);
+  lightP[0].diffuse = glm::vec3(1.0, 1.0, 1.0);
+  lightP[0].specular = glm::vec3(1.0, 1.0, 1.0);
+  lightP[0].c0 = 1.0;
+  lightP[0].c1 = 0.09;
+  lightP[0].c2 = 0.032;
+
+  lightP[1].position = glm::vec3(10.5, 4.35, -1.5);
+  lightP[1].ambient = glm::vec3(0.3, 0.3, 0.3);
+  lightP[1].diffuse = glm::vec3(1.0, 1.0, 1.0);
+  lightP[1].specular = glm::vec3(1.0, 1.0, 1.0);
+  lightP[1].c0 = 1.0;
+  lightP[1].c1 = 0.09;
+  lightP[1].c2 = 0.032;
+
+  lightP[2].position = glm::vec3(3.5, 4.35, 10.5);
+  lightP[2].ambient = glm::vec3(0.3, 0.3, 0.3);
+  lightP[2].diffuse = glm::vec3(1.0, 1.0, 1.0);
+  lightP[2].specular = glm::vec3(1.0, 1.0, 1.0);
+  lightP[2].c0 = 1.0;
+  lightP[2].c1 = 0.09;
+  lightP[2].c2 = 0.032;
+
+  lightP[3].position = glm::vec3(10.5, 4.35, 10.5);
+  lightP[3].ambient = glm::vec3(0.3, 0.3, 0.3);
+  lightP[3].diffuse = glm::vec3(1.0, 1.0, 1.0);
+  lightP[3].specular = glm::vec3(1.0, 1.0, 1.0);
+  lightP[3].c0 = 1.0;
+  lightP[3].c1 = 0.09;
+  lightP[3].c2 = 0.032;
+
+  lightP[4].position = glm::vec3(3.5, 4.35, 25.5);
+  lightP[4].ambient = glm::vec3(0.3, 0.3, 0.3);
+  lightP[4].diffuse = glm::vec3(1.0, 1.0, 1.0);
+  lightP[4].specular = glm::vec3(1.0, 1.0, 1.0);
+  lightP[4].c0 = 1.0;
+  lightP[4].c1 = 0.09;
+  lightP[4].c2 = 0.032;
+
+  lightP[5].position = glm::vec3(10.5, 4.35, 25.5);
+  lightP[5].ambient = glm::vec3(0.3, 0.3, 0.3);
+  lightP[5].diffuse = glm::vec3(1.0, 1.0, 1.0);
+  lightP[5].specular = glm::vec3(1.0, 1.0, 1.0);
+  lightP[5].c0 = 1.0;
+  lightP[5].c1 = 0.09;
+  lightP[5].c2 = 0.032;
 
   // Luces focales
   // Luces coche jugador
@@ -354,6 +396,12 @@ void configScene() {
   texPavingStones.normal = imgPavingStonesNormal.getTexture();
   texPavingStones.shininess = 5.0f;
 
+  texStreetlight.diffuse = imgStreetlight.getTexture();
+  texStreetlight.specular = imgStreetlightSpecular.getTexture();
+  texStreetlight.emissive = imgNoEmissive.getTexture();
+  texStreetlight.normal = 0;
+  texStreetlight.shininess = 50.0f;
+
   cyanPlastic.ambient = glm::vec4(0.0f, 0.1f, 0.06f, 0.5f);
   cyanPlastic.diffuse = glm::vec4(0.0f, 0.50980392f, 0.50980392f, 0.5f);
   cyanPlastic.specular = glm::vec4(0.50196078f, 0.50196078f, 0.50196078f, 0.5f);
@@ -457,6 +505,21 @@ void renderScene() {
   Rc = glm::rotate(I, glm::radians(0.0f), glm::vec3(0, 1, 0));
   Tc = glm::translate(I, glm::vec3(posMarron, 0.1, 16.4));
   drawCoche(P, polishedBronze, V, Tc * Rc * Sc);
+
+  // Farolas
+  glm::mat4 Tf = glm::translate(I, glm::vec3(3.5, 0.1, -2.5));
+  glm::mat4 Sf = glm::scale(I, glm::vec3(0.3, 0.3, 0.3));
+  drawObjectTex(streetlight, texStreetlight, P, V, Tf * Sf);
+  Tf = glm::translate(I, glm::vec3(10.5, 0.1, -2.5));
+  drawObjectTex(streetlight, texStreetlight, P, V, Tf * Sf);
+  Tf = glm::translate(I, glm::vec3(3.5, 0.1, 9.5));
+  drawObjectTex(streetlight, texStreetlight, P, V, Tf * Sf);
+  Tf = glm::translate(I, glm::vec3(10.5, 0.1, 9.5));
+  drawObjectTex(streetlight, texStreetlight, P, V, Tf * Sf);
+  Tf = glm::translate(I, glm::vec3(3.5, 0.1, 24.5));
+  drawObjectTex(streetlight, texStreetlight, P, V, Tf * Sf);
+  Tf = glm::translate(I, glm::vec3(10.5, 0.1, 24.5));
+  drawObjectTex(streetlight, texStreetlight, P, V, Tf * Sf);
 }
 
 void setLights(glm::mat4 P, glm::mat4 V) {
@@ -486,10 +549,15 @@ void setLights(glm::mat4 P, glm::mat4 V) {
   shaders.setLight("uLightG", lightG);
   for (int i = 0; i < NLD; i++)
     shaders.setLight("uLightD[" + toString(i) + "]", lightD[i]);
-  /*
+
   for (int i = 0; i < NLP; i++)
     shaders.setLight("uLightP[" + toString(i) + "]", lightP[i]);
-  */
+
+  for (int i = 0; i < NLP; i++) {
+    glm::mat4 M = glm::translate(I, lightP[i].position) * glm::scale(I, glm::vec3(0.025));
+    drawObjectMat(sphere, mLuz, P, V, M);
+  }
+
   for (int i = 0; i < NLF; i++)
     shaders.setLight("uLightF[" + toString(i) + "]", lightF[i]);
 
