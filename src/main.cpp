@@ -64,6 +64,9 @@ float fovy = 60.0;
 float alphaX = 0.0;
 float alphaY = 0.0;
 
+// Interaccion con las luces
+float onOff = 1.0;
+
 // Posicion coches y luces
 float posDoradoX = 2.8;
 float posDoradoZ = 6.2;
@@ -195,53 +198,11 @@ void configScene() {
   lightD[0].specular = glm::vec3(0.5, 0.5, 0.5);
 
   // Luces posicionales
-  lightP[0].position = glm::vec3(3.5, 4.35, -1.5);
-  lightP[0].ambient = glm::vec3(0.3, 0.3, 0.3);
-  lightP[0].diffuse = glm::vec3(1.0, 1.0, 1.0);
-  lightP[0].specular = glm::vec3(1.0, 1.0, 1.0);
-  lightP[0].c0 = 1.0;
-  lightP[0].c1 = 0.09;
-  lightP[0].c2 = 0.032;
-
-  lightP[1].position = glm::vec3(10.5, 4.35, -1.5);
-  lightP[1].ambient = glm::vec3(0.3, 0.3, 0.3);
-  lightP[1].diffuse = glm::vec3(1.0, 1.0, 1.0);
-  lightP[1].specular = glm::vec3(1.0, 1.0, 1.0);
-  lightP[1].c0 = 1.0;
-  lightP[1].c1 = 0.09;
-  lightP[1].c2 = 0.032;
-
-  lightP[2].position = glm::vec3(3.5, 4.35, 10.5);
-  lightP[2].ambient = glm::vec3(0.3, 0.3, 0.3);
-  lightP[2].diffuse = glm::vec3(1.0, 1.0, 1.0);
-  lightP[2].specular = glm::vec3(1.0, 1.0, 1.0);
-  lightP[2].c0 = 1.0;
-  lightP[2].c1 = 0.09;
-  lightP[2].c2 = 0.032;
-
-  lightP[3].position = glm::vec3(10.5, 4.35, 10.5);
-  lightP[3].ambient = glm::vec3(0.3, 0.3, 0.3);
-  lightP[3].diffuse = glm::vec3(1.0, 1.0, 1.0);
-  lightP[3].specular = glm::vec3(1.0, 1.0, 1.0);
-  lightP[3].c0 = 1.0;
-  lightP[3].c1 = 0.09;
-  lightP[3].c2 = 0.032;
-
-  lightP[4].position = glm::vec3(3.5, 4.35, 25.5);
-  lightP[4].ambient = glm::vec3(0.3, 0.3, 0.3);
-  lightP[4].diffuse = glm::vec3(1.0, 1.0, 1.0);
-  lightP[4].specular = glm::vec3(1.0, 1.0, 1.0);
-  lightP[4].c0 = 1.0;
-  lightP[4].c1 = 0.09;
-  lightP[4].c2 = 0.032;
-
-  lightP[5].position = glm::vec3(10.5, 4.35, 25.5);
-  lightP[5].ambient = glm::vec3(0.3, 0.3, 0.3);
-  lightP[5].diffuse = glm::vec3(1.0, 1.0, 1.0);
-  lightP[5].specular = glm::vec3(1.0, 1.0, 1.0);
-  lightP[5].c0 = 1.0;
-  lightP[5].c1 = 0.09;
-  lightP[5].c2 = 0.032;
+  for (int i = 0; i <= NLP; i++) {
+    lightP[i].c0 = 1.0;
+    lightP[i].c1 = 0.09;
+    lightP[i].c2 = 0.032;
+  }
 
   // Luces focales
   // Luces coche jugador
@@ -387,10 +348,10 @@ void configScene() {
   ruby.emissive = glm::vec4(0.000000, 0.000000, 0.000000, 1.00);
   ruby.shininess = 76.8;
 
-  blackRubber.ambient = glm::vec4(0.02f, 0.02f, 0.02f, 1.0f);
-  blackRubber.diffuse = glm::vec4(0.01f, 0.01f, 0.01f, 1.0f);
-  blackRubber.specular = glm::vec4(0.4f, 0.4f, 0.4f, 1.0f);
-  blackRubber.shininess = 10.0;
+  blackRubber.ambient = glm::vec4(0.05f, 0.05f, 0.05f, 1.0f);
+  blackRubber.diffuse = glm::vec4(0.1f, 0.1f, 0.1f, 1.0f);
+  blackRubber.specular = glm::vec4(0.5f, 0.5f, 0.5f, 1.0f);
+  blackRubber.shininess = 32.0f;
 
   texHighway.diffuse = imgHighway.getTexture();
   texHighway.specular = imgHighway.getTexture();
@@ -554,6 +515,37 @@ void setLights(glm::mat4 P, glm::mat4 V) {
   lightF[10].position = glm::vec3(posLuzMarron, 1.4, 15.62);
   lightF[11].position = glm::vec3(posLuzMarron, 1.4, 16.28);
 
+  // Luces farolas
+  lightP[0].position = onOff * glm::vec3(3.5, 4.35, -1.5);
+  lightP[0].ambient = onOff * glm::vec3(0.3, 0.3, 0.3);
+  lightP[0].diffuse = onOff * glm::vec3(1.0, 1.0, 1.0);
+  lightP[0].specular = onOff * glm::vec3(1.0, 1.0, 1.0);
+
+  lightP[1].position = onOff * glm::vec3(10.5, 4.35, -1.5);
+  lightP[1].ambient = onOff * glm::vec3(0.3, 0.3, 0.3);
+  lightP[1].diffuse = onOff * glm::vec3(1.0, 1.0, 1.0);
+  lightP[1].specular = onOff * glm::vec3(1.0, 1.0, 1.0);
+
+  lightP[2].position = onOff * glm::vec3(3.5, 4.35, 10.5);
+  lightP[2].ambient = onOff * glm::vec3(0.3, 0.3, 0.3);
+  lightP[2].diffuse = onOff * glm::vec3(1.0, 1.0, 1.0);
+  lightP[2].specular = onOff * glm::vec3(1.0, 1.0, 1.0);
+
+  lightP[3].position = onOff * glm::vec3(10.5, 4.35, 10.5);
+  lightP[3].ambient = onOff * glm::vec3(0.3, 0.3, 0.3);
+  lightP[3].diffuse = onOff * glm::vec3(1.0, 1.0, 1.0);
+  lightP[3].specular = onOff * glm::vec3(1.0, 1.0, 1.0);
+
+  lightP[4].position = onOff * glm::vec3(3.5, 4.35, 25.5);
+  lightP[4].ambient = onOff * glm::vec3(0.3, 0.3, 0.3);
+  lightP[4].diffuse = onOff * glm::vec3(1.0, 1.0, 1.0);
+  lightP[4].specular = onOff * glm::vec3(1.0, 1.0, 1.0);
+
+  lightP[5].position = onOff * glm::vec3(10.5, 4.35, 25.5);
+  lightP[5].ambient = onOff * glm::vec3(0.3, 0.3, 0.3);
+  lightP[5].diffuse = onOff * glm::vec3(1.0, 1.0, 1.0);
+  lightP[5].specular = onOff * glm::vec3(1.0, 1.0, 1.0);
+
   shaders.setLight("uLightG", lightG);
   for (int i = 0; i < NLD; i++)
     shaders.setLight("uLightD[" + toString(i) + "]", lightD[i]);
@@ -618,7 +610,7 @@ void drawWheels(glm::mat4 P, glm::mat4 V, glm::mat4 M) {
   glm::mat4 S = glm::scale(I, glm::vec3(0.2, 0.2, 0.2));
 
   glm::mat4 Rz = glm::rotate(I, glm::radians(rotCoches), glm::vec3(0, 0, 1));
-  
+
   // Rueda trasera izquierda
   drawObjectMat(wheel, blackRubber, P, V, M * Tz * Rz * Rx * S);
 
@@ -746,6 +738,12 @@ void funKey(GLFWwindow* window, int key, int scancode, int action, int mods) {
   static bool dPressed = false;
 
   if (action == GLFW_PRESS) {
+    if (key == GLFW_KEY_F) {
+      onOff = (onOff == 1.0f) ? 0.0f : 1.0f;
+    }
+  }
+
+  if (action == GLFW_PRESS) {
     if (key == GLFW_KEY_W)
       wPressed = true;
     if (key == GLFW_KEY_A)
@@ -767,9 +765,9 @@ void funKey(GLFWwindow* window, int key, int scancode, int action, int mods) {
 
   if (wPressed && aPressed) {
     rotCocheDorado += 10.0f;
-      if (rotCocheDorado >= 360.0f){
+    if (rotCocheDorado >= 360.0f) {
       rotCocheDorado = 0.0f;
-      }
+    }
     ruedaDerecha = 45.0f;
     ruedaIzquierda = 45.0f;
     posDoradoX -= 0.25 * glm::cos(glm::radians(45.0f));
@@ -784,9 +782,9 @@ void funKey(GLFWwindow* window, int key, int scancode, int action, int mods) {
     posLuzDoradoTrasera2Z -= 0.25 * glm::sin(glm::radians(-45.0f));
   } else if (wPressed && dPressed) {
     rotCocheDorado += 10.0f;
-      if (rotCocheDorado >= 360.0f){
+    if (rotCocheDorado >= 360.0f) {
       rotCocheDorado = 0.0f;
-      }
+    }
     ruedaDerecha = -45.0f;
     ruedaIzquierda = -45.0f;
     posDoradoX -= 0.25 * glm::cos(glm::radians(45.0f));
@@ -801,7 +799,7 @@ void funKey(GLFWwindow* window, int key, int scancode, int action, int mods) {
     posLuzDoradoTrasera2Z -= 0.25 * glm::sin(glm::radians(-45.0f));
   } else if (sPressed && aPressed) {
     rotCocheDorado -= 10.0f;
-      if (rotCocheDorado <= 0.0f){
+    if (rotCocheDorado <= 0.0f) {
       rotCocheDorado = 360.0f;
     }
     ruedaDerecha = 45.0f;
@@ -818,7 +816,7 @@ void funKey(GLFWwindow* window, int key, int scancode, int action, int mods) {
     posLuzDoradoTrasera2Z += 0.25 * glm::sin(glm::radians(-45.0f));
   } else if (sPressed && dPressed) {
     rotCocheDorado -= 10.0f;
-    if (rotCocheDorado <= 0.0f){
+    if (rotCocheDorado <= 0.0f) {
       rotCocheDorado = 360.0f;
     }
     ruedaDerecha = -45.0f;
@@ -836,8 +834,8 @@ void funKey(GLFWwindow* window, int key, int scancode, int action, int mods) {
   } else {
     if (wPressed) {
       rotCocheDorado += 10.0f;
-      if (rotCocheDorado >= 360.0f){
-      rotCocheDorado = 0.0f;
+      if (rotCocheDorado >= 360.0f) {
+        rotCocheDorado = 0.0f;
       }
       ruedaDerecha = 0.0f;
       ruedaIzquierda = 0.0f;
@@ -848,35 +846,41 @@ void funKey(GLFWwindow* window, int key, int scancode, int action, int mods) {
       posLuzDoradoTrasera2Z += 0.25;
     }
     if (sPressed) {
-      rotCocheDorado -= 10.0f;
-      if (rotCocheDorado <= 0.0f){
-      rotCocheDorado = 360.0f;
+      if (posDoradoX < 2.8) {
+        rotCocheDorado -= 10.0f;
+        if (rotCocheDorado <= 0.0f) {
+          rotCocheDorado = 360.0f;
+        }
+        ruedaDerecha = 0.0f;
+        ruedaIzquierda = 0.0f;
+        posDoradoX += 0.25;
+        posLuzDoradoDelantera1Z -= 0.25;
+        posLuzDoradoDelantera2Z -= 0.25;
+        posLuzDoradoTrasera1Z -= 0.25;
+        posLuzDoradoTrasera2Z -= 0.25;
       }
-      ruedaDerecha = 0.0f;
-      ruedaIzquierda = 0.0f;
-      posDoradoX += 0.25;
-      posLuzDoradoDelantera1Z -= 0.25;
-      posLuzDoradoDelantera2Z -= 0.25;
-      posLuzDoradoTrasera1Z -= 0.25;
-      posLuzDoradoTrasera2Z -= 0.25;
     }
     if (aPressed) {
-      ruedaIzquierda = 45.0f;
-      ruedaDerecha = 45.0f;
-      posDoradoZ += 0.25;
-      posLuzDoradoDelantera1X += 0.25;
-      posLuzDoradoDelantera2X += 0.25;
-      posLuzDoradoTrasera1X += 0.25;
-      posLuzDoradoTrasera2X += 0.25;
+      if (posDoradoZ < 9.5) {
+        ruedaIzquierda = 45.0f;
+        ruedaDerecha = 45.0f;
+        posDoradoZ += 0.25;
+        posLuzDoradoDelantera1X += 0.25;
+        posLuzDoradoDelantera2X += 0.25;
+        posLuzDoradoTrasera1X += 0.25;
+        posLuzDoradoTrasera2X += 0.25;
+      }
     }
     if (dPressed) {
-      ruedaIzquierda = -45.0f;
-      ruedaDerecha = -45.0f;
-      posDoradoZ -= 0.25;
-      posLuzDoradoDelantera1X -= 0.25;
-      posLuzDoradoDelantera2X -= 0.25;
-      posLuzDoradoTrasera1X -= 0.25;
-      posLuzDoradoTrasera2X -= 0.25;
+      if (posDoradoZ > 5.5) {
+        ruedaIzquierda = -45.0f;
+        ruedaDerecha = -45.0f;
+        posDoradoZ -= 0.25;
+        posLuzDoradoDelantera1X -= 0.25;
+        posLuzDoradoDelantera2X -= 0.25;
+        posLuzDoradoTrasera1X -= 0.25;
+        posLuzDoradoTrasera2X -= 0.25;
+      }
     }
   }
 }
@@ -905,14 +909,14 @@ void funTimer(double seconds, double& start) {
   if (glfwGetTime() - start > seconds /*  1/60  */) {
     posJade += 0.25;
     rotCoches += 5.0f;
-    if (rotCoches >= 360.0){
+    if (rotCoches >= 360.0) {
       rotCoches = 0.0;
     }
 
     if (posJade >= 22.0) {
       posJade = -9.0;
     }
-    
+
     start = glfwGetTime();
   }
 }
@@ -921,7 +925,7 @@ void funTimer2(double seconds, double& start2) {
   if (glfwGetTime() - start2 > seconds /*  1/60  */) {
     posGris += 0.2;
     rotCoches += 5.0f;
-    if (rotCoches >= 360.0){
+    if (rotCoches >= 360.0) {
       rotCoches = 0.0;
     }
     if (posGris >= 22.0) {
@@ -935,7 +939,7 @@ void funTimer3(double seconds, double& start3) {
   if (glfwGetTime() - start3 > seconds /*  1/60  */) {
     posMarron -= 0.1;
     rotCoches += 5.0f;
-    if (rotCoches >= 360.0){
+    if (rotCoches >= 360.0) {
       rotCoches = 0.0;
     }
     if (posMarron <= -8.0) {
@@ -949,7 +953,7 @@ void funTimer4(double seconds, double& start4) {
   if (glfwGetTime() - start4 > seconds /*  1/60  */) {
     posVerde -= 0.15;
     rotCoches += 5.0f;
-    if (rotCoches >= 360.0){
+    if (rotCoches >= 360.0) {
       rotCoches = 0.0;
     }
     if (posVerde <= -8.0) {
@@ -964,7 +968,7 @@ void funTimer5(double seconds, double& start5) {
   if (glfwGetTime() - start5 > seconds /*  1/60  */) {
     posLuzJade += 0.25;
     rotCoches += 5.0f;
-    if (rotCoches >= 360.0){
+    if (rotCoches >= 360.0) {
       rotCoches = 0.0;
     }
     if (posLuzJade >= 24.0) {
@@ -979,7 +983,7 @@ void funTimer6(double seconds, double& start6) {
   if (glfwGetTime() - start6 > seconds /*  1/60  */) {
     posLuzVerde += 0.20;
     rotCoches += 5.0f;
-    if (rotCoches >= 360.0){
+    if (rotCoches >= 360.0) {
       rotCoches = 0.0;
     }
     if (posLuzVerde >= 24.0) {
@@ -994,7 +998,7 @@ void funTimer7(double seconds, double& start7) {
   if (glfwGetTime() - start7 > seconds /*  1/60  */) {
     posLuzMarron -= 0.10;
     rotCoches += 5.0f;
-    if (rotCoches >= 360.0){
+    if (rotCoches >= 360.0) {
       rotCoches = 0.0;
     }
     if (posLuzMarron <= -10.0) {
@@ -1009,7 +1013,7 @@ void funTimer8(double seconds, double& start8) {
   if (glfwGetTime() - start8 > seconds /*  1/60  */) {
     posLuzGris -= 0.15;
     rotCoches += 5.0f;
-    if (rotCoches >= 360.0){
+    if (rotCoches >= 360.0) {
       rotCoches = 0.0;
     }
     if (posLuzGris <= -10.0) {
