@@ -1,3 +1,0 @@
-/Users/jox/Desktop/Uni/Informática gráfica/ProyectoFinal-IG/build/CMakeFiles/ProyectoFinal.dir
-/Users/jox/Desktop/Uni/Informática gráfica/ProyectoFinal-IG/build/CMakeFiles/edit_cache.dir
-/Users/jox/Desktop/Uni/Informática gráfica/ProyectoFinal-IG/build/CMakeFiles/rebuild_cache.dir
