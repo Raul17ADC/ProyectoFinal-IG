@@ -30,8 +30,8 @@ struct Textures {
 };
 
 #define NLD 1
-#define NLP 6
-#define NLF 12
+#define NLP 8
+#define NLF 10
 
 uniform Light uLightG;
 uniform Light uLightD[NLD];

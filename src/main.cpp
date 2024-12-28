@@ -45,8 +45,8 @@ Texture imgStreetlight, imgStreetlightSpecular;
 
 // Luces y materiales
 #define NLD 1
-#define NLP 6
-#define NLF 12
+#define NLP 8
+#define NLF 10
 Light lightG;
 Light lightD[NLD];
 Light lightP[NLP];
@@ -66,6 +66,7 @@ float alphaY = 0.0;
 
 // Interaccion con las luces
 float onOff = 1.0;
+float freno = 1.0;
 
 // Posicion coches y luces
 float posDoradoX = 2.8;
@@ -198,14 +199,20 @@ void configScene() {
   lightD[0].specular = glm::vec3(0.5, 0.5, 0.5);
 
   // Luces posicionales
-  for (int i = 0; i <= NLP; i++) {
+  for (int i = 0; i <= 5; i++) {
     lightP[i].c0 = 1.0;
     lightP[i].c1 = 0.09;
     lightP[i].c2 = 0.032;
   }
+  // Luces de freno coche jugador
+  for (int j = 6; j < NLP; j++) {
+    lightP[j].c0 = 1.0;
+    lightP[j].c1 = 0.35;
+    lightP[j].c2 = 0.44;
+  }
 
   // Luces focales
-  // Luces coche jugador
+  // Luces faros delanteros coche jugador
   lightF[0].direction = glm::vec3(0.0, -2.0, 5.0);
   lightF[0].ambient = glm::vec3(0.2, 0.2, 0.2);
   lightF[0].diffuse = glm::vec3(0.9, 0.9, 0.9);
@@ -226,28 +233,30 @@ void configScene() {
   lightF[1].c1 = 0.090;
   lightF[1].c2 = 0.032;
 
-  lightF[2].direction = glm::vec3(0.0, -2.0, 0.0);
-  lightF[2].ambient = glm::vec3(0.4, 0.4, 0.4);
-  lightF[2].diffuse = glm::vec3(0.9, 0.0, 0.0);
-  lightF[2].specular = glm::vec3(0.9, 0.0, 0.0);
+  // Coche jade, luz izquierda delantera
+  lightF[2].direction = glm::vec3(5.0, -2.0, 0.0);
+  lightF[2].ambient = glm::vec3(0.2, 0.2, 0.2);
+  lightF[2].diffuse = glm::vec3(0.9, 0.9, 0.9);
+  lightF[2].specular = glm::vec3(0.9, 0.9, 0.9);
   lightF[2].innerCutOff = 10.0;
   lightF[2].outerCutOff = lightF[2].innerCutOff + 5.0;
   lightF[2].c0 = 1.000;
   lightF[2].c1 = 0.090;
   lightF[2].c2 = 0.032;
 
-  lightF[3].direction = glm::vec3(0.0, -2.0, 0.0);
+  // Coche jade, luz derecha delantera
+  lightF[3].direction = glm::vec3(5.0, -2.0, 0.0);
   lightF[3].ambient = glm::vec3(0.2, 0.2, 0.2);
-  lightF[3].diffuse = glm::vec3(0.9, 0.0, 0.0);
-  lightF[3].specular = glm::vec3(0.9, 0.0, 0.0);
+  lightF[3].diffuse = glm::vec3(0.9, 0.9, 0.9);
+  lightF[3].specular = glm::vec3(0.9, 0.9, 0.9);
   lightF[3].innerCutOff = 10.0;
   lightF[3].outerCutOff = lightF[3].innerCutOff + 5.0;
   lightF[3].c0 = 1.000;
   lightF[3].c1 = 0.090;
   lightF[3].c2 = 0.032;
 
-  // Coche jade, luz izquierda delantera
-  lightF[4].direction = glm::vec3(5.0, -2.0, 0.0);
+  // Coche gris, luz izquierda delantera
+  lightF[4].direction = glm::vec3(-5.0, -2.0, 1.0);
   lightF[4].ambient = glm::vec3(0.2, 0.2, 0.2);
   lightF[4].diffuse = glm::vec3(0.9, 0.9, 0.9);
   lightF[4].specular = glm::vec3(0.9, 0.9, 0.9);
@@ -257,8 +266,8 @@ void configScene() {
   lightF[4].c1 = 0.090;
   lightF[4].c2 = 0.032;
 
-  // Coche jade, luz derecha delantera
-  lightF[5].direction = glm::vec3(5.0, -2.0, 0.0);
+  // Coche gris, luz derecha delantera
+  lightF[5].direction = glm::vec3(-5.0, -2.0, 1.0);
   lightF[5].ambient = glm::vec3(0.2, 0.2, 0.2);
   lightF[5].diffuse = glm::vec3(0.9, 0.9, 0.9);
   lightF[5].specular = glm::vec3(0.9, 0.9, 0.9);
@@ -268,8 +277,8 @@ void configScene() {
   lightF[5].c1 = 0.090;
   lightF[5].c2 = 0.032;
 
-  // Coche gris, luz izquierda delantera
-  lightF[6].direction = glm::vec3(-5.0, -2.0, 1.0);
+  // Coche verde, luz izquierda delantera
+  lightF[6].direction = glm::vec3(5.0, -2.0, 1.0);
   lightF[6].ambient = glm::vec3(0.2, 0.2, 0.2);
   lightF[6].diffuse = glm::vec3(0.9, 0.9, 0.9);
   lightF[6].specular = glm::vec3(0.9, 0.9, 0.9);
@@ -279,9 +288,8 @@ void configScene() {
   lightF[6].c1 = 0.090;
   lightF[6].c2 = 0.032;
 
-  // Coche gris, luz derecha delantera
-  lightF[7].position = glm::vec3(21.0, 1.4, 2.7);
-  lightF[7].direction = glm::vec3(-5.0, -2.0, 1.0);
+  // Coche verde, luz derecha delantera
+  lightF[7].direction = glm::vec3(5.0, -2.0, 1.0);
   lightF[7].ambient = glm::vec3(0.2, 0.2, 0.2);
   lightF[7].diffuse = glm::vec3(0.9, 0.9, 0.9);
   lightF[7].specular = glm::vec3(0.9, 0.9, 0.9);
@@ -291,8 +299,8 @@ void configScene() {
   lightF[7].c1 = 0.090;
   lightF[7].c2 = 0.032;
 
-  // Coche verde, luz izquierda delantera
-  lightF[8].direction = glm::vec3(5.0, -2.0, 1.0);
+  // Coche marron, luz delantera derecha
+  lightF[8].direction = glm::vec3(-5.0, -2.0, 1.0);
   lightF[8].ambient = glm::vec3(0.2, 0.2, 0.2);
   lightF[8].diffuse = glm::vec3(0.9, 0.9, 0.9);
   lightF[8].specular = glm::vec3(0.9, 0.9, 0.9);
@@ -302,8 +310,8 @@ void configScene() {
   lightF[8].c1 = 0.090;
   lightF[8].c2 = 0.032;
 
-  // Coche verde, luz derecha delantera
-  lightF[9].direction = glm::vec3(5.0, -2.0, 1.0);
+  // Coche marron, luz delantera izquierda
+  lightF[9].direction = glm::vec3(-5.0, -2.0, 1.0);
   lightF[9].ambient = glm::vec3(0.2, 0.2, 0.2);
   lightF[9].diffuse = glm::vec3(0.9, 0.9, 0.9);
   lightF[9].specular = glm::vec3(0.9, 0.9, 0.9);
@@ -312,28 +320,6 @@ void configScene() {
   lightF[9].c0 = 1.000;
   lightF[9].c1 = 0.090;
   lightF[9].c2 = 0.032;
-
-  // Coche marron, luz delantera derecha
-  lightF[10].direction = glm::vec3(-5.0, -2.0, 1.0);
-  lightF[10].ambient = glm::vec3(0.2, 0.2, 0.2);
-  lightF[10].diffuse = glm::vec3(0.9, 0.9, 0.9);
-  lightF[10].specular = glm::vec3(0.9, 0.9, 0.9);
-  lightF[10].innerCutOff = 10.0;
-  lightF[10].outerCutOff = lightF[10].innerCutOff + 5.0;
-  lightF[10].c0 = 1.000;
-  lightF[10].c1 = 0.090;
-  lightF[10].c2 = 0.032;
-
-  // Coche marron, luz delantera izquierda
-  lightF[11].direction = glm::vec3(-5.0, -2.0, 1.0);
-  lightF[11].ambient = glm::vec3(0.2, 0.2, 0.2);
-  lightF[11].diffuse = glm::vec3(0.9, 0.9, 0.9);
-  lightF[11].specular = glm::vec3(0.9, 0.9, 0.9);
-  lightF[11].innerCutOff = 10.0;
-  lightF[11].outerCutOff = lightF[11].innerCutOff + 5.0;
-  lightF[11].c0 = 1.000;
-  lightF[11].c1 = 0.090;
-  lightF[11].c2 = 0.032;
 
   // Materiales y texturas
   mLuz.ambient = glm::vec4(0.0, 0.0, 0.0, 0.5);
@@ -496,24 +482,30 @@ void setLights(glm::mat4 P, glm::mat4 V) {
   // Coche jugador
   lightF[0].position = glm::vec3(posLuzDoradoDelantera1X, 1.4, posLuzDoradoDelantera1Z);
   lightF[1].position = glm::vec3(posLuzDoradoDelantera2X, 1.4, posLuzDoradoDelantera2Z);
-  lightF[2].position = glm::vec3(posLuzDoradoTrasera1X, 1.4, posLuzDoradoTrasera1Z);
-  lightF[3].position = glm::vec3(posLuzDoradoTrasera2X, 1.4, posLuzDoradoTrasera2Z);
+  lightP[6].position = freno * glm::vec3(posLuzDoradoTrasera1X, 1.4, posLuzDoradoTrasera1Z);
+  lightP[6].ambient = freno * glm::vec3(0.5, 0.0, 0.0);
+  lightP[6].diffuse = freno * glm::vec3(1.0, 0.0, 0.0);
+  lightP[6].specular = freno * glm::vec3(1.0, 0.0, 0.0);
+  lightP[7].position = freno * glm::vec3(posLuzDoradoTrasera2X, 1.4, posLuzDoradoTrasera2Z);
+  lightP[7].ambient = freno * glm::vec3(0.5, 0.0, 0.0);
+  lightP[7].diffuse = freno * glm::vec3(1.0, 0.0, 0.0);
+  lightP[7].specular = freno * glm::vec3(1.0, 0.0, 0.0);
 
   // Jade
-  lightF[4].position = glm::vec3(posLuzJade, 1.4, 5.45);
-  lightF[5].position = glm::vec3(posLuzJade, 1.4, 6.1);
-
-  // Verde
-  lightF[8].position = glm::vec3(posLuzVerde, 1.4, 18.36);
-  lightF[9].position = glm::vec3(posLuzVerde, 1.4, 18.98);
+  lightF[2].position = glm::vec3(posLuzJade, 1.4, 5.45);
+  lightF[3].position = glm::vec3(posLuzJade, 1.4, 6.1);
 
   // Gris
-  lightF[6].position = glm::vec3(posLuzGris, 1.4, 3.35);
-  lightF[7].position = glm::vec3(posLuzGris, 1.4, 2.7);
+  lightF[4].position = glm::vec3(posLuzGris, 1.4, 3.35);
+  lightF[5].position = glm::vec3(posLuzGris, 1.4, 2.7);
+
+  // Verde
+  lightF[6].position = glm::vec3(posLuzVerde, 1.4, 18.36);
+  lightF[7].position = glm::vec3(posLuzVerde, 1.4, 18.98);
 
   // Marron
-  lightF[10].position = glm::vec3(posLuzMarron, 1.4, 15.62);
-  lightF[11].position = glm::vec3(posLuzMarron, 1.4, 16.28);
+  lightF[8].position = glm::vec3(posLuzMarron, 1.4, 15.62);
+  lightF[9].position = glm::vec3(posLuzMarron, 1.4, 16.28);
 
   // Luces farolas
   lightP[0].position = onOff * glm::vec3(3.5, 4.35, -1.5);
@@ -553,7 +545,7 @@ void setLights(glm::mat4 P, glm::mat4 V) {
   for (int i = 0; i < NLP; i++)
     shaders.setLight("uLightP[" + toString(i) + "]", lightP[i]);
 
-  for (int i = 0; i < NLP; i++) {
+  for (int i = 0; i < 6; i++) {
     glm::mat4 M = glm::translate(I, lightP[i].position) * glm::scale(I, glm::vec3(0.025));
     drawObjectMat(sphere, mLuz, P, V, M);
   }
@@ -561,10 +553,10 @@ void setLights(glm::mat4 P, glm::mat4 V) {
   for (int i = 0; i < NLF; i++)
     shaders.setLight("uLightF[" + toString(i) + "]", lightF[i]);
 
-  for (int i = 0; i < NLF; i++) {
-    glm::mat4 M = glm::translate(I, lightF[i].position) * glm::scale(I, glm::vec3(0.025));
-    drawObjectMat(sphere, mLuz, P, V, M);
-  }
+  // for (int i = 0; i < NLF; i++) {
+  //   glm::mat4 M = glm::translate(I, lightF[i].position) * glm::scale(I, glm::vec3(0.025));
+  //   drawObjectMat(sphere, mLuz, P, V, M);
+  // }
 }
 
 void drawObjectMat(Model model, Material material, glm::mat4 P, glm::mat4 V, glm::mat4 M) {
