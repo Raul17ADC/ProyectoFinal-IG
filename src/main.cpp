@@ -764,73 +764,81 @@ void funKey(GLFWwindow* window, int key, int scancode, int action, int mods) {
   }
 
   if (wPressed && aPressed) {
-    rotCocheDorado += 10.0f;
-    if (rotCocheDorado >= 360.0f) {
-      rotCocheDorado = 0.0f;
+    if (posDoradoZ < 9.5) {
+      rotCocheDorado += 10.0f;
+      if (rotCocheDorado >= 360.0f) {
+        rotCocheDorado = 0.0f;
+      }
+      ruedaDerecha = 45.0f;
+      ruedaIzquierda = 45.0f;
+      posDoradoX -= 0.25 * glm::cos(glm::radians(45.0f));
+      posDoradoZ += 0.25 * glm::sin(glm::radians(45.0f));
+      posLuzDoradoDelantera1X += 0.25 * glm::cos(glm::radians(-45.0f));
+      posLuzDoradoDelantera1Z -= 0.25 * glm::sin(glm::radians(-45.0f));
+      posLuzDoradoDelantera2X += 0.25 * glm::cos(glm::radians(-45.0f));
+      posLuzDoradoDelantera2Z -= 0.25 * glm::sin(glm::radians(-45.0f));
+      posLuzDoradoTrasera1X += 0.25 * glm::cos(glm::radians(-45.0f));
+      posLuzDoradoTrasera1Z -= 0.25 * glm::sin(glm::radians(-45.0f));
+      posLuzDoradoTrasera2X += 0.25 * glm::cos(glm::radians(-45.0f));
+      posLuzDoradoTrasera2Z -= 0.25 * glm::sin(glm::radians(-45.0f));
     }
-    ruedaDerecha = 45.0f;
-    ruedaIzquierda = 45.0f;
-    posDoradoX -= 0.25 * glm::cos(glm::radians(45.0f));
-    posDoradoZ += 0.25 * glm::sin(glm::radians(45.0f));
-    posLuzDoradoDelantera1X += 0.25 * glm::cos(glm::radians(-45.0f));
-    posLuzDoradoDelantera1Z -= 0.25 * glm::sin(glm::radians(-45.0f));
-    posLuzDoradoDelantera2X += 0.25 * glm::cos(glm::radians(-45.0f));
-    posLuzDoradoDelantera2Z -= 0.25 * glm::sin(glm::radians(-45.0f));
-    posLuzDoradoTrasera1X += 0.25 * glm::cos(glm::radians(-45.0f));
-    posLuzDoradoTrasera1Z -= 0.25 * glm::sin(glm::radians(-45.0f));
-    posLuzDoradoTrasera2X += 0.25 * glm::cos(glm::radians(-45.0f));
-    posLuzDoradoTrasera2Z -= 0.25 * glm::sin(glm::radians(-45.0f));
   } else if (wPressed && dPressed) {
-    rotCocheDorado += 10.0f;
-    if (rotCocheDorado >= 360.0f) {
-      rotCocheDorado = 0.0f;
+    if (posDoradoZ > 5.5) {
+      rotCocheDorado += 10.0f;
+      if (rotCocheDorado >= 360.0f) {
+        rotCocheDorado = 0.0f;
+      }
+      ruedaDerecha = -45.0f;
+      ruedaIzquierda = -45.0f;
+      posDoradoX -= 0.25 * glm::cos(glm::radians(45.0f));
+      posDoradoZ -= 0.25 * glm::sin(glm::radians(45.0f));
+      posLuzDoradoDelantera1X -= 0.25 * glm::cos(glm::radians(-45.0f));
+      posLuzDoradoDelantera1Z -= 0.25 * glm::sin(glm::radians(-45.0f));
+      posLuzDoradoDelantera2X -= 0.25 * glm::cos(glm::radians(-45.0f));
+      posLuzDoradoDelantera2Z -= 0.25 * glm::sin(glm::radians(-45.0f));
+      posLuzDoradoTrasera1X -= 0.25 * glm::cos(glm::radians(-45.0f));
+      posLuzDoradoTrasera1Z -= 0.25 * glm::sin(glm::radians(-45.0f));
+      posLuzDoradoTrasera2X -= 0.25 * glm::cos(glm::radians(-45.0f));
+      posLuzDoradoTrasera2Z -= 0.25 * glm::sin(glm::radians(-45.0f));
     }
-    ruedaDerecha = -45.0f;
-    ruedaIzquierda = -45.0f;
-    posDoradoX -= 0.25 * glm::cos(glm::radians(45.0f));
-    posDoradoZ -= 0.25 * glm::sin(glm::radians(45.0f));
-    posLuzDoradoDelantera1X -= 0.25 * glm::cos(glm::radians(-45.0f));
-    posLuzDoradoDelantera1Z -= 0.25 * glm::sin(glm::radians(-45.0f));
-    posLuzDoradoDelantera2X -= 0.25 * glm::cos(glm::radians(-45.0f));
-    posLuzDoradoDelantera2Z -= 0.25 * glm::sin(glm::radians(-45.0f));
-    posLuzDoradoTrasera1X -= 0.25 * glm::cos(glm::radians(-45.0f));
-    posLuzDoradoTrasera1Z -= 0.25 * glm::sin(glm::radians(-45.0f));
-    posLuzDoradoTrasera2X -= 0.25 * glm::cos(glm::radians(-45.0f));
-    posLuzDoradoTrasera2Z -= 0.25 * glm::sin(glm::radians(-45.0f));
   } else if (sPressed && aPressed) {
-    rotCocheDorado -= 10.0f;
-    if (rotCocheDorado <= 0.0f) {
-      rotCocheDorado = 360.0f;
+    if (posDoradoZ < 9.5 && posDoradoX < 2.8) {
+      rotCocheDorado -= 10.0f;
+      if (rotCocheDorado <= 0.0f) {
+        rotCocheDorado = 360.0f;
+      }
+      ruedaDerecha = 45.0f;
+      ruedaIzquierda = 45.0f;
+      posDoradoX += 0.25 * glm::cos(glm::radians(45.0f));
+      posDoradoZ += 0.25 * glm::sin(glm::radians(45.0f));
+      posLuzDoradoDelantera1X += 0.25 * glm::cos(glm::radians(-45.0f));
+      posLuzDoradoDelantera1Z += 0.25 * glm::sin(glm::radians(-45.0f));
+      posLuzDoradoDelantera2X += 0.25 * glm::cos(glm::radians(-45.0f));
+      posLuzDoradoDelantera2Z += 0.25 * glm::sin(glm::radians(-45.0f));
+      posLuzDoradoTrasera1X += 0.25 * glm::cos(glm::radians(-45.0f));
+      posLuzDoradoTrasera1Z += 0.25 * glm::sin(glm::radians(-45.0f));
+      posLuzDoradoTrasera2X += 0.25 * glm::cos(glm::radians(-45.0f));
+      posLuzDoradoTrasera2Z += 0.25 * glm::sin(glm::radians(-45.0f));
     }
-    ruedaDerecha = 45.0f;
-    ruedaIzquierda = 45.0f;
-    posDoradoX += 0.25 * glm::cos(glm::radians(45.0f));
-    posDoradoZ += 0.25 * glm::sin(glm::radians(45.0f));
-    posLuzDoradoDelantera1X += 0.25 * glm::cos(glm::radians(-45.0f));
-    posLuzDoradoDelantera1Z += 0.25 * glm::sin(glm::radians(-45.0f));
-    posLuzDoradoDelantera2X += 0.25 * glm::cos(glm::radians(-45.0f));
-    posLuzDoradoDelantera2Z += 0.25 * glm::sin(glm::radians(-45.0f));
-    posLuzDoradoTrasera1X += 0.25 * glm::cos(glm::radians(-45.0f));
-    posLuzDoradoTrasera1Z += 0.25 * glm::sin(glm::radians(-45.0f));
-    posLuzDoradoTrasera2X += 0.25 * glm::cos(glm::radians(-45.0f));
-    posLuzDoradoTrasera2Z += 0.25 * glm::sin(glm::radians(-45.0f));
   } else if (sPressed && dPressed) {
-    rotCocheDorado -= 10.0f;
-    if (rotCocheDorado <= 0.0f) {
-      rotCocheDorado = 360.0f;
+    if (posDoradoX < 2.8 && posDoradoZ > 5.5) {
+      rotCocheDorado -= 10.0f;
+      if (rotCocheDorado <= 0.0f) {
+        rotCocheDorado = 360.0f;
+      }
+      ruedaDerecha = -45.0f;
+      ruedaIzquierda = -45.0f;
+      posDoradoX += 0.25 * glm::cos(glm::radians(45.0f));
+      posDoradoZ -= 0.25 * glm::sin(glm::radians(45.0f));
+      posLuzDoradoDelantera1X -= 0.25 * glm::cos(glm::radians(-45.0f));
+      posLuzDoradoDelantera1Z += 0.25 * glm::sin(glm::radians(-45.0f));
+      posLuzDoradoDelantera2X -= 0.25 * glm::cos(glm::radians(-45.0f));
+      posLuzDoradoDelantera2Z += 0.25 * glm::sin(glm::radians(-45.0f));
+      posLuzDoradoTrasera1X -= 0.25 * glm::cos(glm::radians(-45.0f));
+      posLuzDoradoTrasera1Z += 0.25 * glm::sin(glm::radians(-45.0f));
+      posLuzDoradoTrasera2X -= 0.25 * glm::cos(glm::radians(-45.0f));
+      posLuzDoradoTrasera2Z += 0.25 * glm::sin(glm::radians(-45.0f));
     }
-    ruedaDerecha = -45.0f;
-    ruedaIzquierda = -45.0f;
-    posDoradoX += 0.25 * glm::cos(glm::radians(45.0f));
-    posDoradoZ -= 0.25 * glm::sin(glm::radians(45.0f));
-    posLuzDoradoDelantera1X -= 0.25 * glm::cos(glm::radians(-45.0f));
-    posLuzDoradoDelantera1Z += 0.25 * glm::sin(glm::radians(-45.0f));
-    posLuzDoradoDelantera2X -= 0.25 * glm::cos(glm::radians(-45.0f));
-    posLuzDoradoDelantera2Z += 0.25 * glm::sin(glm::radians(-45.0f));
-    posLuzDoradoTrasera1X -= 0.25 * glm::cos(glm::radians(-45.0f));
-    posLuzDoradoTrasera1Z += 0.25 * glm::sin(glm::radians(-45.0f));
-    posLuzDoradoTrasera2X -= 0.25 * glm::cos(glm::radians(-45.0f));
-    posLuzDoradoTrasera2Z += 0.25 * glm::sin(glm::radians(-45.0f));
   } else {
     if (wPressed) {
       rotCocheDorado += 10.0f;
