@@ -729,30 +729,42 @@ void funKey(GLFWwindow* window, int key, int scancode, int action, int mods) {
   static bool sPressed = false;
   static bool dPressed = false;
 
-  if (action == GLFW_PRESS) {
-    if (key == GLFW_KEY_F) {
-      onOff = (onOff == 1.0f) ? 0.0f : 1.0f;
-    }
-  }
-
-  if (action == GLFW_PRESS) {
-    if (key == GLFW_KEY_W)
-      wPressed = true;
-    if (key == GLFW_KEY_A)
-      aPressed = true;
-    if (key == GLFW_KEY_S)
-      sPressed = true;
-    if (key == GLFW_KEY_D)
-      dPressed = true;
-  } else if (action == GLFW_RELEASE) {
-    if (key == GLFW_KEY_W)
-      wPressed = false;
-    if (key == GLFW_KEY_A)
-      aPressed = false;
-    if (key == GLFW_KEY_S)
-      sPressed = false;
-    if (key == GLFW_KEY_D)
-      dPressed = false;
+  switch (action) {
+    case GLFW_PRESS:
+      switch (key) {
+        case GLFW_KEY_F:
+          onOff = (onOff == 1.0f) ? 0.0f : 1.0f;
+          break;
+        case GLFW_KEY_W:
+          wPressed = true;
+          break;
+        case GLFW_KEY_A:
+          aPressed = true;
+          break;
+        case GLFW_KEY_S:
+          sPressed = true;
+          break;
+        case GLFW_KEY_D:
+          dPressed = true;
+          break;
+      }
+      break;
+    case GLFW_RELEASE:
+      switch (key) {
+        case GLFW_KEY_W:
+          wPressed = false;
+          break;
+        case GLFW_KEY_A:
+          aPressed = false;
+          break;
+        case GLFW_KEY_S:
+          sPressed = false;
+          break;
+        case GLFW_KEY_D:
+          dPressed = false;
+          break;
+      }
+      break;
   }
 
   if (wPressed && aPressed) {
@@ -882,6 +894,23 @@ void funKey(GLFWwindow* window, int key, int scancode, int action, int mods) {
         posLuzDoradoTrasera2X -= 0.25;
       }
     }
+  }
+
+  if (posDoradoX <= -27.0f) {
+    // Volver a la posición inicial
+    posDoradoX = 2.8;
+    posDoradoZ = 6.2;
+    posLuzDoradoDelantera1X = 5.4;
+    posLuzDoradoDelantera1Z = -0.75;
+    posLuzDoradoDelantera2X = 6.05;
+    posLuzDoradoDelantera2Z = -0.75;
+    posLuzDoradoTrasera1X = 5.4;
+    posLuzDoradoTrasera1Z = -3.75;
+    posLuzDoradoTrasera2X = 6.05;
+    posLuzDoradoTrasera2Z = -3.75;
+    rotCocheDorado = 0.0;
+    ruedaDerecha = 0.0;
+    ruedaIzquierda = 0.0;
   }
 }
 
