@@ -145,6 +145,9 @@ int main() {
     renderScene();
     glfwSwapBuffers(window);
     glfwPollEvents();
+    //timers creados para las rotaciones de las ruedas y movimiento de los coches que NO controlamos
+    //estos timers podrian agruparse siendo menos, pero por ahora lo dejamos asi por si hubieran cambios saber 
+    //que parte hace referencia a que coche
     funTimer(1.0 / 60, start);
     funTimer2(1.0 / 60, start2);
     funTimer3(1.0 / 60, start3);
@@ -153,6 +156,27 @@ int main() {
     funTimer6(1.0 / 60, start6);
     funTimer7(1.0 / 60, start7);
     funTimer8(1.0 / 60, start8);
+    // Restablece la posición inicial del coche Dorad
+    /*
+
+    El 8.0, habria que modificarlo por la posicion Z de los respectivos coches
+    El 10.0 es el size de los coches que es igual para todos, hay que calcularlo. (mirar final del codigo que esta ahi el metodo)
+
+
+    if (checkCollision(posDoradoX, posDoradoZ, posJade, 8.0, 10.0) || 
+            checkCollision(posDoradoX, posDoradoZ, posGris, 8.0, 10.0) || 
+            checkCollision(posDoradoX, posDoradoZ,posMarron, 8.0, 10.0) || 
+            checkCollision(posDoradoX, posDoradoZ, posVerde, 8.0, 10.0)) {
+            posLuzDoradoDelantera1X = 5.4;
+            posLuzDoradoDelantera1Z = -0.75;
+            posLuzDoradoDelantera2X = 6.05;
+            posLuzDoradoDelantera2Z = -0.75;
+            posLuzDoradoTrasera1X = 5.4;
+            posLuzDoradoTrasera1Z = -3.75;
+            posLuzDoradoTrasera2X = 6.05;
+            posLuzDoradoTrasera2Z = -3.75; 
+        }
+    */
   }
   glfwDestroyWindow(window);
   glfwTerminate();
@@ -435,6 +459,7 @@ void renderScene() {
   glm::mat4 Sr = glm::scale(I, glm::vec3(0.015, 0.016, 0.061));
   glm::mat4 Rr = glm::rotate(I, glm::radians(180.0f), glm::vec3(0, 1, 0));
   drawObjectTex(road, texHighway, P, V, Rr * Tr * Sr);
+
   // Coche del jugador
   glm::mat4 Rc = glm::rotate(I, glm::radians(90.0f), glm::vec3(0, 1, 0));
   glm::mat4 Tc = glm::translate(I, glm::vec3(posDoradoX, 0.1, posDoradoZ));
@@ -569,7 +594,8 @@ void drawObjectMat(Model model, Material material, glm::mat4 P, glm::mat4 V, glm
 }
 
 void drawObjectTex(Model model, Textures textures, glm::mat4 P, glm::mat4 V, glm::mat4 M) {
-  // shaders.setMat4("uN", glm::transpose(M));  Cambiando esto pasa de verse las de derecha a las de izquierda
+  // shaders.setMat4("uN", glm::transpose(M));  Cambiando esto pasa de verse las luces de derecha a las de izquierda
+  // creemos que el error de las luces tiene relacion con la normal
   shaders.setMat4("uN", glm::transpose(glm::inverse(M)));
   shaders.setMat4("uM", M);
   shaders.setMat4("uPVM", P * V * M);
@@ -664,7 +690,7 @@ void drawWindows(glm::mat4 P, glm::mat4 V, glm::mat4 M) {
   glDepthMask(GL_TRUE);
 }
 
-void drawCoche(glm::mat4 P, Material& material, glm::mat4 V, glm::mat4 M) {
+void drawCoche(glm::mat4 P, Material& material, glm::mat4 V, glm::mat4 M) { //coches automaticos
   // Ruedas
   drawWheels(P, V, M);
   // Chasis coche
@@ -676,7 +702,7 @@ void drawCoche(glm::mat4 P, Material& material, glm::mat4 V, glm::mat4 M) {
   drawWindows(P, V, M);
 }
 
-void drawCocheD(glm::mat4 P, Material& material, glm::mat4 V, glm::mat4 M) {
+void drawCocheD(glm::mat4 P, Material& material, glm::mat4 V, glm::mat4 M) {//coche Dorado, el que nosotros movemos
   // Ruedas
   drawWheels2(P, V, M);
   // Chasis coche
@@ -723,7 +749,8 @@ void funFramebufferSize(GLFWwindow* window, int width, int height) {
   h = height;
 }
 
-void funKey(GLFWwindow* window, int key, int scancode, int action, int mods) {
+void funKey(GLFWwindow* window, int key, int scancode, int action, int mods) { //movimiento del coche Dorado
+  //aqui movemos el coche, las ruedas para que roten al avanzar, y el giro de derecha e izquierda
   static bool wPressed = false;
   static bool aPressed = false;
   static bool sPressed = false;
@@ -897,7 +924,7 @@ void funKey(GLFWwindow* window, int key, int scancode, int action, int mods) {
   }
 
   if (posDoradoX <= -27.0f) {
-    // Volver a la posición inicial
+    // Volver a la posición inicial al llegar al final del mapa
     posDoradoX = 2.8;
     posDoradoZ = 6.2;
     posLuzDoradoDelantera1X = 5.4;
@@ -1050,4 +1077,18 @@ void funTimer8(double seconds, double& start8) {
     }
     start8 = glfwGetTime();
   }
+}
+//Seria sacar el tamaño del coche con las posiciones x y z de un coche cualquiera y aplicarlo a todos, xyz del cubo grande del coche
+// Suponiendo que tienes la posición, ancho (width), altura (height) y profundidad (depth) del coche
+double carWidth = 2.0;  // Ancho del coche
+double carHeight = 1.5; // Altura del coche
+double carDepth = 4.0;  // Profundidad del coche (o largo)
+
+// El tamaño del coche (o "bounding box") en un eje sería la mitad de su medida más grande
+double carSize = fmax(carWidth, carDepth) / 2.0;
+//este tamaño es el que enviamos siempre al size de checkCollision, ya que los coches son todos iguales de tamaño
+
+bool checkCollision(double x1, double z1, double x2, double z2, double size) { //x1 z1 corresponde al dorado, x2 y z2 al otro coche que sea
+    double distance = sqrt((x1 - x2) * (x1 - x2) + (z1 - z2) * (z1 - z2));
+    return distance < size;
 }
