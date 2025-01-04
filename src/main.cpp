@@ -26,6 +26,7 @@ void funTimer5(double seconds, double& start5);
 void funTimer6(double seconds, double& start6);
 void funTimer7(double seconds, double& start7);
 void funTimer8(double seconds, double& start8);
+bool checkCollision(double x1, double z1, double x2, double z2, double size);
 
 void funFramebufferSize(GLFWwindow* window, int width, int height);
 void funKey(GLFWwindow* window, int key, int scancode, int action, int mods);
@@ -69,8 +70,8 @@ float onOff = 1.0;
 float freno = 1.0;
 
 // Posicion coches y luces
-float posDoradoX = 2.8;
-float posDoradoZ = 6.2;
+float posDoradoZ = -2.8;
+float posDoradoX = 6.2;
 float posVerde = 23.0;
 float posMarron = 23.0;
 float posGris = -9.0;
@@ -157,16 +158,16 @@ int main() {
     funTimer7(1.0 / 60, start7);
     funTimer8(1.0 / 60, start8);
     // Restablece la posición inicial del coche Dorad
-    /*
+    
 
-    El 8.0, habria que modificarlo por la posicion Z de los respectivos coches
-    El 10.0 es el size de los coches que es igual para todos, hay que calcularlo. (mirar final del codigo que esta ahi el metodo)
+    //El 8.0, habria que modificarlo por la posicion Z de los respectivos coches
+    //El 10.0 es el size de los coches que es igual para todos, hay que calcularlo. (mirar final del codigo que esta ahi el metodo)
 
 
-    if (checkCollision(posDoradoX, posDoradoZ, posJade, 8.0, 10.0) || 
-            checkCollision(posDoradoX, posDoradoZ, posGris, 8.0, 10.0) || 
-            checkCollision(posDoradoX, posDoradoZ,posMarron, 8.0, 10.0) || 
-            checkCollision(posDoradoX, posDoradoZ, posVerde, 8.0, 10.0)) {
+    if (checkCollision(posDoradoX, posDoradoZ, posJade, 5.3, 3.0) || 
+            checkCollision(posDoradoX, posDoradoZ, posGris, 18.2, 3.0) || 
+            checkCollision(posDoradoX, posDoradoZ, posMarron, 16.4, 3.0) || 
+            checkCollision(posDoradoX, posDoradoZ, posVerde, 3.5, 3.0)) {
             posLuzDoradoDelantera1X = 5.4;
             posLuzDoradoDelantera1Z = -0.75;
             posLuzDoradoDelantera2X = 6.05;
@@ -175,8 +176,11 @@ int main() {
             posLuzDoradoTrasera1Z = -3.75;
             posLuzDoradoTrasera2X = 6.05;
             posLuzDoradoTrasera2Z = -3.75; 
+            posDoradoZ = -2.8;
+            posDoradoX = 6.2;
         }
-    */
+    
+   
   }
   glfwDestroyWindow(window);
   glfwTerminate();
@@ -464,7 +468,7 @@ void renderScene() {
   glm::mat4 Rc = glm::rotate(I, glm::radians(90.0f), glm::vec3(0, 1, 0));
   glm::mat4 Tc = glm::translate(I, glm::vec3(posDoradoX, 0.1, posDoradoZ));
   glm::mat4 Sc = glm::scale(I, glm::vec3(0.8, 0.8, 0.8));
-  drawCocheD(P, gold, V, Rc * Tc * Sc);
+  drawCocheD(P, gold, V, Tc * Rc * Sc);
 
   // Resto de coches y carreteras
   Tr = glm::translate(I, glm::vec3(-2.9, 0.101, 35.8));
@@ -475,13 +479,13 @@ void renderScene() {
   drawCoche(P, jade, V, Tc * Rc * Sc);
   Rc = glm::rotate(I, glm::radians(0.0f), glm::vec3(0, 1, 0));
   Tc = glm::translate(I, glm::vec3(posVerde, 0.1, 3.5));
-  drawCoche(P, pearl, V, Tc * Rc * Sc);
+  drawCoche(P, emerald, V, Tc * Rc * Sc);
 
   Tr = glm::translate(I, glm::vec3(10.0, 0.101, 35.8));
   drawObjectTex(road, texHighway, P, V, Rr * Tr * Sr);
   Rc = glm::rotate(I, glm::radians(180.0f), glm::vec3(0, 1, 0));
   Tc = glm::translate(I, glm::vec3(posGris, 0.1, 18.2));
-  drawCoche(P, emerald, V, Tc * Rc * Sc);
+  drawCoche(P, pearl, V, Tc * Rc * Sc);
   Rc = glm::rotate(I, glm::radians(0.0f), glm::vec3(0, 1, 0));
   Tc = glm::translate(I, glm::vec3(posMarron, 0.1, 16.4));
   drawCoche(P, polishedBronze, V, Tc * Rc * Sc);
@@ -795,7 +799,7 @@ void funKey(GLFWwindow* window, int key, int scancode, int action, int mods) { /
   }
 
   if (wPressed && aPressed) {
-    if (posDoradoZ < 9.5) {
+    if (posDoradoX < 9.5) {
       rotCocheDorado += 10.0f;
       if (rotCocheDorado >= 360.0f) {
         rotCocheDorado = 0.0f;
@@ -814,7 +818,7 @@ void funKey(GLFWwindow* window, int key, int scancode, int action, int mods) { /
       posLuzDoradoTrasera2Z -= 0.25 * glm::sin(glm::radians(-45.0f));
     }
   } else if (wPressed && dPressed) {
-    if (posDoradoZ > 5.5) {
+    if (posDoradoX > 5.5) {
       rotCocheDorado += 10.0f;
       if (rotCocheDorado >= 360.0f) {
         rotCocheDorado = 0.0f;
@@ -833,7 +837,7 @@ void funKey(GLFWwindow* window, int key, int scancode, int action, int mods) { /
       posLuzDoradoTrasera2Z -= 0.25 * glm::sin(glm::radians(-45.0f));
     }
   } else if (sPressed && aPressed) {
-    if (posDoradoZ < 9.5 && posDoradoX < 2.8) {
+    if (posDoradoX < 9.5 && posDoradoZ < 2.8) {
       rotCocheDorado -= 10.0f;
       if (rotCocheDorado <= 0.0f) {
         rotCocheDorado = 360.0f;
@@ -859,8 +863,8 @@ void funKey(GLFWwindow* window, int key, int scancode, int action, int mods) { /
       }
       ruedaDerecha = -45.0f;
       ruedaIzquierda = -45.0f;
-      posDoradoX += 0.25 * glm::cos(glm::radians(45.0f));
-      posDoradoZ -= 0.25 * glm::sin(glm::radians(45.0f));
+      posDoradoX += 0.25 * glm::cos(glm::radians(-45.0f));
+      posDoradoZ -= 0.25 * glm::sin(glm::radians(-45.0f));
       posLuzDoradoDelantera1X -= 0.25 * glm::cos(glm::radians(-45.0f));
       posLuzDoradoDelantera1Z += 0.25 * glm::sin(glm::radians(-45.0f));
       posLuzDoradoDelantera2X -= 0.25 * glm::cos(glm::radians(-45.0f));
@@ -878,21 +882,21 @@ void funKey(GLFWwindow* window, int key, int scancode, int action, int mods) { /
       }
       ruedaDerecha = 0.0f;
       ruedaIzquierda = 0.0f;
-      posDoradoX -= 0.25;
+      posDoradoZ += 0.25;
       posLuzDoradoDelantera1Z += 0.25;
       posLuzDoradoDelantera2Z += 0.25;
       posLuzDoradoTrasera1Z += 0.25;
       posLuzDoradoTrasera2Z += 0.25;
     }
     if (sPressed) {
-      if (posDoradoX < 2.8) {
+      if (posDoradoZ > -2.8) {
         rotCocheDorado -= 10.0f;
         if (rotCocheDorado <= 0.0f) {
           rotCocheDorado = 360.0f;
         }
         ruedaDerecha = 0.0f;
         ruedaIzquierda = 0.0f;
-        posDoradoX += 0.25;
+        posDoradoZ -= 0.25;
         posLuzDoradoDelantera1Z -= 0.25;
         posLuzDoradoDelantera2Z -= 0.25;
         posLuzDoradoTrasera1Z -= 0.25;
@@ -900,10 +904,10 @@ void funKey(GLFWwindow* window, int key, int scancode, int action, int mods) { /
       }
     }
     if (aPressed) {
-      if (posDoradoZ < 9.5) {
+      if (posDoradoX < 9.5) {
         ruedaIzquierda = 45.0f;
         ruedaDerecha = 45.0f;
-        posDoradoZ += 0.25;
+        posDoradoX += 0.25;
         posLuzDoradoDelantera1X += 0.25;
         posLuzDoradoDelantera2X += 0.25;
         posLuzDoradoTrasera1X += 0.25;
@@ -911,10 +915,10 @@ void funKey(GLFWwindow* window, int key, int scancode, int action, int mods) { /
       }
     }
     if (dPressed) {
-      if (posDoradoZ > 5.5) {
+      if (posDoradoX > 5.5) {
         ruedaIzquierda = -45.0f;
         ruedaDerecha = -45.0f;
-        posDoradoZ -= 0.25;
+        posDoradoX -= 0.25;
         posLuzDoradoDelantera1X -= 0.25;
         posLuzDoradoDelantera2X -= 0.25;
         posLuzDoradoTrasera1X -= 0.25;
@@ -1080,7 +1084,7 @@ void funTimer8(double seconds, double& start8) {
 }
 //Seria sacar el tamaño del coche con las posiciones x y z de un coche cualquiera y aplicarlo a todos, xyz del cubo grande del coche
 // Suponiendo que tienes la posición, ancho (width), altura (height) y profundidad (depth) del coche
-double carWidth = 2.0;  // Ancho del coche
+double carWidth = 3.0;  // Ancho del coche
 double carHeight = 1.5; // Altura del coche
 double carDepth = 4.0;  // Profundidad del coche (o largo)
 
