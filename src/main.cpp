@@ -37,7 +37,7 @@ void funCursorPos(GLFWwindow* window, double xPos, double yPos);
 Shaders shaders;
 
 // Modelos
-Model sphere, plane, wheel, road, cube, streetlight;
+Model sphere, plane, wheel, highway, cube, streetlight, openCube;
 
 // Imagenes (texturas)
 Texture imgHighway, imgNoEmissive;
@@ -53,7 +53,7 @@ Light lightD[NLD];
 Light lightP[NLP];
 Light lightF[NLF];
 Material mLuz, ruby;
-Material blackRubber, cyanPlastic, polishedBronze, gold, pearl, emerald, jade;
+Material blackRubber, cyanPlastic, polishedBronze, gold, pearl, emerald, jade, pavement;
 Textures texHighway, texPavingStones, texStreetlight;
 
 // Viewport
@@ -67,7 +67,7 @@ float alphaY = 0.0;
 
 // Interaccion con las luces
 float onOff = 1.0;
-float freno = 1.0;
+float freno = 0.0;
 
 // Posicion coches y luces
 float posDoradoZ = -2.8;
@@ -146,9 +146,9 @@ int main() {
     renderScene();
     glfwSwapBuffers(window);
     glfwPollEvents();
-    //timers creados para las rotaciones de las ruedas y movimiento de los coches que NO controlamos
-    //estos timers podrian agruparse siendo menos, pero por ahora lo dejamos asi por si hubieran cambios saber 
-    //que parte hace referencia a que coche
+    // timers creados para las rotaciones de las ruedas y movimiento de los coches que NO controlamos
+    // estos timers podrian agruparse siendo menos, pero por ahora lo dejamos asi por si hubieran cambios saber
+    // que parte hace referencia a que coche
     funTimer(1.0 / 60, start);
     funTimer2(1.0 / 60, start2);
     funTimer3(1.0 / 60, start3);
@@ -158,29 +158,26 @@ int main() {
     funTimer7(1.0 / 60, start7);
     funTimer8(1.0 / 60, start8);
     // Restablece la posición inicial del coche Dorad
-    
 
-    //El 8.0, habria que modificarlo por la posicion Z de los respectivos coches
-    //El 10.0 es el size de los coches que es igual para todos, hay que calcularlo. (mirar final del codigo que esta ahi el metodo)
+    // El 8.0, habria que modificarlo por la posicion Z de los respectivos coches
+    // El 10.0 es el size de los coches que es igual para todos, hay que calcularlo. (mirar final del codigo que esta
+    // ahi el metodo)
 
-
-    if (checkCollision(posDoradoX, posDoradoZ, posJade, 5.3, 3.0) || 
-            checkCollision(posDoradoX, posDoradoZ, posGris, 18.2, 3.0) || 
-            checkCollision(posDoradoX, posDoradoZ, posMarron, 16.4, 3.0) || 
-            checkCollision(posDoradoX, posDoradoZ, posVerde, 3.5, 3.0)) {
-            posLuzDoradoDelantera1X = 5.4;
-            posLuzDoradoDelantera1Z = -0.75;
-            posLuzDoradoDelantera2X = 6.05;
-            posLuzDoradoDelantera2Z = -0.75;
-            posLuzDoradoTrasera1X = 5.4;
-            posLuzDoradoTrasera1Z = -3.75;
-            posLuzDoradoTrasera2X = 6.05;
-            posLuzDoradoTrasera2Z = -3.75; 
-            posDoradoZ = -2.8;
-            posDoradoX = 6.2;
-        }
-    
-   
+    if (checkCollision(posDoradoX, posDoradoZ, posJade, 5.3, 3.0) ||
+        checkCollision(posDoradoX, posDoradoZ, posGris, 18.2, 3.0) ||
+        checkCollision(posDoradoX, posDoradoZ, posMarron, 16.4, 3.0) ||
+        checkCollision(posDoradoX, posDoradoZ, posVerde, 3.5, 3.0)) {
+      posLuzDoradoDelantera1X = 5.4;
+      posLuzDoradoDelantera1Z = -0.75;
+      posLuzDoradoDelantera2X = 6.05;
+      posLuzDoradoDelantera2Z = -0.75;
+      posLuzDoradoTrasera1X = 5.4;
+      posLuzDoradoTrasera1Z = -3.75;
+      posLuzDoradoTrasera2X = 6.05;
+      posLuzDoradoTrasera2Z = -3.75;
+      posDoradoZ = -2.8;
+      posDoradoX = 6.2;
+    }
   }
   glfwDestroyWindow(window);
   glfwTerminate();
@@ -205,9 +202,10 @@ void configScene() {
   sphere.initModel("resources/models/sphere.obj");
   plane.initModel("resources/models/plane.obj");
   wheel.initModel("resources/models/wheel.obj");
-  road.initModel("resources/models/highway.obj");
+  highway.initModel("resources/models/highway.obj");
   cube.initModel("resources/models/cube.obj");
   streetlight.initModel("resources/models/streetlight.obj");
+  openCube.initModel("resources/models/openCube.obj");
 
   // Imagenes (texturas)
   imgNoEmissive.initTexture("resources/textures/imgNoEmissive.png");
@@ -367,24 +365,6 @@ void configScene() {
   blackRubber.specular = glm::vec4(0.5f, 0.5f, 0.5f, 1.0f);
   blackRubber.shininess = 32.0f;
 
-  texHighway.diffuse = imgHighway.getTexture();
-  texHighway.specular = imgHighway.getTexture();
-  texHighway.emissive = imgNoEmissive.getTexture();
-  texHighway.normal = 0;
-  texHighway.shininess = 5.0f;
-
-  texPavingStones.diffuse = imgPavingStones.getTexture();
-  texPavingStones.specular = imgPavingStones.getTexture();
-  texPavingStones.emissive = imgNoEmissive.getTexture();
-  texPavingStones.normal = imgPavingStonesNormal.getTexture();
-  texPavingStones.shininess = 5.0f;
-
-  texStreetlight.diffuse = imgStreetlight.getTexture();
-  texStreetlight.specular = imgStreetlightSpecular.getTexture();
-  texStreetlight.emissive = imgNoEmissive.getTexture();
-  texStreetlight.normal = 0;
-  texStreetlight.shininess = 50.0f;
-
   cyanPlastic.ambient = glm::vec4(0.0f, 0.1f, 0.06f, 0.5f);
   cyanPlastic.diffuse = glm::vec4(0.0f, 0.50980392f, 0.50980392f, 0.5f);
   cyanPlastic.specular = glm::vec4(0.50196078f, 0.50196078f, 0.50196078f, 0.5f);
@@ -420,6 +400,30 @@ void configScene() {
   jade.specular = glm::vec4(0.316228f, 0.316228f, 0.316228f, 1.0f);
   jade.emissive = glm::vec4(0.0f, 0.0f, 0.0f, 1.0f);
   jade.shininess = 12.8f;
+
+  pavement.ambient = glm::vec4(0.05f, 0.05f, 0.05f, 1.0f);
+  pavement.diffuse = glm::vec4(0.1f, 0.1f, 0.1f, 1.0f);
+  pavement.specular = glm::vec4(0.5f, 0.5f, 0.5f, 1.0f);
+  pavement.emissive = glm::vec4(0.0f, 0.0f, 0.0f, 1.0f);
+  pavement.shininess = 32.0f;
+
+  texHighway.diffuse = imgHighway.getTexture();
+  texHighway.specular = imgHighway.getTexture();
+  texHighway.emissive = imgNoEmissive.getTexture();
+  texHighway.normal = 0;
+  texHighway.shininess = 5.0f;
+
+  texPavingStones.diffuse = imgPavingStones.getTexture();
+  texPavingStones.specular = imgPavingStones.getTexture();
+  texPavingStones.emissive = imgNoEmissive.getTexture();
+  texPavingStones.normal = imgPavingStonesNormal.getTexture();
+  texPavingStones.shininess = 5.0f;
+
+  texStreetlight.diffuse = imgStreetlight.getTexture();
+  texStreetlight.specular = imgStreetlightSpecular.getTexture();
+  texStreetlight.emissive = imgNoEmissive.getTexture();
+  texStreetlight.normal = 0;
+  texStreetlight.shininess = 50.0f;
 }
 
 void renderScene() {
@@ -462,7 +466,7 @@ void renderScene() {
   glm::mat4 Tr = glm::translate(I, glm::vec3(-14.5, 0.1, 28.75));
   glm::mat4 Sr = glm::scale(I, glm::vec3(0.015, 0.016, 0.061));
   glm::mat4 Rr = glm::rotate(I, glm::radians(180.0f), glm::vec3(0, 1, 0));
-  drawObjectTex(road, texHighway, P, V, Rr * Tr * Sr);
+  drawObjectMat(highway, pavement, P, V, Rr * Tr * Sr);
 
   // Coche del jugador
   glm::mat4 Rc = glm::rotate(I, glm::radians(90.0f), glm::vec3(0, 1, 0));
@@ -471,9 +475,9 @@ void renderScene() {
   drawCocheD(P, gold, V, Tc * Rc * Sc);
 
   // Resto de coches y carreteras
-  Tr = glm::translate(I, glm::vec3(-2.9, 0.101, 35.8));
+  Tr = glm::translate(I, glm::vec3(-2.9, 0.01, 35.8));
   Rr = glm::rotate(I, glm::radians(270.0f), glm::vec3(0, 1, 0));
-  drawObjectTex(road, texHighway, P, V, Rr * Tr * Sr);
+  drawObjectMat(highway, pavement, P, V, Rr * Tr * Sr);
   Rc = glm::rotate(I, glm::radians(180.0f), glm::vec3(0, 1, 0));
   Tc = glm::translate(I, glm::vec3(posJade, 0.1, 5.3));
   drawCoche(P, jade, V, Tc * Rc * Sc);
@@ -481,8 +485,8 @@ void renderScene() {
   Tc = glm::translate(I, glm::vec3(posVerde, 0.1, 3.5));
   drawCoche(P, emerald, V, Tc * Rc * Sc);
 
-  Tr = glm::translate(I, glm::vec3(10.0, 0.101, 35.8));
-  drawObjectTex(road, texHighway, P, V, Rr * Tr * Sr);
+  Tr = glm::translate(I, glm::vec3(10.0, 0.01, 35.8));
+  drawObjectMat(highway, pavement, P, V, Rr * Tr * Sr);
   Rc = glm::rotate(I, glm::radians(180.0f), glm::vec3(0, 1, 0));
   Tc = glm::translate(I, glm::vec3(posGris, 0.1, 18.2));
   drawCoche(P, pearl, V, Tc * Rc * Sc);
@@ -620,9 +624,14 @@ void drawCube(glm::mat4 P, Material& material, glm::mat4 V, glm::mat4 M) {
 }
 
 void drawCube2(glm::mat4 P, Material& material, glm::mat4 V, glm::mat4 M) {
-  glm::mat4 S = glm::scale(I, glm::vec3(1.0, 1.0, 0.75));
-  glm::mat4 T = glm::translate(I, glm::vec3(-0.65, 2.0, -0.6));
+  glm::mat4 S = glm::scale(I, glm::vec3(0.5, 1.0, 0.5));
+  glm::mat4 T = glm::translate(I, glm::vec3(-1.0, 2.23, -0.6));
   glm::mat4 R = glm::rotate(I, glm::radians(90.0f), glm::vec3(1, 0, 0));
+  drawObjectMat(openCube, material, P, V, M * T * R * S);
+  T = glm::translate(I, glm::vec3(-0.15, 2.23, -0.6));
+  drawObjectMat(openCube, material, P, V, M * T * R * S);
+  S = glm::scale(I, glm::vec3(0.94, 1.0, 0.065));
+  T = glm::translate(I, glm::vec3(-0.58, 2.75, -0.6));
   drawObjectMat(cube, material, P, V, M * T * R * S);
 }
 
@@ -668,33 +677,32 @@ void drawLights(glm::mat4 P, glm::mat4 V, glm::mat4 M) {
 }
 
 void drawWindows(glm::mat4 P, glm::mat4 V, glm::mat4 M) {
-  glm::mat4 S = glm::scale(I, glm::vec3(0.02, 0.9, 0.35));
-  glm::mat4 T = glm::translate(I, glm::vec3(-1.65, 2.3, -0.6));
+  glm::mat4 S = glm::scale(I, glm::vec3(0.02, 0.87, 0.45));
+  glm::mat4 T = glm::translate(I, glm::vec3(-1.5, 2.2, -0.6));
   glm::mat4 R = glm::rotate(I, glm::radians(90.0f), glm::vec3(1, 0, 0));
   glDepthMask(GL_FALSE);
   // Luna delantera
   drawObjectMat(cube, cyanPlastic, P, V, M * T * R * S);
   // Luna trasera
-  T = glm::translate(I, glm::vec3(0.35, 2.3, -0.6));
+  T = glm::translate(I, glm::vec3(0.35, 2.2, -0.6));
   drawObjectMat(cube, cyanPlastic, P, V, M * T * R * S);
-
   // Ventanilla delantera izquierda
-  S = glm::scale(I, glm::vec3(0.35, 0.02, 0.35));
-  T = glm::translate(I, glm::vec3(-1.15, 2.3, 0.4));
+  S = glm::scale(I, glm::vec3(0.42, 0.02, 0.42));
+  T = glm::translate(I, glm::vec3(-1.0, 2.255, 0.35));
   drawObjectMat(cube, cyanPlastic, P, V, M * T * R * S);
   // Ventanilla trasera izquierda
-  T = glm::translate(I, glm::vec3(-0.15, 2.3, 0.4));
+  T = glm::translate(I, glm::vec3(-0.15, 2.255, 0.35));
   drawObjectMat(cube, cyanPlastic, P, V, M * T * R * S);
   // Ventanilla delantera derecha
-  T = glm::translate(I, glm::vec3(-1.15, 2.3, -1.6));
+  T = glm::translate(I, glm::vec3(-1.0, 2.255, -1.55));
   drawObjectMat(cube, cyanPlastic, P, V, M * T * R * S);
   // Ventanilla trasera derecha
-  T = glm::translate(I, glm::vec3(-0.15, 2.3, -1.6));
+  T = glm::translate(I, glm::vec3(-0.15, 2.255, -1.55));
   drawObjectMat(cube, cyanPlastic, P, V, M * T * R * S);
   glDepthMask(GL_TRUE);
 }
 
-void drawCoche(glm::mat4 P, Material& material, glm::mat4 V, glm::mat4 M) { //coches automaticos
+void drawCoche(glm::mat4 P, Material& material, glm::mat4 V, glm::mat4 M) {  // coches automaticos
   // Ruedas
   drawWheels(P, V, M);
   // Chasis coche
@@ -706,7 +714,7 @@ void drawCoche(glm::mat4 P, Material& material, glm::mat4 V, glm::mat4 M) { //co
   drawWindows(P, V, M);
 }
 
-void drawCocheD(glm::mat4 P, Material& material, glm::mat4 V, glm::mat4 M) {//coche Dorado, el que nosotros movemos
+void drawCocheD(glm::mat4 P, Material& material, glm::mat4 V, glm::mat4 M) {  // coche Dorado, el que nosotros movemos
   // Ruedas
   drawWheels2(P, V, M);
   // Chasis coche
@@ -753,8 +761,8 @@ void funFramebufferSize(GLFWwindow* window, int width, int height) {
   h = height;
 }
 
-void funKey(GLFWwindow* window, int key, int scancode, int action, int mods) { //movimiento del coche Dorado
-  //aqui movemos el coche, las ruedas para que roten al avanzar, y el giro de derecha e izquierda
+void funKey(GLFWwindow* window, int key, int scancode, int action, int mods) {  // movimiento del coche Dorado
+  // aqui movemos el coche, las ruedas para que roten al avanzar, y el giro de derecha e izquierda
   static bool wPressed = false;
   static bool aPressed = false;
   static bool sPressed = false;
@@ -799,6 +807,7 @@ void funKey(GLFWwindow* window, int key, int scancode, int action, int mods) { /
   }
 
   if (wPressed && aPressed) {
+    freno = 0.0;
     if (posDoradoX < 9.5) {
       rotCocheDorado += 10.0f;
       if (rotCocheDorado >= 360.0f) {
@@ -806,8 +815,8 @@ void funKey(GLFWwindow* window, int key, int scancode, int action, int mods) { /
       }
       ruedaDerecha = 45.0f;
       ruedaIzquierda = 45.0f;
-      posDoradoX -= 0.25 * glm::cos(glm::radians(45.0f));
-      posDoradoZ += 0.25 * glm::sin(glm::radians(45.0f));
+      posDoradoX += 0.25 * glm::cos(glm::radians(-45.0f));
+      posDoradoZ -= 0.25 * glm::sin(glm::radians(-45.0f));
       posLuzDoradoDelantera1X += 0.25 * glm::cos(glm::radians(-45.0f));
       posLuzDoradoDelantera1Z -= 0.25 * glm::sin(glm::radians(-45.0f));
       posLuzDoradoDelantera2X += 0.25 * glm::cos(glm::radians(-45.0f));
@@ -818,6 +827,7 @@ void funKey(GLFWwindow* window, int key, int scancode, int action, int mods) { /
       posLuzDoradoTrasera2Z -= 0.25 * glm::sin(glm::radians(-45.0f));
     }
   } else if (wPressed && dPressed) {
+    freno = 0.0;
     if (posDoradoX > 5.5) {
       rotCocheDorado += 10.0f;
       if (rotCocheDorado >= 360.0f) {
@@ -825,8 +835,8 @@ void funKey(GLFWwindow* window, int key, int scancode, int action, int mods) { /
       }
       ruedaDerecha = -45.0f;
       ruedaIzquierda = -45.0f;
-      posDoradoX -= 0.25 * glm::cos(glm::radians(45.0f));
-      posDoradoZ -= 0.25 * glm::sin(glm::radians(45.0f));
+      posDoradoX -= 0.25 * glm::cos(glm::radians(-45.0f));
+      posDoradoZ -= 0.25 * glm::sin(glm::radians(-45.0f));
       posLuzDoradoDelantera1X -= 0.25 * glm::cos(glm::radians(-45.0f));
       posLuzDoradoDelantera1Z -= 0.25 * glm::sin(glm::radians(-45.0f));
       posLuzDoradoDelantera2X -= 0.25 * glm::cos(glm::radians(-45.0f));
@@ -837,15 +847,16 @@ void funKey(GLFWwindow* window, int key, int scancode, int action, int mods) { /
       posLuzDoradoTrasera2Z -= 0.25 * glm::sin(glm::radians(-45.0f));
     }
   } else if (sPressed && aPressed) {
-    if (posDoradoX < 9.5 && posDoradoZ < 2.8) {
+    freno = 1.0;
+    if (posDoradoX < 9.5 && posDoradoZ > -2.8) {
       rotCocheDorado -= 10.0f;
       if (rotCocheDorado <= 0.0f) {
         rotCocheDorado = 360.0f;
       }
       ruedaDerecha = 45.0f;
       ruedaIzquierda = 45.0f;
-      posDoradoX += 0.25 * glm::cos(glm::radians(45.0f));
-      posDoradoZ += 0.25 * glm::sin(glm::radians(45.0f));
+      posDoradoX += 0.25 * glm::cos(glm::radians(-45.0f));
+      posDoradoZ += 0.25 * glm::sin(glm::radians(-45.0f));
       posLuzDoradoDelantera1X += 0.25 * glm::cos(glm::radians(-45.0f));
       posLuzDoradoDelantera1Z += 0.25 * glm::sin(glm::radians(-45.0f));
       posLuzDoradoDelantera2X += 0.25 * glm::cos(glm::radians(-45.0f));
@@ -856,15 +867,16 @@ void funKey(GLFWwindow* window, int key, int scancode, int action, int mods) { /
       posLuzDoradoTrasera2Z += 0.25 * glm::sin(glm::radians(-45.0f));
     }
   } else if (sPressed && dPressed) {
-    if (posDoradoX < 2.8 && posDoradoZ > 5.5) {
+    freno = 1.0;
+    if (posDoradoX > 5.5 && posDoradoZ > -2.8) {
       rotCocheDorado -= 10.0f;
       if (rotCocheDorado <= 0.0f) {
         rotCocheDorado = 360.0f;
       }
       ruedaDerecha = -45.0f;
       ruedaIzquierda = -45.0f;
-      posDoradoX += 0.25 * glm::cos(glm::radians(-45.0f));
-      posDoradoZ -= 0.25 * glm::sin(glm::radians(-45.0f));
+      posDoradoX -= 0.25 * glm::cos(glm::radians(45.0f));
+      posDoradoZ -= 0.25 * glm::sin(glm::radians(45.0f));
       posLuzDoradoDelantera1X -= 0.25 * glm::cos(glm::radians(-45.0f));
       posLuzDoradoDelantera1Z += 0.25 * glm::sin(glm::radians(-45.0f));
       posLuzDoradoDelantera2X -= 0.25 * glm::cos(glm::radians(-45.0f));
@@ -876,6 +888,7 @@ void funKey(GLFWwindow* window, int key, int scancode, int action, int mods) { /
     }
   } else {
     if (wPressed) {
+      freno = 0.0;
       rotCocheDorado += 10.0f;
       if (rotCocheDorado >= 360.0f) {
         rotCocheDorado = 0.0f;
@@ -889,6 +902,7 @@ void funKey(GLFWwindow* window, int key, int scancode, int action, int mods) { /
       posLuzDoradoTrasera2Z += 0.25;
     }
     if (sPressed) {
+      freno = 1.0;
       if (posDoradoZ > -2.8) {
         rotCocheDorado -= 10.0f;
         if (rotCocheDorado <= 0.0f) {
@@ -904,6 +918,7 @@ void funKey(GLFWwindow* window, int key, int scancode, int action, int mods) { /
       }
     }
     if (aPressed) {
+      freno = 0.0;
       if (posDoradoX < 9.5) {
         ruedaIzquierda = 45.0f;
         ruedaDerecha = 45.0f;
@@ -915,6 +930,7 @@ void funKey(GLFWwindow* window, int key, int scancode, int action, int mods) { /
       }
     }
     if (dPressed) {
+      freno = 0.0;
       if (posDoradoX > 5.5) {
         ruedaIzquierda = -45.0f;
         ruedaDerecha = -45.0f;
@@ -1082,17 +1098,19 @@ void funTimer8(double seconds, double& start8) {
     start8 = glfwGetTime();
   }
 }
-//Seria sacar el tamaño del coche con las posiciones x y z de un coche cualquiera y aplicarlo a todos, xyz del cubo grande del coche
-// Suponiendo que tienes la posición, ancho (width), altura (height) y profundidad (depth) del coche
-double carWidth = 3.0;  // Ancho del coche
-double carHeight = 1.5; // Altura del coche
-double carDepth = 4.0;  // Profundidad del coche (o largo)
+// Seria sacar el tamaño del coche con las posiciones x y z de un coche cualquiera y aplicarlo a todos, xyz del cubo
+// grande del coche
+//  Suponiendo que tienes la posición, ancho (width), altura (height) y profundidad (depth) del coche
+double carWidth = 3.0;   // Ancho del coche
+double carHeight = 1.5;  // Altura del coche
+double carDepth = 4.0;   // Profundidad del coche (o largo)
 
 // El tamaño del coche (o "bounding box") en un eje sería la mitad de su medida más grande
 double carSize = fmax(carWidth, carDepth) / 2.0;
-//este tamaño es el que enviamos siempre al size de checkCollision, ya que los coches son todos iguales de tamaño
+// este tamaño es el que enviamos siempre al size de checkCollision, ya que los coches son todos iguales de tamaño
 
-bool checkCollision(double x1, double z1, double x2, double z2, double size) { //x1 z1 corresponde al dorado, x2 y z2 al otro coche que sea
-    double distance = sqrt((x1 - x2) * (x1 - x2) + (z1 - z2) * (z1 - z2));
-    return distance < size;
+bool checkCollision(double x1, double z1, double x2, double z2, double size) {
+  // x1 z1 corresponde al dorado, x2 y z2 al otro coche que sea
+  double distance = sqrt((x1 - x2) * (x1 - x2) + (z1 - z2) * (z1 - z2));
+  return distance < size;
 }
