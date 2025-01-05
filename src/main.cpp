@@ -9,6 +9,7 @@ void configScene();
 void renderScene();
 void setLights(glm::mat4 P, glm::mat4 V);
 void drawObjectMat(Model model, Material material, glm::mat4 P, glm::mat4 V, glm::mat4 M);
+void drawObjectMat2(Model model, Material material, glm::mat4 P, glm::mat4 V, glm::mat4 M);
 void drawObjectTex(Model model, Textures textures, glm::mat4 P, glm::mat4 V, glm::mat4 M);
 void drawWheels(glm::mat4 P, glm::mat4 V, glm::mat4 M);
 void drawWheels2(glm::mat4 P, glm::mat4 V, glm::mat4 M);
@@ -486,7 +487,7 @@ void renderScene() {
 
   Rr = glm::rotate(I, glm::radians(270.0f), glm::vec3(0, 1, 0));
   drawObjectMat(highway, pavement, P, V, Rr * Tr * Splus);
-  drawObjectMat(highway, polishedBronze, P, V,  Rr * Tr2  * Splus);
+  drawObjectMat2(highway, pavement, P, V,  Rr * Tr2  * Splus);
   Rc = glm::rotate(I, glm::radians(180.0f), glm::vec3(0, 1, 0));
   Tc = glm::translate(I, glm::vec3(posJade, 0.1, 5.3));
   drawCoche(P, jade, V, Tc * Rc * Sc);
@@ -499,7 +500,7 @@ void renderScene() {
 
   Trd = glm::translate(I, glm::vec3(10.0, 0.01, 35.8));
   Tri = glm::translate(I, glm::vec3(10.0, 0.01, 5.8));
-  drawObjectMat(highway, pavement, P, V, Rr * Tr * Splus);
+  drawObjectMat2(highway, pavement, P, V, Rr * Tr * Splus);
   drawObjectMat(highway, pavement, P, V, Rr * Tr2 * Splus);
   Rc = glm::rotate(I, glm::radians(180.0f), glm::vec3(0, 1, 0));
   
@@ -609,6 +610,15 @@ void setLights(glm::mat4 P, glm::mat4 V) {
 
 void drawObjectMat(Model model, Material material, glm::mat4 P, glm::mat4 V, glm::mat4 M) {
   shaders.setMat4("uN", glm::transpose(glm::inverse(M)));
+  shaders.setMat4("uM", M);
+  shaders.setMat4("uPVM", P * V * M);
+  shaders.setBool("uWithMaterials", true);
+  shaders.setMaterial("uMaterial", material);
+  model.renderModel(GL_FILL);
+}
+
+void drawObjectMat2(Model model, Material material, glm::mat4 P, glm::mat4 V, glm::mat4 M) {
+  shaders.setMat4("uN", glm::transpose(M));
   shaders.setMat4("uM", M);
   shaders.setMat4("uPVM", P * V * M);
   shaders.setBool("uWithMaterials", true);
