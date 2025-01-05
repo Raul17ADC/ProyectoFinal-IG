@@ -465,7 +465,7 @@ void renderScene() {
   // Carretera principal
   glm::mat4 Tr = glm::translate(I, glm::vec3(-14.5, 0.1, 28.75));
   glm::mat4 Sr = glm::scale(I, glm::vec3(0.015, 0.016, 0.061));
-  glm::mat4 Splus = glm::scale(I, glm::vec3(0.015, 0.016, 0.031));
+  glm::mat4 Splus = glm::scale(I, glm::vec3(0.008, 0.016, 0.061));
   glm::mat4 Rr = glm::rotate(I, glm::radians(180.0f), glm::vec3(0, 1, 0));
   drawObjectMat(highway, pavement, P, V, Rr * Tr * Sr);
 
@@ -476,15 +476,17 @@ void renderScene() {
   drawCocheD(P, gold, V, Tc * Rc * Sc);
 
   // Resto de coches y carreteras
-  glm::mat4 Rplus = glm::rotate(I, glm::radians(180.0f), glm::vec3(1, 0, 0));
-  glm::mat4 Trd = glm::translate(I, glm::vec3(-2.9, 0.01, 23.8));
+  glm::mat4 Rplus1 = glm::rotate(I, glm::radians(180.0f), glm::vec3(0, 0, 1));
+  glm::mat4 Trd = glm::translate(I, glm::vec3(-2.9, 0.01, 6.0));
   glm::mat4 Tri = glm::translate(I, glm::vec3(-2.9, 0.01, 5.8));
+  glm::mat4 Rplus2 = glm::rotate(I, glm::radians(180.0f), glm::vec3(1, 0, 0));
 
+  Tr = glm::translate(I, glm::vec3(2.0, 0.01, 35.8));
+  glm::mat4 Tr2 = glm::translate(I, glm::vec3(-1.0, 0.01, 35.8));
 
-  Tr = glm::translate(I, glm::vec3(-2.9, 0.01, 2.8));
   Rr = glm::rotate(I, glm::radians(270.0f), glm::vec3(0, 1, 0));
-  drawObjectMat(highway, pavement, P, V, Rr * Trd * Splus);
-  drawObjectMat(highway, pavement, P, V, Rr * Tri * Splus);
+  drawObjectMat(highway, pavement, P, V, Rr * Tr * Splus);
+  drawObjectMat(highway, polishedBronze, P, V,  Rr * Tr2  * Splus);
   Rc = glm::rotate(I, glm::radians(180.0f), glm::vec3(0, 1, 0));
   Tc = glm::translate(I, glm::vec3(posJade, 0.1, 5.3));
   drawCoche(P, jade, V, Tc * Rc * Sc);
@@ -492,12 +494,13 @@ void renderScene() {
   Tc = glm::translate(I, glm::vec3(posVerde, 0.1, 3.5));
   drawCoche(P, emerald, V, Tc * Rc * Sc);
 
-  Tr = glm::translate(I, glm::vec3(10.0, 0.01, 35.8));
+  Tr = glm::translate(I, glm::vec3(12.6, 0.01, 35.8));
+  Tr2 = glm::translate(I, glm::vec3(15.6, 0.01, 35.8));
 
-  Trd = glm::translate(I, glm::vec3(10.0, 0.01, 23.8));
+  Trd = glm::translate(I, glm::vec3(10.0, 0.01, 35.8));
   Tri = glm::translate(I, glm::vec3(10.0, 0.01, 5.8));
-  drawObjectMat(highway, pavement, P, V, Rr * Trd * Splus);
-  drawObjectMat(highway, pavement, P, V, Rr * Tri * Splus);
+  drawObjectMat(highway, pavement, P, V, Rr * Tr * Splus);
+  drawObjectMat(highway, pavement, P, V, Rr * Tr2 * Splus);
   Rc = glm::rotate(I, glm::radians(180.0f), glm::vec3(0, 1, 0));
   
   Tc = glm::translate(I, glm::vec3(posGris, 0.1, 18.2));
