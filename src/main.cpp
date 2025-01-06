@@ -41,7 +41,7 @@ Shaders shaders;
 Model sphere, plane, wheel, highway, cube, streetlight, openCube;
 
 // Imagenes (texturas)
-Texture imgHighway, imgNoEmissive;
+Texture imgNoEmissive;
 Texture imgPavingStones, imgPavingStonesNormal;
 Texture imgStreetlight, imgStreetlightSpecular;
 
@@ -55,7 +55,7 @@ Light lightP[NLP];
 Light lightF[NLF];
 Material mLuz, ruby;
 Material blackRubber, cyanPlastic, polishedBronze, gold, pearl, emerald, jade, pavement;
-Textures texHighway, texPavingStones, texStreetlight;
+Textures texPavingStones, texStreetlight;
 
 // Viewport
 int w = 1000;
@@ -75,7 +75,7 @@ float posDoradoZ = -2.8;
 float posDoradoX = 6.2;
 float posVerde = 23.0;
 float posMarron = 23.0;
-float posGris = -9.0;
+float posPerla = -9.0;
 float posJade = -9.0;
 float posLuzDoradoDelantera1X = 5.4;
 float posLuzDoradoDelantera1Z = -0.75;
@@ -87,7 +87,7 @@ float posLuzDoradoTrasera2X = 6.05;
 float posLuzDoradoTrasera2Z = -3.75;
 float posLuzJade = -7.0;
 float posLuzVerde = -7.0;
-float posLuzGris = 21.0;
+float posLuzPerla = 21.0;
 float posLuzMarron = 21.0;
 
 float ruedaDerecha = 0.0f;
@@ -159,7 +159,7 @@ int main() {
 
     // Restablecemos la posición inicial del coche dorado
     if (checkCollision(posDoradoX, posDoradoZ, posJade, 5.3, 3.0) ||
-        checkCollision(posDoradoX, posDoradoZ, posGris, 18.2, 3.0) ||
+        checkCollision(posDoradoX, posDoradoZ, posPerla, 18.2, 3.0) ||
         checkCollision(posDoradoX, posDoradoZ, posMarron, 16.4, 3.0) ||
         checkCollision(posDoradoX, posDoradoZ, posVerde, 3.5, 3.0)) {
       posLuzDoradoDelantera1X = 5.4;
@@ -205,7 +205,6 @@ void configScene() {
 
   // Imagenes (texturas)
   imgNoEmissive.initTexture("resources/textures/imgNoEmissive.png");
-  imgHighway.initTexture("resources/textures/Road007_1K_Color.jpeg");
   imgPavingStones.initTexture("resources/textures/PavingStones069_1K_Color.jpeg");
   imgPavingStonesNormal.initTexture("resources/textures/PavingStones069_1K_NormalDX.jpeg");
   imgStreetlight.initTexture("resources/textures/farola_initialShadingGroup_BaseColor.png");
@@ -278,8 +277,8 @@ void configScene() {
   lightF[3].c1 = 0.090;
   lightF[3].c2 = 0.032;
 
-  // Coche gris, luz izquierda delantera
-  lightF[4].direction = glm::vec3(-5.0, -2.0, 1.0);
+  // Coche perla, luz izquierda delantera
+  lightF[4].direction = glm::vec3(-5.0, -2.0, 0.0);
   lightF[4].ambient = glm::vec3(0.2, 0.2, 0.2);
   lightF[4].diffuse = glm::vec3(0.9, 0.9, 0.9);
   lightF[4].specular = glm::vec3(0.9, 0.9, 0.9);
@@ -289,8 +288,8 @@ void configScene() {
   lightF[4].c1 = 0.090;
   lightF[4].c2 = 0.032;
 
-  // Coche gris, luz derecha delantera
-  lightF[5].direction = glm::vec3(-5.0, -2.0, 1.0);
+  // Coche perla, luz derecha delantera
+  lightF[5].direction = glm::vec3(-5.0, -2.0, 0.0);
   lightF[5].ambient = glm::vec3(0.2, 0.2, 0.2);
   lightF[5].diffuse = glm::vec3(0.9, 0.9, 0.9);
   lightF[5].specular = glm::vec3(0.9, 0.9, 0.9);
@@ -301,7 +300,7 @@ void configScene() {
   lightF[5].c2 = 0.032;
 
   // Coche verde, luz izquierda delantera
-  lightF[6].direction = glm::vec3(5.0, -2.0, 1.0);
+  lightF[6].direction = glm::vec3(5.0, -2.0, 0.0);
   lightF[6].ambient = glm::vec3(0.2, 0.2, 0.2);
   lightF[6].diffuse = glm::vec3(0.9, 0.9, 0.9);
   lightF[6].specular = glm::vec3(0.9, 0.9, 0.9);
@@ -312,7 +311,7 @@ void configScene() {
   lightF[6].c2 = 0.032;
 
   // Coche verde, luz derecha delantera
-  lightF[7].direction = glm::vec3(5.0, -2.0, 1.0);
+  lightF[7].direction = glm::vec3(5.0, -2.0, 0.0);
   lightF[7].ambient = glm::vec3(0.2, 0.2, 0.2);
   lightF[7].diffuse = glm::vec3(0.9, 0.9, 0.9);
   lightF[7].specular = glm::vec3(0.9, 0.9, 0.9);
@@ -323,7 +322,7 @@ void configScene() {
   lightF[7].c2 = 0.032;
 
   // Coche marron, luz delantera derecha
-  lightF[8].direction = glm::vec3(-5.0, -2.0, 1.0);
+  lightF[8].direction = glm::vec3(-5.0, -2.0, 0.0);
   lightF[8].ambient = glm::vec3(0.2, 0.2, 0.2);
   lightF[8].diffuse = glm::vec3(0.9, 0.9, 0.9);
   lightF[8].specular = glm::vec3(0.9, 0.9, 0.9);
@@ -334,7 +333,7 @@ void configScene() {
   lightF[8].c2 = 0.032;
 
   // Coche marron, luz delantera izquierda
-  lightF[9].direction = glm::vec3(-5.0, -2.0, 1.0);
+  lightF[9].direction = glm::vec3(-5.0, -2.0, 0.0);
   lightF[9].ambient = glm::vec3(0.2, 0.2, 0.2);
   lightF[9].diffuse = glm::vec3(0.9, 0.9, 0.9);
   lightF[9].specular = glm::vec3(0.9, 0.9, 0.9);
@@ -403,12 +402,6 @@ void configScene() {
   pavement.specular = glm::vec4(0.5f, 0.5f, 0.5f, 1.0f);
   pavement.emissive = glm::vec4(0.0f, 0.0f, 0.0f, 1.0f);
   pavement.shininess = 32.0f;
-
-  texHighway.diffuse = imgHighway.getTexture();
-  texHighway.specular = imgHighway.getTexture();
-  texHighway.emissive = imgNoEmissive.getTexture();
-  texHighway.normal = 0;
-  texHighway.shininess = 5.0f;
 
   texPavingStones.diffuse = imgPavingStones.getTexture();
   texPavingStones.specular = imgPavingStones.getTexture();
@@ -493,7 +486,7 @@ void renderScene() {
   drawObjectMat(highway, pavement, P, V, Rr * Tr2 * Splus);
   Rc = glm::rotate(I, glm::radians(180.0f), glm::vec3(0, 1, 0));
 
-  Tc = glm::translate(I, glm::vec3(posGris, 0.1, 18.2));
+  Tc = glm::translate(I, glm::vec3(posPerla, 0.1, 18.2));
   drawCoche(P, pearl, V, Tc * Rc * Sc);
   Rc = glm::rotate(I, glm::radians(0.0f), glm::vec3(0, 1, 0));
   Tc = glm::translate(I, glm::vec3(posMarron, 0.1, 16.4));
@@ -533,9 +526,9 @@ void setLights(glm::mat4 P, glm::mat4 V) {
   lightF[2].position = glm::vec3(posLuzJade, 1.4, 5.45);
   lightF[3].position = glm::vec3(posLuzJade, 1.4, 6.1);
 
-  // Gris
-  lightF[4].position = glm::vec3(posLuzGris, 1.4, 3.35);
-  lightF[5].position = glm::vec3(posLuzGris, 1.4, 2.7);
+  // Perla
+  lightF[4].position = glm::vec3(posLuzPerla, 1.4, 3.35);
+  lightF[5].position = glm::vec3(posLuzPerla, 1.4, 2.7);
 
   // Verde
   lightF[6].position = glm::vec3(posLuzVerde, 1.4, 18.36);
@@ -1013,13 +1006,13 @@ void funTimer(double seconds, double& start) {
 
 void funTimer2(double seconds, double& start2) {
   if (glfwGetTime() - start2 > seconds) {
-    posGris += 0.2;
+    posPerla += 0.2;
     rotCoches += 5.0f;
     if (rotCoches >= 360.0) {
       rotCoches = 0.0;
     }
-    if (posGris >= 22.0) {
-      posGris = -9.0;
+    if (posPerla >= 22.0) {
+      posPerla = -9.0;
     }
     start2 = glfwGetTime();
   }
@@ -1053,7 +1046,7 @@ void funTimer4(double seconds, double& start4) {
   }
 }
 
-// Luces coche Jade
+// Luces coche jade
 void funTimer5(double seconds, double& start5) {
   if (glfwGetTime() - start5 > seconds) {
     posLuzJade += 0.25;
@@ -1068,7 +1061,7 @@ void funTimer5(double seconds, double& start5) {
   }
 }
 
-// Coche verde del fondo
+// Coche verde
 void funTimer6(double seconds, double& start6) {
   if (glfwGetTime() - start6 > seconds) {
     posLuzVerde += 0.20;
@@ -1083,7 +1076,7 @@ void funTimer6(double seconds, double& start6) {
   }
 }
 
-// Luces coche Marron
+// Luces coche marron
 void funTimer7(double seconds, double& start7) {
   if (glfwGetTime() - start7 > seconds) {
     posLuzMarron -= 0.10;
@@ -1098,16 +1091,16 @@ void funTimer7(double seconds, double& start7) {
   }
 }
 
-// Luces coche Gris
+// Luces coche perla
 void funTimer8(double seconds, double& start8) {
   if (glfwGetTime() - start8 > seconds) {
-    posLuzGris -= 0.15;
+    posLuzPerla -= 0.15;
     rotCoches += 5.0f;
     if (rotCoches >= 360.0) {
       rotCoches = 0.0;
     }
-    if (posLuzGris <= -10.0) {
-      posLuzGris = 21.0;
+    if (posLuzPerla <= -10.0) {
+      posLuzPerla = 21.0;
     }
     start8 = glfwGetTime();
   }
