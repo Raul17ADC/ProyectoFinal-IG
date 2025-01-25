@@ -1,0 +1,3 @@
+/Users/joxem/Documents/GitHub/ProyectoFinal-IG/build/CMakeFiles/Proyecto_Final.dir
+/Users/joxem/Documents/GitHub/ProyectoFinal-IG/build/CMakeFiles/edit_cache.dir
+/Users/joxem/Documents/GitHub/ProyectoFinal-IG/build/CMakeFiles/rebuild_cache.dir

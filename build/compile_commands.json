@@ -1,0 +1,26 @@
+[
+{
+  "directory": "/Users/joxem/Documents/GitHub/ProyectoFinal-IG/build",
+  "command": "/usr/bin/clang++  -I/Users/joxem/Documents/GitHub/ProyectoFinal-IG/src -I/opt/homebrew/Cellar/glew/2.2.0_1/include -I/opt/homebrew/Cellar/glfw/3.4/include -I/opt/homebrew/Cellar/glm/1.0.1/include -I/opt/homebrew/Cellar/assimp/5.4.3/include -I/opt/homebrew/Cellar/freeimage/3.18.0/include -g -std=gnu++14 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX15.2.sdk -o CMakeFiles/Proyecto_Final.dir/src/Model.cpp.o -c /Users/joxem/Documents/GitHub/ProyectoFinal-IG/src/Model.cpp",
+  "file": "/Users/joxem/Documents/GitHub/ProyectoFinal-IG/src/Model.cpp",
+  "output": "CMakeFiles/Proyecto_Final.dir/src/Model.cpp.o"
+},
+{
+  "directory": "/Users/joxem/Documents/GitHub/ProyectoFinal-IG/build",
+  "command": "/usr/bin/clang++  -I/Users/joxem/Documents/GitHub/ProyectoFinal-IG/src -I/opt/homebrew/Cellar/glew/2.2.0_1/include -I/opt/homebrew/Cellar/glfw/3.4/include -I/opt/homebrew/Cellar/glm/1.0.1/include -I/opt/homebrew/Cellar/assimp/5.4.3/include -I/opt/homebrew/Cellar/freeimage/3.18.0/include -g -std=gnu++14 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX15.2.sdk -o CMakeFiles/Proyecto_Final.dir/src/Shaders.cpp.o -c /Users/joxem/Documents/GitHub/ProyectoFinal-IG/src/Shaders.cpp",
+  "file": "/Users/joxem/Documents/GitHub/ProyectoFinal-IG/src/Shaders.cpp",
+  "output": "CMakeFiles/Proyecto_Final.dir/src/Shaders.cpp.o"
+},
+{
+  "directory": "/Users/joxem/Documents/GitHub/ProyectoFinal-IG/build",
+  "command": "/usr/bin/clang++  -I/Users/joxem/Documents/GitHub/ProyectoFinal-IG/src -I/opt/homebrew/Cellar/glew/2.2.0_1/include -I/opt/homebrew/Cellar/glfw/3.4/include -I/opt/homebrew/Cellar/glm/1.0.1/include -I/opt/homebrew/Cellar/assimp/5.4.3/include -I/opt/homebrew/Cellar/freeimage/3.18.0/include -g -std=gnu++14 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX15.2.sdk -o CMakeFiles/Proyecto_Final.dir/src/Texture.cpp.o -c /Users/joxem/Documents/GitHub/ProyectoFinal-IG/src/Texture.cpp",
+  "file": "/Users/joxem/Documents/GitHub/ProyectoFinal-IG/src/Texture.cpp",
+  "output": "CMakeFiles/Proyecto_Final.dir/src/Texture.cpp.o"
+},
+{
+  "directory": "/Users/joxem/Documents/GitHub/ProyectoFinal-IG/build",
+  "command": "/usr/bin/clang++  -I/Users/joxem/Documents/GitHub/ProyectoFinal-IG/src -I/opt/homebrew/Cellar/glew/2.2.0_1/include -I/opt/homebrew/Cellar/glfw/3.4/include -I/opt/homebrew/Cellar/glm/1.0.1/include -I/opt/homebrew/Cellar/assimp/5.4.3/include -I/opt/homebrew/Cellar/freeimage/3.18.0/include -g -std=gnu++14 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX15.2.sdk -o CMakeFiles/Proyecto_Final.dir/src/main.cpp.o -c /Users/joxem/Documents/GitHub/ProyectoFinal-IG/src/main.cpp",
+  "file": "/Users/joxem/Documents/GitHub/ProyectoFinal-IG/src/main.cpp",
+  "output": "CMakeFiles/Proyecto_Final.dir/src/main.cpp.o"
+}
+]
